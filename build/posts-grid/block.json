@@ -5,11 +5,22 @@
   "version": "1.0.0",
   "title": "Gutenblocks Post Grid",
   "category": "design",
-  "icon": "smiley",
+  "icon": "grid-view",
   "description": "Post Grid block for Gutenblocks",
   "example": {},
   "supports": {
-    "html": false
+    "html": false,
+    "align": true
+  },
+  "attributes": {
+    "numberOfPosts": {
+      "type": "number",
+      "default": 6
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    }
   },
   "textdomain": "gutenblocks",
   "editorScript": "file:./index.js",
