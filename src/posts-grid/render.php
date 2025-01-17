@@ -4,13 +4,13 @@
  */
 
 	$posts_per_page = (int) $attributes['numberOfPosts'];
-	$posts = get_posts(
+	$posts          = get_posts(
 		array(
 			'post_type'      => 'post',
 			'posts_per_page' => $posts_per_page,
 		)
 	);
-?>
+	?>
 <div class="gtb-posts-grid" <?php echo get_block_wrapper_attributes(); ?>>
 	<?php if ( ! empty( $posts ) ) : ?>
 		<ul class="gtb-posts-grid__list">
