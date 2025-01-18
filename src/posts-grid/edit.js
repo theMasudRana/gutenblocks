@@ -18,7 +18,7 @@ import {
 	Spinner,
 	ToggleControl,
 } from '@wordpress/components';
-import { useSelect, dateI18n, format, getSettings } from '@wordpress/data';
+import { useSelect, dateI18n, format, getSettings} from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 
@@ -71,23 +71,23 @@ const Edit = ( { attributes, setAttributes } ) => {
 	);
 
 	// Get categories list
-	const getCategoriesList = useSelect( ( select ) =>
-		select( coreDataStore ).getEntityRecords( 'taxonomy', 'category', {
+	const getCategoriesList = useSelect((select) =>
+		select(coreDataStore).getEntityRecords("taxonomy", "category", {
 			per_page: -1,
-			status: 'publish',
-			context: 'view',
-		} )
+			status: "publish",
+			context: "view",
+		}),
 	);
 
-	const { categoryName, categoryLink } = useMemo( () => {
+	const { categoryName, categoryLink} = useMemo(() => {
 		const categoryName = new Map(
-			getCategoriesList?.map( ( cat ) => [ cat.id, cat?.name ] )
+			getCategoriesList?.map((cat) => [cat.id, cat?.name]),
 		);
 		const categoryLink = new Map(
-			getCategoriesList?.map( ( cat ) => [ cat.id, cat.link ] )
+			getCategoriesList?.map((cat) => [cat.id, cat.link]),
 		);
-		return { categoryName, categoryLink };
-	}, [ getCategoriesList ] );
+		return { categoryName, categoryLink}
+	}, [getCategoriesList]);
 
 	// Update block classes
 	const blockProps = useBlockProps( {
@@ -162,8 +162,10 @@ const Edit = ( { attributes, setAttributes } ) => {
 						<div className="gtb-posts-grid__content">
 							<div className="gtb-posts-grid__meta">
 								{ post.date_gmt && (
-									<time className="gtb-posts-grid__post-date">
-										{ post.date_gmt }
+									<time
+										className="gtb-posts-grid__post-date"
+									>
+										{post.date_gmt}
 									</time>
 								) }
 							</div>
@@ -180,25 +182,16 @@ const Edit = ( { attributes, setAttributes } ) => {
 								} }
 							/>
 							<ul className="category-info">
-								{ post.categories &&
-									post.categories.map(
-										( category, index ) => (
-											<li
-												key={ index }
-												className="post-category"
+								{post.categories &&
+									post.categories.map((category, index) => (
+										<li key={index} className="post-category">
+											<a
+												href={categoryLink.get(category)}
 											>
-												<a
-													href={ categoryLink.get(
-														category
-													) }
-												>
-													{ categoryName.get(
-														category
-													) }
-												</a>
-											</li>
-										)
-									) }
+												{categoryName.get(category)}
+											</a>
+										</li>
+									))}
 							</ul>
 							<a
 								href={ post.link }
