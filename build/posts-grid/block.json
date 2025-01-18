@@ -19,7 +19,27 @@
     },
     "columns": {
       "type": "number",
-      "default": 3
+      "default": 2
+    },
+    "displayExcerpt": {
+      "type": "boolean",
+      "default": false
+    },
+    "excerptLength": {
+      "type": "number",
+      "default": 20
+    },
+    "displayAuthor": {
+      "type": "boolean",
+      "default": false
+    },
+    "displayPostDate": {
+      "type": "boolean",
+      "default": false
+    },
+    "displayFeaturedImage": {
+      "type": "boolean",
+      "default": true
     }
   },
   "textdomain": "gutenblocks",

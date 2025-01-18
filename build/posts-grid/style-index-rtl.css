@@ -7,12 +7,36 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-gutenblocks-posts-grid img {
-  max-width: 100%;
-}
-
 .gtb-posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+}
+.gtb-posts-grid--columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.gtb-posts-grid--columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.gtb-posts-grid--columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.gtb-posts-grid__item {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+}
+.gtb-posts-grid__image {
+  width: 100%;
+  display: block;
+  border-radius: 4px 4px 0 0;
+}
+.gtb-posts-grid__title {
+  margin: 0;
+}
+.gtb-posts-grid__content {
+  padding: 1rem;
+}
+.gtb-posts-grid:has(.components-spinner) {
+  text-align: center;
 }

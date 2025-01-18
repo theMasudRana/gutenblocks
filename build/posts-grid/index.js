@@ -20,9 +20,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/posts-grid/editor.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./src/posts-grid/editor.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
 /**
  * Retrieves the translation of text.
  *
@@ -40,6 +44,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -47,16 +53,6 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 
-
-/**
- * Interface for component props
- *
- * @typedef  {Object}   EditProps
- * @property {Object}   attributes               - Block attributes object
- * @property {number}   attributes.numberOfPosts - Number of posts to display
- * @property {number}   attributes.columns       - Number of grid columns
- * @property {Function} setAttributes            - Function to update block attributes
- */
 
 /**
  * Posts Grid Block Edit Component
@@ -71,51 +67,73 @@ const Edit = ({
 }) => {
   const {
     numberOfPosts,
-    columns
+    columns,
+    displayExcerpt,
+    excerptLength,
+    displayAuthor,
+    displayPostDate,
+    displayFeaturedImage
   } = attributes;
-
-  // Fetch posts using WordPress data layer
+  const query = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useMemo)(() => ({
+    per_page: numberOfPosts,
+    _embed: true
+  }), [numberOfPosts, displayFeaturedImage]);
   const {
     posts,
-    isLoading,
-    hasFinished
+    hasResolved
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
-    const {
-      getEntityRecords,
-      isResolving,
-      hasFinishedResolution
-    } = select('core');
-    const query = {
-      per_page: numberOfPosts,
-      _embed: true
-    };
+    const selectorArgs = ['postType', 'post', query];
     return {
-      posts: getEntityRecords('postType', 'post', query),
-      isLoading: isResolving('core', 'getEntityRecords', ['postType', 'post', query]),
-      hasFinished: hasFinishedResolution('core', 'getEntityRecords', ['postType', 'post', query])
+      posts: select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.store).getEntityRecords(...selectorArgs),
+      hasResolved: select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.store).hasFinishedResolution('getEntityRecords', selectorArgs)
     };
-  }, [numberOfPosts]);
+  }, [query]);
+
+  // Get categories list
+  const getCategoriesList = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.store).getEntityRecords("taxonomy", "category", {
+    per_page: -1,
+    status: "publish",
+    context: "view"
+  }));
+  const {
+    categoryName,
+    categoryLink
+  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useMemo)(() => {
+    const categoryName = new Map(getCategoriesList?.map(cat => [cat.id, cat?.name]));
+    const categoryLink = new Map(getCategoriesList?.map(cat => [cat.id, cat.link]));
+    return {
+      categoryName,
+      categoryLink
+    };
+  }, [getCategoriesList]);
+
+  // Update block classes
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
-    className: `posts-grid columns-${columns}`
+    className: `gtb-posts-grid gtb-posts-grid--columns-${columns}`
   });
 
-  // Handle loading state
-  if (isLoading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, {});
-  }
-
-  // Handle error state
-  if (!isLoading && !posts && hasFinished) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  // Has not resolved yet
+  if (!hasResolved) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       ...blockProps,
-      children: "Error: Failed to load posts"
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, {
+        className: "gtb-posts-grid__spinner"
+      })
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+
+  // Has resolved but no posts found
+  if (!posts?.length && hasResolved) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      ...blockProps,
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('No posts found.', 'gutenblocks')
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Grid Settings', 'gutenblocks'),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Number of posts', 'gutenblocks'),
           value: numberOfPosts,
           onChange: value => setAttributes({
@@ -123,7 +141,7 @@ const Edit = ({
           }),
           min: 1,
           max: 12
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Columns', 'gutenblocks'),
           value: columns,
           onChange: value => setAttributes({
@@ -131,30 +149,54 @@ const Edit = ({
           }),
           min: 1,
           max: 4
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Display featured image', 'gutenblocks'),
+          checked: displayFeaturedImage,
+          onChange: value => setAttributes({
+            displayFeaturedImage: value
+          })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       ...blockProps,
-      children: posts?.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("article", {
-        className: "posts-grid__item",
-        children: [post._embedded?.['wp:featuredmedia'] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-          className: "posts-grid__image",
+      children: posts?.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("article", {
+        className: "gtb-posts-grid__item",
+        children: [displayFeaturedImage && post._embedded?.['wp:featuredmedia'] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+          className: "gtb-posts-grid__image",
           src: post._embedded['wp:featuredmedia'][0].source_url,
           alt: post.title.rendered
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
-          className: "posts-grid__title",
-          dangerouslySetInnerHTML: {
-            __html: post.title.rendered
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "posts-grid__excerpt",
-          dangerouslySetInnerHTML: {
-            __html: post.excerpt.rendered
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-          href: post.link,
-          className: "posts-grid__read-more",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Read More', 'gutenblocks')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "gtb-posts-grid__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "gtb-posts-grid__meta",
+            children: post.date_gmt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("time", {
+              className: "gtb-posts-grid__post-date",
+              children: post.date_gmt
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+            className: "gtb-posts-grid__title",
+            dangerouslySetInnerHTML: {
+              __html: post.title.rendered
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "gtb-posts-grid__excerpt",
+            dangerouslySetInnerHTML: {
+              __html: post.excerpt.rendered
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
+            className: "category-info",
+            children: post.categories && post.categories.map((category, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+              className: "post-category",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                href: categoryLink.get(category),
+                children: categoryName.get(category)
+              })
+            }, index))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+            href: post.link,
+            className: "gtb-posts-grid__read-more",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Read More', 'gutenblocks')
+          })]
         })]
       }, post.id))
     })]
@@ -276,6 +318,16 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/core-data":
+/*!**********************************!*\
+  !*** external ["wp","coreData"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["coreData"];
+
+/***/ }),
+
 /***/ "@wordpress/data":
 /*!******************************!*\
   !*** external ["wp","data"] ***!
@@ -283,6 +335,16 @@ module.exports = window["wp"]["components"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
@@ -302,7 +364,7 @@ module.exports = window["wp"]["i18n"];
   \***********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/posts-grid","version":"1.0.0","title":"Gutenblocks Post Grid","category":"design","icon":"grid-view","description":"Post Grid block for Gutenblocks","example":{},"supports":{"html":false,"align":true},"attributes":{"numberOfPosts":{"type":"number","default":6},"columns":{"type":"number","default":3}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/posts-grid","version":"1.0.0","title":"Gutenblocks Post Grid","category":"design","icon":"grid-view","description":"Post Grid block for Gutenblocks","example":{},"supports":{"html":false,"align":true},"attributes":{"numberOfPosts":{"type":"number","default":6},"columns":{"type":"number","default":2},"displayExcerpt":{"type":"boolean","default":false},"excerptLength":{"type":"number","default":20},"displayAuthor":{"type":"boolean","default":false},"displayPostDate":{"type":"boolean","default":false},"displayFeaturedImage":{"type":"boolean","default":true}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ })
 

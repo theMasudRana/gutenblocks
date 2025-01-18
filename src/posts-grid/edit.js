@@ -12,8 +12,15 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import {
+	PanelBody,
+	RangeControl,
+	Spinner,
+	ToggleControl,
+} from '@wordpress/components';
+import { useSelect, dateI18n, format, getSettings } from '@wordpress/data';
+import { store as coreDataStore } from '@wordpress/core-data';
+import { useMemo } from '@wordpress/element';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -24,16 +31,6 @@ import { useSelect } from '@wordpress/data';
 import './editor.scss';
 
 /**
- * Interface for component props
- *
- * @typedef  {Object}   EditProps
- * @property {Object}   attributes               - Block attributes object
- * @property {number}   attributes.numberOfPosts - Number of posts to display
- * @property {number}   attributes.columns       - Number of grid columns
- * @property {Function} setAttributes            - Function to update block attributes
- */
-
-/**
  * Posts Grid Block Edit Component
  *
  * @param   {EditProps}    props - Component properties
@@ -41,47 +38,78 @@ import './editor.scss';
  */
 
 const Edit = ( { attributes, setAttributes } ) => {
-	const { numberOfPosts, columns } = attributes;
+	const {
+		numberOfPosts,
+		columns,
+		displayExcerpt,
+		excerptLength,
+		displayAuthor,
+		displayPostDate,
+		displayFeaturedImage,
+	} = attributes;
 
-	// Fetch posts using WordPress data layer
-	const { posts, isLoading, hasFinished } = useSelect(
+	const query = useMemo(
+		() => ( { per_page: numberOfPosts, _embed: true } ),
+		[ numberOfPosts, displayFeaturedImage ]
+	);
+
+	const { posts, hasResolved } = useSelect(
 		( select ) => {
-			const { getEntityRecords, isResolving, hasFinishedResolution } =
-				select( 'core' );
-			const query = {
-				per_page: numberOfPosts,
-				_embed: true,
-			};
+			const selectorArgs = [ 'postType', 'post', query ];
 
 			return {
-				posts: getEntityRecords( 'postType', 'post', query ),
-				isLoading: isResolving( 'core', 'getEntityRecords', [
-					'postType',
-					'post',
-					query,
-				] ),
-				hasFinished: hasFinishedResolution(
-					'core',
+				posts: select( coreDataStore ).getEntityRecords(
+					...selectorArgs
+				),
+				hasResolved: select( coreDataStore ).hasFinishedResolution(
 					'getEntityRecords',
-					[ 'postType', 'post', query ]
+					selectorArgs
 				),
 			};
 		},
-		[ numberOfPosts ]
+		[ query ]
 	);
 
+	// Get categories list
+	const getCategoriesList = useSelect( ( select ) =>
+		select( coreDataStore ).getEntityRecords( 'taxonomy', 'category', {
+			per_page: -1,
+			status: 'publish',
+			context: 'view',
+		} )
+	);
+
+	const { categoryName, categoryLink } = useMemo( () => {
+		const categoryName = new Map(
+			getCategoriesList?.map( ( cat ) => [ cat.id, cat?.name ] )
+		);
+		const categoryLink = new Map(
+			getCategoriesList?.map( ( cat ) => [ cat.id, cat.link ] )
+		);
+		return { categoryName, categoryLink };
+	}, [ getCategoriesList ] );
+
+	// Update block classes
 	const blockProps = useBlockProps( {
-		className: `posts-grid columns-${ columns }`,
+		className: `gtb-posts-grid gtb-posts-grid--columns-${ columns }`,
 	} );
 
-	// Handle loading state
-	if ( isLoading ) {
-		return <Spinner />;
+	// Has not resolved yet
+	if ( ! hasResolved ) {
+		return (
+			<div { ...blockProps }>
+				<Spinner className="gtb-posts-grid__spinner" />
+			</div>
+		);
 	}
 
-	// Handle error state
-	if ( ! isLoading && ! posts && hasFinished ) {
-		return <div { ...blockProps }>Error: Failed to load posts</div>;
+	// Has resolved but no posts found
+	if ( ! posts?.length && hasResolved ) {
+		return (
+			<div { ...blockProps }>
+				{ __( 'No posts found.', 'gutenblocks' ) }
+			</div>
+		);
 	}
 
 	return (
@@ -106,37 +134,79 @@ const Edit = ( { attributes, setAttributes } ) => {
 						min={ 1 }
 						max={ 4 }
 					/>
+					<ToggleControl
+						label={ __( 'Display featured image', 'gutenblocks' ) }
+						checked={ displayFeaturedImage }
+						onChange={ ( value ) =>
+							setAttributes( { displayFeaturedImage: value } )
+						}
+					/>
 				</PanelBody>
 			</InspectorControls>
 
 			<div { ...blockProps }>
 				{ posts?.map( ( post ) => (
-					<article key={ post.id } className="posts-grid__item">
-						{ post._embedded?.[ 'wp:featuredmedia' ] && (
-							<img
-								className="posts-grid__image"
-								src={
-									post._embedded[ 'wp:featuredmedia' ][ 0 ]
-										.source_url
-								}
-								alt={ post.title.rendered }
+					<article key={ post.id } className="gtb-posts-grid__item">
+						{ displayFeaturedImage &&
+							post._embedded?.[ 'wp:featuredmedia' ] && (
+								<img
+									className="gtb-posts-grid__image"
+									src={
+										post._embedded[
+											'wp:featuredmedia'
+										][ 0 ].source_url
+									}
+									alt={ post.title.rendered }
+								/>
+							) }
+						<div className="gtb-posts-grid__content">
+							<div className="gtb-posts-grid__meta">
+								{ post.date_gmt && (
+									<time className="gtb-posts-grid__post-date">
+										{ post.date_gmt }
+									</time>
+								) }
+							</div>
+							<h3
+								className="gtb-posts-grid__title"
+								dangerouslySetInnerHTML={ {
+									__html: post.title.rendered,
+								} }
 							/>
-						) }
-						<h3
-							className="posts-grid__title"
-							dangerouslySetInnerHTML={ {
-								__html: post.title.rendered,
-							} }
-						/>
-						<div
-							className="posts-grid__excerpt"
-							dangerouslySetInnerHTML={ {
-								__html: post.excerpt.rendered,
-							} }
-						/>
-						<a href={ post.link } className="posts-grid__read-more">
-							{ __( 'Read More', 'gutenblocks' ) }
-						</a>
+							<div
+								className="gtb-posts-grid__excerpt"
+								dangerouslySetInnerHTML={ {
+									__html: post.excerpt.rendered,
+								} }
+							/>
+							<ul className="category-info">
+								{ post.categories &&
+									post.categories.map(
+										( category, index ) => (
+											<li
+												key={ index }
+												className="post-category"
+											>
+												<a
+													href={ categoryLink.get(
+														category
+													) }
+												>
+													{ categoryName.get(
+														category
+													) }
+												</a>
+											</li>
+										)
+									) }
+							</ul>
+							<a
+								href={ post.link }
+								className="gtb-posts-grid__read-more"
+							>
+								{ __( 'Read More', 'gutenblocks' ) }
+							</a>
+						</div>
 					</article>
 				) ) }
 			</div>
