@@ -9,12 +9,6 @@
 		}
 	],
 	"minimum-stability": "dev",
-	"autoload": {
-		"psr-4": {
-			"Gutenblocks\\": "includes/"
-		},
-		"files": []
-	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true

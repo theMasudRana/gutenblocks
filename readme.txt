@@ -1,55 +1,51 @@
-=== Gutenblocks ===
-Contributors:      immasud
-Tags:              block
-Tested up to:      6.7
-Stable tag:        1.0.0
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+# Gutenblocks
 
-Example block scaffolded with Create Block tool.
+A collection of custom Gutenberg blocks to enhance your WordPress site building experience.
 
-== Description ==
+## Description
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Gutenblocks is a powerful WordPress plugin that extends the Gutenberg editor with a carefully curated collection of custom blocks. These blocks are designed to help you create engaging, responsive content without touching a line of code.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+### Key Features
 
-== Installation ==
+* Rich collection of customizable content blocks
+* Responsive and mobile-friendly designs
+* Clean and optimized code for fast loading
+* Intuitive block controls and settings
+* Compatible with WordPress Full Site Editing
+* Regular updates and new block additions
 
-This section describes how to install the plugin and get it working.
+## Installation
 
-e.g.
+1. Upload the `gutenblocks.zip` folder to the `/wp-content/plugins/` directory
+3. Extract the ``
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
-1. Upload the plugin files to the `/wp-content/plugins/gutenblocks` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
+## Frequently Asked Questions
 
+### Are the blocks responsive?
 
-== Frequently Asked Questions ==
+Yes, all blocks are designed to be fully responsive and work seamlessly across all device sizes.
 
-= A question that someone might have =
+### Do I need the Gutenberg editor to use this plugin?
 
-An answer to that question.
+Yes, this plugin requires the WordPress Block Editor (Gutenberg) to function. It is not compatible with Classic Editor.
 
-= What about foo bar? =
+### Can I use these blocks with my existing theme?
 
-Answer to foo bar dilemma.
+Yes, our blocks are designed to work with any WordPress theme that supports Gutenberg.
 
-== Screenshots ==
+## Requirements
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+* WordPress 6.0 or higher
+* PHP 7.4 or higher
+* Gutenberg editor activated
 
-== Changelog ==
+## Changelog
 
-= 1.0.0 =
-* Release
+### 1.0.0
+* Initial release with core block collection
 
-== Arbitrary section ==
+## License
 
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+This project is licensed under the GPL v2 or later - see the [LICENSE](LICENSE) file for details.

@@ -1,7 +1,7 @@
 {
 	"name": "gutenblocks",
 	"version": "1.0.0",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "A collection of custom Gutenberg blocks.",
 	"author": "immasud",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
