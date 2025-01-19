@@ -18,11 +18,11 @@
   "attributes": {
     "numberOfPosts": {
       "type": "number",
-      "default": 4
+      "default": 3
     },
     "numberOfColumns": {
       "type": "number",
-      "default": 2
+      "default": 3
     },
     "displayExcerpt": {
       "type": "boolean",

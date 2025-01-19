@@ -25,6 +25,10 @@
           "correctAnswer": "Paris"
         }
       ]
+    },
+    "align": {
+      "type": "string",
+      "default": "wide"
     }
   },
   "textdomain": "gutenblocks",

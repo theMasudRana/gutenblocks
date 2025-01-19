@@ -3,13 +3,15 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 import { Icon, commentAuthorAvatar } from '@wordpress/icons';
+import { __ } from '@wordpress/i18n';
 
 const Save = ( { attributes } ) => {
 	const { testimonials } = attributes;
+	const blockProps = useBlockProps.save();
 
 	return (
-		<>
-			<div { ...useBlockProps.save() } className="gtb-testimonial">
+		<div { ...blockProps }>
+			<div className="gtb-testimonial">
 				<div className="gtb-testimonial__slider">
 					{ testimonials.map( ( testimonial, index ) => (
 						<div className="gtb-testimonial__slide" key={ index }>
@@ -69,7 +71,7 @@ const Save = ( { attributes } ) => {
 					) ) }
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
