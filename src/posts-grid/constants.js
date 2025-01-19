@@ -8,7 +8,7 @@ export const BLOCK_SETTINGS = {
 		MAX: 4,
 	},
 	EXCERPT: {
-		MIN_LENGTH: 10,
+		MIN_LENGTH: 1,
 		MAX_LENGTH: 40,
 	},
 };

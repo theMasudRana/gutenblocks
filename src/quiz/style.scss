@@ -1,0 +1,36 @@
+// Style for the Quiz block
+.gtb-quiz {
+	$self: &;
+
+	background-color: #fff;
+	padding: 1rem;
+
+	&__answer {
+		display: flex;
+		align-items: center;
+	}
+
+	&__remove-question {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: auto;
+		padding: 0;
+	}
+
+	&__question {
+		margin-bottom: 1rem;
+		position: relative;
+	}
+
+	&__correct-answer {
+		margin-block: 1.5rem;
+	}
+
+	&__remove-answer {
+		padding: 0;
+		height: auto;
+		position: relative;
+		top: 0.5rem;
+	}
+}

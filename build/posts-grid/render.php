@@ -8,12 +8,15 @@
  */
 
 // Destructure and sanitize attributes
-$number_of_posts   = absint( $attributes['numberOfPosts'] ?? 6 );
-$number_of_columns = absint( $attributes['numberOfColumns'] ?? 3 );
-$align             = sanitize_text_field( $attributes['align'] ?? 'center' );
-$order             = sanitize_text_field( $attributes['order'] ?? 'desc' );
+$number_of_posts        = absint( $attributes['numberOfPosts'] ?? 6 );
+$number_of_columns      = absint( $attributes['numberOfColumns'] ?? 3 );
+$display_excerpt        = (bool) $attributes['displayExcerpt'] ?? true;
+$post_excerpt_length    = absint( $attributes['excerptLength'] ?? 16 );
+$display_post_thumbnail = (bool) $attributes['displayFeaturedImage'] ?? true;
+$align                  = sanitize_text_field( $attributes['align'] ?? 'center' );
+$order                  = sanitize_text_field( $attributes['order'] ?? 'desc' );
 
-// Use WP_Query instead of get_posts
+// Query posts based on attributes
 $query = new WP_Query( [
 	'post_type'              => 'post',
 	'posts_per_page'         => $number_of_posts,
@@ -26,19 +29,25 @@ $query = new WP_Query( [
 
 $posts = $query->posts;
 
-// Build classes array and combine
+// Build classes for the block
 $classes = [
 	'gtb-posts-grid',
 	'gtb-posts-grid--columns-' . $number_of_columns,
 	'align' . $align,
 ];
 $combined_classes = implode(' ', array_map( 'sanitize_html_class', $classes ) );
+
+// Update post excerpt length
+add_filter( 'excerpt_length', function() use ( $post_excerpt_length ) {
+	return $post_excerpt_length;
+} );
+
 ?>
 <div class="<?php echo esc_attr( $combined_classes ); ?>" <?php echo get_block_wrapper_attributes(); ?>>
 	<?php if ( ! empty( $posts ) ) : ?>
 		<?php foreach ( $posts as $post ) : ?>
 			<article class="gtb-posts-grid__item">
-				<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
+				<?php if ( $display_post_thumbnail && has_post_thumbnail( $post->ID ) ) : ?>
 					<a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" class="gtb-posts-grid__image-wrapper">
 						<?php echo get_the_post_thumbnail( $post->ID, 'medium', array( 'class' => 'gtb-posts-grid__image' ) ); ?>
 					</a>
@@ -49,9 +58,11 @@ $combined_classes = implode(' ', array_map( 'sanitize_html_class', $classes ) );
 							<?php echo esc_html( get_the_title( $post->ID ) ); ?>
 						</a>
 					</h3>
-					<div class="gtb-posts-grid__excerpt">
-						<p><?php echo esc_html( get_the_excerpt( $post->ID ) ); ?></p>
-					</div>
+					<?php if( $display_excerpt ) : ?>
+						<div class="gtb-posts-grid__excerpt">
+							<p><?php echo esc_html( get_the_excerpt( $post->ID ) ); ?></p>
+						</div>
+					<?php endif; ?>
 					<div class="gtb-posts-grid__meta">
 						<span class="gtb-posts-grid__post-date">
 							<?php echo esc_html( get_the_date( '', $post->ID ) ); ?>
@@ -66,4 +77,5 @@ $combined_classes = implode(' ', array_map( 'sanitize_html_class', $classes ) );
 	<?php else : ?>
 		<p><?php esc_html_e( 'No posts found.', 'gutenblocks' ); ?></p>
 	<?php endif; ?>
+	<?php wp_reset_postdata(); ?>
 </div>

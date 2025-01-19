@@ -28,6 +28,7 @@ class Blocks {
 	public function get_block_names() {
 		return array(
 			'posts-grid',
+			'quiz',
 		);
 	}
 

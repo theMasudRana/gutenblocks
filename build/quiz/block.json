@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "gutenblocks/quiz",
+  "version": "1.0.0",
+  "title": "Guetnblock Quiz",
+  "category": "widgets",
+  "icon": "forms",
+  "description": "A simple quiz block.",
+  "supports": {
+    "interactivity": true
+  },
+  "attributes": {
+    "questions": {
+      "type": "array",
+      "default": [
+        {
+          "question": "What is the capital of France?",
+          "answers": [
+            "Paris",
+            "London",
+            "Berlin",
+            "Madrid"
+          ],
+          "correctAnswer": "Paris"
+        }
+      ]
+    }
+  },
+  "textdomain": "gutenblocks",
+  "viewScriptModule": "file:./view.js",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style-index.css"
+}

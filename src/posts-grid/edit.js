@@ -12,7 +12,6 @@ import { getSettings } from '@wordpress/date';
 /**
  * Internal dependencies
  */
-import './editor.scss';
 import PostsGridInspector from './components/inspector-controls';
 import PostCard from './components/post-card';
 

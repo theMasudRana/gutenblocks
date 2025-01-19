@@ -223,7 +223,7 @@ const BLOCK_SETTINGS = {
     MAX: 4
   },
   EXCERPT: {
-    MIN_LENGTH: 10,
+    MIN_LENGTH: 1,
     MAX_LENGTH: 40
   }
 };
@@ -254,11 +254,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
 /* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_date__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./src/posts-grid/editor.scss");
-/* harmony import */ var _components_inspector_controls__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/inspector-controls */ "./src/posts-grid/components/inspector-controls.js");
-/* harmony import */ var _components_post_card__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/post-card */ "./src/posts-grid/components/post-card.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_inspector_controls__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/inspector-controls */ "./src/posts-grid/components/inspector-controls.js");
+/* harmony import */ var _components_post_card__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/post-card */ "./src/posts-grid/components/post-card.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
 /**
  * WordPress dependencies
  */
@@ -273,7 +272,6 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -319,26 +317,26 @@ const Edit = ({
     className: `gtb-posts-grid gtb-posts-grid--columns-${numberOfColumns}`
   });
   if (!hasResolved) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       ...blockProps,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, {
         className: "gtb-posts-grid__spinner"
       })
     });
   }
   if (!posts?.length && hasResolved) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       ...blockProps,
       children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('No posts found.', 'gutenblocks')
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_inspector_controls__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_inspector_controls__WEBPACK_IMPORTED_MODULE_7__["default"], {
       attributes: attributes,
       setAttributes: setAttributes
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       ...blockProps,
-      children: posts?.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_post_card__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: posts?.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_post_card__WEBPACK_IMPORTED_MODULE_8__["default"], {
         post: post,
         attributes: attributes,
         dateFormat: dateFormat
@@ -430,18 +428,6 @@ const trimExcerpt = (excerptHtml, length) => {
   // Add ellipsis if we trimmed the content
   return words.length > length ? `${trimmedWords.join(' ')}...` : trimmedWords.join(' ');
 };
-
-/***/ }),
-
-/***/ "./src/posts-grid/editor.scss":
-/*!************************************!*\
-  !*** ./src/posts-grid/editor.scss ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
 
 /***/ }),
 
@@ -553,7 +539,7 @@ module.exports = window["wp"]["i18n"];
   \***********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/posts-grid","version":"1.0.0","title":"Post Grid","category":"design","icon":"grid-view","description":"Post Grid block for Gutenblocks","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"numberOfPosts":{"type":"number","default":6},"numberOfColumns":{"type":"number","default":2},"displayExcerpt":{"type":"boolean","default":true},"excerptLength":{"type":"number","default":16},"displayAuthor":{"type":"boolean","default":false},"displayFeaturedImage":{"type":"boolean","default":true},"align":{"type":"string","default":"wide"},"order":{"type":"string","default":"desc"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/posts-grid","version":"1.0.0","title":"Post Grid","category":"design","icon":"grid-view","description":"Post Grid block for Gutenblocks","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"numberOfPosts":{"type":"number","default":4},"numberOfColumns":{"type":"number","default":2},"displayExcerpt":{"type":"boolean","default":true},"excerptLength":{"type":"number","default":16},"displayAuthor":{"type":"boolean","default":false},"displayFeaturedImage":{"type":"boolean","default":true},"align":{"type":"string","default":"wide"},"order":{"type":"string","default":"desc"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 
