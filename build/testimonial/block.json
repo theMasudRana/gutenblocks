@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "gutenblocks/testimonials",
+  "version": "1.0.0",
+  "title": "Testimonials",
+  "category": "widgets",
+  "icon": "format-quote",
+  "description": "A block that displays testimonials.",
+  "attributes": {
+    "testimonials": {
+      "type": "array",
+      "default": [
+        {
+          "author": "John Doe",
+          "designation": "CEO, Google",
+          "reviewTitle": "Great Service",
+          "reviewText": "I am very satisfied with the service. Highly recommended!",
+          "profileImage": null,
+          "rating": 5
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "testimonials",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

@@ -1,0 +1,68 @@
+// Styles for the Testimonial block.
+.gtb-testimonial {
+	display: block;
+	position: relative;
+
+	&__slider {
+		position: relative;
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		box-sizing: border-box;
+	}
+
+	&__slide {
+		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		border-radius: 4px;
+		padding: 1rem;
+		text-align: center;
+	}
+
+	&__profile-image {
+		width: 120px;
+		border-radius: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+	}
+
+	&__author-name {
+		text-transform: uppercase;
+		font-size: 18px;
+		font-weight: 600;
+		letter-spacing: .5px;
+		margin: 4px 0 0;
+	}
+
+	&__designation {
+		margin: 0;
+		font-size: 14px;
+		margin-top: 4px;
+	}
+
+	&__review-title {
+		margin-bottom: 0;
+	}
+
+	&__review-text {
+		font-size: 18px;
+		margin-bottom: 0;
+	}
+
+	/* Rating Stars */
+	&__rating-stars {
+		display: flex;
+		gap: 0.25rem;
+		margin: 4px 0 0;
+		justify-content: center;
+		align-items: center;
+
+		.star {
+			color: #d1d5db;
+			font-size: 1.25rem;
+
+			&.active {
+				color: #fbbf24;
+			}
+		}
+	}
+}

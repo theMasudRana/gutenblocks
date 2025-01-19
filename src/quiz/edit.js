@@ -1,9 +1,24 @@
+/**
+ * WordPress dependencies
+ */
 import { useBlockProps } from '@wordpress/block-editor';
 import { Button, TextControl, RadioControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import Close from './components/close';
+import { Icon, close } from '@wordpress/icons';
+
+/**
+ * Internal dependencies
+ */
 import { createQuestionHandlers } from './utils/export';
 
+/**
+ * Quiz Block Edit Component
+ *
+ * @param {Object}   props               Component properties
+ * @param {Object}   props.attributes    Block attributes
+ * @param {Function} props.setAttributes Block attributes update function
+ * @return {JSX.Element}                Block edit component
+ */
 const Edit = ( { attributes, setAttributes } ) => {
 	const { questions } = attributes;
 	const {
@@ -54,7 +69,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 								}
 								disabled={ question.answers.length <= 1 }
 							>
-								<Close />
+								<Icon icon={ close } />
 							</Button>
 						</div>
 					) ) }
@@ -84,7 +99,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 						onClick={ () => removeQuestion( questionIndex ) }
 						className="gtb-quiz__remove-question"
 					>
-						<Close />
+						<Icon icon={ close } />
 					</Button>
 				</div>
 			) ) }

@@ -1,0 +1,1 @@
+{"version":3,"file":"testimonial/view.js","mappings":";;;;AAAAA,OAAO,CAACC,GAAG,CAAE,oBAAqB,CAAC,C","sources":["webpack://gutenblocks/./src/testimonial/view.js"],"sourcesContent":["console.log( 'Hello from view.js' );\n"],"names":["console","log"],"sourceRoot":""}

@@ -40,7 +40,8 @@ final class Gutenblocks {
 	private function __construct() {
 		$this->define_constants();
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		add_action( 'init', array( $this, 'gutenberg_blocks_init' ) );
+		add_action( 'init', array( $this, 'gutenblock_blocks_init' ) );
+		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
 	}
 
 	/**
@@ -76,20 +77,6 @@ final class Gutenblocks {
 	}
 
 	/**
-	 * Initialize the plugin
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function init_plugin() {
-
-		if ( is_admin() ) {
-			new Gutenblocks\Admin();
-		}
-	}
-
-	/**
 	 * List of all the blocks
 	 *
 	 * @since 1.0.0
@@ -100,6 +87,7 @@ final class Gutenblocks {
 		return array(
 			'posts-grid',
 			'quiz',
+			'testimonial',
 		);
 	}
 
@@ -110,7 +98,7 @@ final class Gutenblocks {
 	 *
 	 * @return void
 	 */
-	public function gutenberg_blocks_init() {
+	public function gutenblock_blocks_init() {
 		foreach ( $this->get_block_names() as $block_name ) {
 			register_block_type( GUTENBLOCKS_PATH . '/build/' . $block_name );
 		}
@@ -131,6 +119,21 @@ final class Gutenblocks {
 		}
 
 		update_option( 'gutenblocks_version', GUTENBLOCKS_VERSION );
+	}
+
+	/**
+	 * Load plugin textdomain
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function gutenblock_load_textdomain() {
+		load_plugin_textdomain(
+			'gutenblocks',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
 	}
 }
 
