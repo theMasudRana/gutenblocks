@@ -3,43 +3,47 @@
 	"apiVersion": 3,
 	"name": "gutenblocks/posts-grid",
 	"version": "1.0.0",
-	"title": "Gutenblocks Post Grid",
+	"title": "Post Grid",
 	"category": "design",
 	"icon": "grid-view",
 	"description": "Post Grid block for Gutenblocks",
 	"example": {},
 	"supports": {
 		"html": false,
-		"align": true
+		"align": [ "wide", "full" ]
 	},
 	"attributes": {
 		"numberOfPosts": {
 			"type": "number",
 			"default": 6
 		},
-		"columns": {
+		"numberOfColumns": {
 			"type": "number",
 			"default": 2
 		},
 		"displayExcerpt": {
 			"type": "boolean",
-			"default": false
+			"default": true
 		},
 		"excerptLength": {
 			"type": "number",
-			"default": 20
+			"default": 16
 		},
 		"displayAuthor": {
-			"type": "boolean",
-			"default": false
-		},
-		"displayPostDate": {
 			"type": "boolean",
 			"default": false
 		},
 		"displayFeaturedImage": {
 			"type": "boolean",
 			"default": true
+		},
+		"align": {
+			"type": "string",
+			"default": "wide"
+		},
+		"order": {
+			"type": "string",
+			"default": "desc"
 		}
 	},
 	"textdomain": "gutenblocks",

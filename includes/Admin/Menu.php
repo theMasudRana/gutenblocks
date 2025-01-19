@@ -3,7 +3,7 @@
  * The admin menu handler class
  *
  * @since 1.0.0
- * 
+ *
  * @package Gutenblocks
  */
 
