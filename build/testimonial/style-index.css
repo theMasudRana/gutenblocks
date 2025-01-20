@@ -1,24 +1,27 @@
 /*!***************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/testimonial/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************************/
+.wp-block-gutenblocks-testimonials {
+  position: relative;
+}
+
 .gtb-testimonial {
   display: block;
   position: relative;
+  overflow-x: clip;
   /* Rating Stars */
 }
 .gtb-testimonial__slider {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
   box-sizing: border-box;
+  transition: transform 0.5s ease-in-out;
 }
 .gtb-testimonial__slide {
-  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
   border-radius: 4px;
-  padding: 1rem;
   text-align: center;
-  flex: 0 0 50%;
+  flex: 0 0 calc(100% / var(--items-per-view));
 }
 .gtb-testimonial__profile-image {
   width: 120px;
@@ -47,18 +50,44 @@
   margin-bottom: 0;
 }
 .gtb-testimonial__rating-stars {
+  --clip-spacing: calc(var(--gtb-rating) / 5 * 100%);
+  --adjust-spacing: 1%;
+  --percent: calc(var(--clip-spacing) + var(--adjust-spacing));
+  width: 116px;
+  height: 20px;
+  display: inline-block;
+}
+.gtb-testimonial__rating-stars::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2720%27 height=%2720%27 fill=%27none%27%3e%3cpath fill=%27%23BBB%27 d=%27M9.475 16.146 4.21 19.375l1.052-6.458L0 7.534l7.368-1.076L9.474 0l3.158 6.458L20 7.534l-5.264 5.383 1.053 6.458-6.314-3.23Z%27/%3e%3c/svg%3e");
+  mask-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2720%27 height=%2720%27 fill=%27none%27%3e%3cpath fill=%27%23BBB%27 d=%27M9.475 16.146 4.21 19.375l1.052-6.458L0 7.534l7.368-1.076L9.474 0l3.158 6.458L20 7.534l-5.264 5.383 1.053 6.458-6.314-3.23Z%27/%3e%3c/svg%3e");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: space;
+  mask-repeat: space;
+  background: linear-gradient(90deg, #fc0 var(--percent), #bbb var(--percent));
+}
+.gtb-testimonial__navigation button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  border: 1px solid #e5e5e5;
+  height: 50px;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  padding: 0;
+  cursor: pointer;
   display: flex;
-  gap: 0.25rem;
-  margin: 4px 0 0;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
-.gtb-testimonial__rating-stars .star {
-  color: #d1d5db;
-  font-size: 1.25rem;
-}
-.gtb-testimonial__rating-stars .star.active {
-  color: #fbbf24;
+.gtb-testimonial__navigation--next {
+  left: auto;
+  right: 0;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

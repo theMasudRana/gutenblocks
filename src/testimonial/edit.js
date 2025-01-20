@@ -25,7 +25,7 @@ import { __ } from '@wordpress/i18n';
  * @return {JSX.Element}                Block edit component
  */
 const Edit = ( { attributes, setAttributes } ) => {
-	const { testimonials } = attributes;
+	const { testimonials, slidePerView } = attributes;
 
 	const addTestimonial = () => {
 		const newTestimonial = {
@@ -163,6 +163,22 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<Button variant="primary" onClick={ addTestimonial }>
 						{ __( 'Add Testimonial', 'gutenblocks' ) }
 					</Button>
+				</PanelBody>
+
+				<PanelBody
+					title={ __( 'Slider Settings', 'gutenblocks' ) }
+					initialOpen={ false }
+					className="testimonials-settings"
+				>
+					<RangeControl
+						label={ __( 'Slide Per Voew', 'gutenblocks' ) }
+						value={ slidePerView }
+						onChange={ ( value ) =>
+							setAttributes( { slidePerView: value } )
+						}
+						min={ 1 }
+						max={ 6 }
+					/>
 				</PanelBody>
 			</InspectorControls>
 

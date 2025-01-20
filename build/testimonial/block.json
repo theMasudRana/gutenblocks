@@ -20,10 +20,15 @@
           "rating": 5
         }
       ]
+    },
+    "slidePerView": {
+      "type": "number",
+      "default": 1
     }
   },
   "supports": {
     "html": false,
+    "interactivity": true,
     "align": [
       "wide",
       "full"
@@ -33,5 +38,6 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
-  "viewScript": "file:./view.js"
+  "render": "file:./render.php",
+  "viewScriptModule": "file:./view.js"
 }
