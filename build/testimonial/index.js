@@ -143,6 +143,300 @@ const commentAuthorAvatar = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_
 
 /***/ }),
 
+/***/ "./src/testimonial/components/controls.js":
+/*!************************************************!*\
+  !*** ./src/testimonial/components/controls.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+// WordPress dependencies
+
+
+
+
+/**
+ * Controls component.
+ *
+ * @param {Object}   props                      Component properties.
+ * @param {Array}    props.testimonials         Array of testimonial objects.
+ * @param {number}   props.slidePerView         Number of slides per view.
+ * @param {Function} props.onAddTestimonial     Add testimonial handler.
+ * @param {Function} props.onRemoveTestimonial  Remove testimonial handler.
+ * @param {Function} props.onUpdateTestimonial  Update testimonial handler.
+ * @param {Function} props.onUpdateSlidePerView Update slide per view handler.
+ *
+ * @return {JSX.Element} Controls component.
+ */
+
+const Controls = ({
+  testimonials,
+  slidePerView,
+  onAddTestimonial,
+  onRemoveTestimonial,
+  onUpdateTestimonial,
+  onUpdateSlidePerView
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Testimonials Content', 'gutenblocks'),
+    children: [testimonials.map((testimonial, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
+      title: `Testimonial ${index + 1}`,
+      initialOpen: false,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Profile Image', 'gutenblocks'),
+        onSelect: media => onUpdateTestimonial(index, 'profileImage', media.url),
+        allowedTypes: ['image'],
+        value: testimonial.profileImage,
+        render: ({
+          open
+        }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+          onClick: open,
+          variant: "secondary",
+          className: "profile-image-upload",
+          children: testimonial.profileImage ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Change Profile Image', 'gutenblock') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Upload Profile Image', 'gutenblock')
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+        label: "Author",
+        value: testimonial.author,
+        onChange: value => onUpdateTestimonial(index, 'author', value),
+        __nextHasNoMarginBottom: true
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+        label: "Designation",
+        value: testimonial.designation,
+        onChange: value => onUpdateTestimonial(index, 'designation', value),
+        __nextHasNoMarginBottom: true
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+        label: "Review Title",
+        value: testimonial.reviewTitle,
+        onChange: value => onUpdateTestimonial(index, 'reviewTitle', value),
+        __nextHasNoMarginBottom: true
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextareaControl, {
+        label: "Review Text",
+        value: testimonial.reviewText,
+        onChange: value => onUpdateTestimonial(index, 'reviewText', value),
+        __nextHasNoMarginBottom: true
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.RangeControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Rating', 'gutenblocks'),
+        value: testimonial.rating,
+        onChange: value => onUpdateTestimonial(index, 'rating', value),
+        min: 1,
+        max: 5
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        variant: "secondary",
+        isDestructive: true,
+        onClick: () => onRemoveTestimonial(index),
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove Testimonial', 'gutenblocks')
+      })]
+    }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+      variant: "primary",
+      onClick: onAddTestimonial,
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Testimonial', 'gutenblocks')
+    })]
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Settings', 'gutenblocks'),
+    initialOpen: false,
+    className: "testimonials-settings",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.RangeControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slide Per View', 'gutenblocks'),
+      value: slidePerView,
+      onChange: onUpdateSlidePerView,
+      min: 1,
+      max: 6
+    })
+  })]
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Controls);
+
+/***/ }),
+
+/***/ "./src/testimonial/components/navigation.js":
+/*!**************************************************!*\
+  !*** ./src/testimonial/components/navigation.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-left.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-right.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+// WordPress dependencies
+
+
+
+/**
+ * Navigation component.
+ *
+ * @param {Object}   props        Component properties.
+ * @param {Function} props.onPrev Previous slide handler.
+ * @param {Function} props.onNext Next slide handler.
+ *
+ * @return {JSX.Element} Navigation component.
+ */
+
+const Navigation = ({
+  onPrev,
+  onNext
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  className: "gtb-testimonial__navigation",
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+    onClick: onPrev,
+    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Previous Slide', 'gutenblocks'),
+    className: "gtb-testimonial__navigation--prev",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"],
+      size: 24
+    })
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+    onClick: onNext,
+    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Next Slide', 'gutenblocks'),
+    className: "gtb-testimonial__navigation--next",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
+      size: 24
+    })
+  })]
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navigation);
+
+/***/ }),
+
+/***/ "./src/testimonial/components/slide.js":
+/*!*********************************************!*\
+  !*** ./src/testimonial/components/slide.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/comment-author-avatar.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+// WordPress dependencies
+
+
+/**
+ * Slide component.
+ *
+ * @param { Object } testimonial - Testimonial object.
+ *
+ * @return { JSX.Element } Slide component.
+ */
+
+const Slide = ({
+  testimonial
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+  className: "gtb-testimonial__slide",
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "gtb-testimonial__content",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "profile-image-container",
+      children: testimonial.profileImage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+        src: testimonial.profileImage,
+        alt: "Profile",
+        className: "gtb-testimonial__profile-image"
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "gtb-testimonial__button-large",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__["default"],
+          size: 120
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "gtb-testimonial__header",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+        className: "gtb-testimonial__author-name",
+        children: testimonial.author
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+        className: "gtb-testimonial__designation",
+        children: testimonial.designation
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
+      className: "gtb-testimonial__review-title",
+      children: testimonial.reviewTitle
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "gtb-testimonial__rating-stars",
+      style: {
+        '--gtb-rating': Math.abs(parseInt(testimonial.rating, 10))
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+      className: "gtb-testimonial__review-text",
+      children: testimonial.reviewText
+    })]
+  })
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Slide);
+
+/***/ }),
+
+/***/ "./src/testimonial/components/slider.js":
+/*!**********************************************!*\
+  !*** ./src/testimonial/components/slider.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+// WordPress dependencies
+
+
+/**
+ * useSlider hook.
+ *
+ * @param {number} totalSlides  - Total number of slides.
+ * @param {number} slidePerView - Number of slides per view.
+ *
+ * @return {Object} Slider object.
+ */
+const useSlider = (totalSlides, slidePerView) => {
+  const [currentIndex, setCurrentIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const nextSlide = () => {
+    const maxIndex = totalSlides - slidePerView;
+    setCurrentIndex(prevIndex => prevIndex >= maxIndex ? 0 : prevIndex + 1);
+  };
+  const prevSlide = () => {
+    const maxIndex = totalSlides - slidePerView;
+    setCurrentIndex(prevIndex => prevIndex <= 0 ? maxIndex : prevIndex - 1);
+  };
+  const sliderStyle = {
+    transform: `translateX(-${currentIndex * (100 / slidePerView)}%)`,
+    transition: 'transform 0.5s ease-in-out'
+  };
+  return {
+    currentIndex,
+    nextSlide,
+    prevSlide,
+    sliderStyle
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useSlider);
+
+/***/ }),
+
 /***/ "./src/testimonial/edit.js":
 /*!*********************************!*\
   !*** ./src/testimonial/edit.js ***!
@@ -155,34 +449,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-left.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-right.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/comment-author-avatar.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/slider */ "./src/testimonial/components/slider.js");
+/* harmony import */ var _components_slide__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/slide */ "./src/testimonial/components/slide.js");
+/* harmony import */ var _components_navigation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/navigation */ "./src/testimonial/components/navigation.js");
+/* harmony import */ var _components_controls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/controls */ "./src/testimonial/components/controls.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+// Wordress dependencies
+
+
+
+
+// Internal dependencies
+
+
+
+
+
 /**
- * WordPress dependencies
- */
-
-
-
-
-
-
-/**
- * Quiz Block Edit Component
+ * Edit component.
  *
- * @param {Object}   props               Component properties
- * @param {Object}   props.attributes    Block attributes
- * @param {Function} props.setAttributes Block attributes update function
- * @return {JSX.Element}                Block edit component
+ * @param {Object} props            - Component properties.
+ * @param {Object} props.attributes - Block attributes.
+ *
+ * @return {JSX.Element}               Block edit component.
  */
 
 const Edit = ({
@@ -193,34 +487,18 @@ const Edit = ({
     testimonials,
     slidePerView
   } = attributes;
-
-  // Add state for current slide
-  const [currentIndex, setCurrentIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(0);
-  const totalSlides = testimonials.length;
-
-  // Calculate transform style
-  const sliderStyle = {
-    transform: `translateX(-${currentIndex * (100 / slidePerView)}%)`,
-    transition: 'transform 0.5s ease-in-out'
-  };
-
-  // Next slide function
-  const nextSlide = () => {
-    const maxIndex = totalSlides - slidePerView;
-    setCurrentIndex(currentIndex => currentIndex >= maxIndex ? 0 : currentIndex + 1);
-  };
-
-  // Previous slide function
-  const prevSlide = () => {
-    const maxIndex = totalSlides - slidePerView;
-    setCurrentIndex(currentIndex => currentIndex <= 0 ? maxIndex : currentIndex - 1);
-  };
-  const addTestimonial = () => {
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)();
+  const {
+    nextSlide,
+    prevSlide,
+    sliderStyle
+  } = (0,_components_slider__WEBPACK_IMPORTED_MODULE_3__["default"])(testimonials.length, slidePerView);
+  const handleAddTestimonial = () => {
     const newTestimonial = {
-      author: 'Sundar Pichai',
-      designation: 'CEO, Alphabet Inc',
-      reviewTitle: 'Great Service',
-      reviewText: 'I am very satisfied with the service. Highly recommended!',
+      author: 'Author Name',
+      designation: 'Designation',
+      reviewTitle: 'Review Title',
+      reviewText: 'Review text',
       profileImage: null,
       rating: 5
     };
@@ -228,13 +506,13 @@ const Edit = ({
       testimonials: [...testimonials, newTestimonial]
     });
   };
-  const removeTestimonial = indexToRemove => {
+  const handleRemoveTestimonial = indexToRemove => {
     const updatedTestimonials = testimonials.filter((_, index) => index !== indexToRemove);
     setAttributes({
       testimonials: updatedTestimonials
     });
   };
-  const updateTestimonial = (index, field, value) => {
+  const handleUpdateTestimonial = (index, field, value) => {
     const updatedTestimonials = testimonials.map((testimonial, i) => i === index ? {
       ...testimonial,
       [field]: value
@@ -244,161 +522,44 @@ const Edit = ({
     });
   };
 
-  // Return if no testimonials
-  if (!totalSlides) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
+  // Add testimonial button if no testimonials
+  if (!testimonials.length) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      ...blockProps,
       style: {
         textAlign: 'center'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
         variant: "primary",
-        onClick: addTestimonial,
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Testimonial', 'gutenblocks')
+        onClick: handleAddTestimonial,
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add Testimonial', 'gutenblocks')
       })
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    ...blockProps,
     style: {
       '--items-per-view': slidePerView
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InspectorControls, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Testimonials Content', 'gutenblocks'),
-        children: [testimonials.map((testimonial, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
-          title: `Testimonial ${index + 1}`,
-          initialOpen: false,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUpload, {
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Profile Image', 'gutenblocks'),
-            style: {
-              marginBottom: '20px'
-            },
-            onSelect: media => updateTestimonial(index, 'profileImage', media.url),
-            allowedTypes: ['image'],
-            value: testimonial.profileImage,
-            render: ({
-              open
-            }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-              onClick: open,
-              variant: "secondary",
-              className: "profile-image-upload",
-              children: testimonial.profileImage ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Change Profile Image', 'gutenblock') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Upload Profile Image', 'gutenblock')
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-            label: "Author",
-            value: testimonial.author,
-            onChange: value => updateTestimonial(index, 'author', value),
-            __nextHasNoMarginBottom: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-            label: "Designation",
-            value: testimonial.designation,
-            onChange: value => updateTestimonial(index, 'designation', value),
-            __nextHasNoMarginBottom: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-            label: "Review Title",
-            value: testimonial.reviewTitle,
-            onChange: value => updateTestimonial(index, 'reviewTitle', value),
-            __nextHasNoMarginBottom: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextareaControl, {
-            label: "Review Text",
-            value: testimonial.reviewText,
-            onChange: value => updateTestimonial(index, 'reviewText', value),
-            __nextHasNoMarginBottom: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Rating', 'gutenblocks'),
-            value: testimonial.rating,
-            onChange: value => updateTestimonial(index, 'rating', value),
-            min: 1,
-            max: 5
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-            variant: "secondary",
-            isDestructive: true,
-            onClick: () => removeTestimonial(index),
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove Testimonial', 'gutenblocks')
-          })]
-        }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          variant: "primary",
-          onClick: addTestimonial,
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Testimonial', 'gutenblocks')
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Settings', 'gutenblocks'),
-        initialOpen: false,
-        className: "testimonials-settings",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slide Per Voew', 'gutenblocks'),
-          value: slidePerView,
-          onChange: value => setAttributes({
-            slidePerView: value
-          }),
-          min: 1,
-          max: 6
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "gtb-testimonial__navigation",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-        onClick: prevSlide,
-        "aria-label": "<?php echo esc_attr( 'Previous Slide', 'gutenblocks' ); ?>",
-        className: "gtb-testimonial__navigation--prev",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"],
-          size: 24
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-        onClick: nextSlide,
-        "aria-label": "<?php echo esc_attr( 'Next Slide', 'gutenblocks' ); ?>",
-        className: "gtb-testimonial__navigation--next",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__["default"],
-          size: 24
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_controls__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      testimonials: testimonials,
+      slidePerView: slidePerView,
+      onAddTestimonial: handleAddTestimonial,
+      onRemoveTestimonial: handleRemoveTestimonial,
+      onUpdateTestimonial: handleUpdateTestimonial,
+      onUpdateSlidePerView: value => setAttributes({
+        slidePerView: value
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_navigation__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      onPrev: prevSlide,
+      onNext: nextSlide
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "gtb-testimonial",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "gtb-testimonial__slider",
         style: sliderStyle,
-        children: testimonials.map((testimonial, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "gtb-testimonial__slide",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "gtb-testimonial__content",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "profile-image-container",
-              children: testimonial.profileImage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                src: testimonial.profileImage,
-                alt: "Profile",
-                className: "gtb-testimonial__profile-image"
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "gtb-testimonial__button-large",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_8__["default"],
-                  size: 120
-                })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "gtb-testimonial__header",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-                className: "gtb-testimonial__author-name",
-                children: testimonial.author
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "gtb-testimonial__designation",
-                children: testimonial.designation
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-              className: "gtb-testimonial__review-title",
-              children: testimonial.reviewTitle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "gtb-testimonial__rating-stars",
-              style: {
-                '--gtb-rating': Math.abs(parseInt(testimonial.rating, 10))
-              }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-              className: "gtb-testimonial__review-text",
-              children: testimonial.reviewText
-            })]
-          })
+        children: testimonials.map((testimonial, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_slide__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          testimonial: testimonial
         }, index))
       })
     })]

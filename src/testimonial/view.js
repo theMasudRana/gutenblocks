@@ -28,7 +28,7 @@ store( 'gutenblocks/testimonials', {
 
 		previousSlide: () => {
 			const context = getContext();
-			const { totalSlides, itemsPerView } = context;
+			const { itemsPerView } = context;
 
 			// Calculate new index, ensuring we don't go below 0
 			context.currentIndex = Math.max(
