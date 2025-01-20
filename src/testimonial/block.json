@@ -12,8 +12,8 @@
 			"type": "array",
 			"default": [
 				{
-					"author": "John Doe",
-					"designation": "CEO, Google",
+					"author": "Sundar Pichai",
+					"designation": "CEO, Alphabet Inc",
 					"reviewTitle": "Great Service",
 					"reviewText": "I am very satisfied with the service. Highly recommended!",
 					"profileImage": null,

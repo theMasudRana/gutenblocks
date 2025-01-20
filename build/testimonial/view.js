@@ -75,8 +75,9 @@ __webpack_require__.r(__webpack_exports__);
         itemsPerView
       } = context;
 
-      // Calculate new index
-      context.currentIndex = Math.max(0, context.currentIndex + itemsPerView) % totalSlides;
+      // Calculate new index, ensuring we don't exceed total slides
+      const maxIndex = Math.max(0, totalSlides - itemsPerView);
+      context.currentIndex = Math.min(maxIndex, context.currentIndex + itemsPerView);
 
       // Update transform
       context.transform = getTransformValue(context.currentIndex, itemsPerView);
@@ -88,8 +89,8 @@ __webpack_require__.r(__webpack_exports__);
         itemsPerView
       } = context;
 
-      // Calculate new index
-      context.currentIndex = Math.max(0, context.currentIndex - itemsPerView) % totalSlides;
+      // Calculate new index, ensuring we don't go below 0
+      context.currentIndex = Math.max(0, context.currentIndex - itemsPerView);
 
       // Update transform
       context.transform = getTransformValue(context.currentIndex, itemsPerView);

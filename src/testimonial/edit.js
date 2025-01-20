@@ -6,7 +6,12 @@ import {
 	MediaUpload,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { Icon, commentAuthorAvatar } from '@wordpress/icons';
+import {
+	Icon,
+	commentAuthorAvatar,
+	chevronLeft,
+	chevronRight,
+} from '@wordpress/icons';
 import {
 	Button,
 	PanelBody,
@@ -15,6 +20,7 @@ import {
 	TextareaControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 
 /**
  * Quiz Block Edit Component
@@ -27,10 +33,35 @@ import { __ } from '@wordpress/i18n';
 const Edit = ( { attributes, setAttributes } ) => {
 	const { testimonials, slidePerView } = attributes;
 
+	// Add state for current slide
+	const [ currentIndex, setCurrentIndex ] = useState( 0 );
+	const totalSlides = testimonials.length;
+
+	// Calculate transform style
+	const sliderStyle = {
+		transform: `translateX(-${ currentIndex * ( 100 / slidePerView ) }%)`,
+		transition: 'transform 0.5s ease-in-out',
+	};
+
+	// Next slide function
+	const nextSlide = () => {
+		const maxIndex = totalSlides - slidePerView;
+		setCurrentIndex( ( currentIndex ) =>
+			currentIndex >= maxIndex ? 0 : currentIndex + 1
+		);
+	};
+
+	// Previous slide function
+	const prevSlide = () => {
+		const maxIndex = totalSlides - slidePerView;
+		setCurrentIndex( ( currentIndex ) =>
+			currentIndex <= 0 ? maxIndex : currentIndex - 1
+		);
+	};
 	const addTestimonial = () => {
 		const newTestimonial = {
-			author: 'John Doe',
-			designation: 'CEO, Example Corp',
+			author: 'Sundar Pichai',
+			designation: 'CEO, Alphabet Inc',
 			reviewTitle: 'Great Service',
 			reviewText:
 				'I am very satisfied with the service. Highly recommended!',
@@ -56,8 +87,22 @@ const Edit = ( { attributes, setAttributes } ) => {
 		setAttributes( { testimonials: updatedTestimonials } );
 	};
 
+	// Return if no testimonials
+	if ( ! totalSlides ) {
+		return (
+			<div { ...useBlockProps() } style={{ textAlign: 'center'}}>
+				<Button variant="primary" onClick={ addTestimonial }>
+					{ __( 'Add Testimonial', 'gutenblocks' ) }
+				</Button>
+			</div>
+		);
+	}
+
 	return (
-		<div { ...useBlockProps() }>
+		<div
+			{ ...useBlockProps() }
+			style={ { '--items-per-view': slidePerView } }
+		>
 			<InspectorControls>
 				<PanelBody
 					title={ __( 'Testimonials Content', 'gutenblocks' ) }
@@ -181,9 +226,25 @@ const Edit = ( { attributes, setAttributes } ) => {
 					/>
 				</PanelBody>
 			</InspectorControls>
+			<div className="gtb-testimonial__navigation">
+				<button
+					onClick={ prevSlide }
+					aria-label="<?php echo esc_attr( 'Previous Slide', 'gutenblocks' ); ?>"
+					className="gtb-testimonial__navigation--prev"
+				>
+					<Icon icon={ chevronLeft } size={ 24 } />
+				</button>
 
+				<button
+					onClick={ nextSlide }
+					aria-label="<?php echo esc_attr( 'Next Slide', 'gutenblocks' ); ?>"
+					className="gtb-testimonial__navigation--next"
+				>
+					<Icon icon={ chevronRight } size={ 24 } />
+				</button>
+			</div>
 			<div className="gtb-testimonial">
-				<div className="gtb-testimonial__slider">
+				<div className="gtb-testimonial__slider" style={ sliderStyle }>
 					{ testimonials.map( ( testimonial, index ) => (
 						<div className="gtb-testimonial__slide" key={ index }>
 							<div className="gtb-testimonial__content">
@@ -205,37 +266,21 @@ const Edit = ( { attributes, setAttributes } ) => {
 								</div>
 								<div className="gtb-testimonial__header">
 									<h3 className="gtb-testimonial__author-name">
-										{ testimonial.author || 'Author Name' }
+										{ testimonial.author }
 									</h3>
 									<p className="gtb-testimonial__designation">
-										{ testimonial.designation ||
-											'Designation' }
+										{ testimonial.designation }
 									</p>
 								</div>
 								<h4 className="gtb-testimonial__review-title">
-									{ testimonial.reviewTitle ||
-										'Review Title' }
+									{ testimonial.reviewTitle }
 								</h4>
-								<div className="gtb-testimonial__rating-stars">
-									{ [ ...Array( 5 ) ].map(
-										( _, starIndex ) => (
-											<span
-												key={ starIndex }
-												className={ `star ${
-													starIndex <
-													testimonial.rating
-														? 'active'
-														: ''
-												}` }
-											>
-												★
-											</span>
-										)
-									) }
+								<div 
+									className="gtb-testimonial__rating-stars" 
+									style={{ '--gtb-rating': Math.abs(parseInt(testimonial.rating, 10)) }}>
 								</div>
 								<p className="gtb-testimonial__review-text">
-									{ testimonial.reviewText ||
-										__( 'Review Text', 'gutenblocks' ) }
+									{ testimonial.reviewText }
 								</p>
 							</div>
 						</div>
