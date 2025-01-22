@@ -79,22 +79,22 @@ const close = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx
 
 /***/ }),
 
-/***/ "./src/quiz/edit.js":
-/*!**************************!*\
-  !*** ./src/quiz/edit.js ***!
-  \**************************/
+/***/ "./src/pricing-table/edit.js":
+/*!***********************************!*\
+  !*** ./src/pricing-table/edit.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
 /* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
@@ -108,11 +108,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Quiz Block Edit Component
+ * Posts Grid Block Edit Component
  *
- * @param {Object}   props               - Component properties
- * @param {Object}   props.attributes    - Block attributes
- * @param {Function} props.setAttributes - Block attributes update function
+ * @param {Object}   props               Component properties
+ * @param {Object}   props.attributes    Block attributes
+ * @param {Function} props.setAttributes Block attributes update function
  *
  * @return {JSX.Element}                Block edit component
  */
@@ -122,126 +122,196 @@ const Edit = ({
   setAttributes
 }) => {
   const {
-    questions
+    title,
+    subtitle,
+    currency,
+    pricePeriod,
+    price,
+    onSale,
+    salePrice,
+    priceSeparator,
+    buttonText,
+    buttonUrl,
+    featured,
+    features
   } = attributes;
 
-  // Add a new question
-  const addQuestion = () => {
+  // Update the features array
+  const handleUpdateFeature = (index, field, value) => {
+    const updatedFeatures = features.map((feature, i) => i === index ? {
+      ...feature,
+      [field]: value
+    } : feature);
     setAttributes({
-      questions: [...questions, {
-        question: '',
-        answers: [''],
-        correctAnswer: 0
-      }]
+      features: updatedFeatures
     });
   };
 
-  // Remove a question
-  const removeQuestion = indexToRemove => {
+  // Remove a feature
+  const removeFeature = indexToRemove => {
     setAttributes({
-      questions: questions.filter((_, index) => index !== indexToRemove)
+      features: features.filter((_, index) => index !== indexToRemove)
     });
   };
 
-  // Update a question
-  const updateQuestion = (index, newQuestion) => {
+  // Add a new feature
+  const addFeature = () => {
+    const newFeature = {
+      text: 'Feature'
+    };
     setAttributes({
-      questions: questions.map((q, i) => i === index ? {
-        ...q,
-        question: newQuestion
-      } : q)
-    });
-  };
-
-  // Add a new answer
-  const addAnswer = questionIndex => {
-    setAttributes({
-      questions: questions.map((q, i) => i === questionIndex ? {
-        ...q,
-        answers: [...q.answers, '']
-      } : q)
-    });
-  };
-
-  // Update an answer
-  const updateAnswer = (questionIndex, answerIndex, newAnswer) => {
-    setAttributes({
-      questions: questions.map((q, i) => i === questionIndex ? {
-        ...q,
-        answers: q.answers.map((a, j) => j === answerIndex ? newAnswer : a)
-      } : q)
-    });
-  };
-
-  // Remove an answer
-  const removeAnswer = (questionIndex, answerIndex) => {
-    setAttributes({
-      questions: questions.map((q, i) => i === questionIndex ? {
-        ...q,
-        answers: q.answers.filter((_, j) => j !== answerIndex)
-      } : q)
-    });
-  };
-
-  // Set the correct answer
-  const setCorrectAnswer = (questionIndex, answer) => {
-    setAttributes({
-      questions: questions.map((q, i) => i === questionIndex ? {
-        ...q,
-        correctAnswer: parseInt(answer, 10)
-      } : q)
+      features: [...features, newFeature]
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
-    children: [questions.map((question, questionIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "gtb-quiz__question",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Question', 'gutenblocks'),
-        value: question.question,
-        onChange: value => updateQuestion(questionIndex, value)
-      }), question.answers.map((answer, answerIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "gtb-quiz__answer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Answer', 'gutenblocks'),
-          value: answer,
-          onChange: value => updateAnswer(questionIndex, answerIndex, value)
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          className: "gtb-quiz__remove-answer",
-          isDestructive: true,
-          onClick: () => removeAnswer(questionIndex, answerIndex),
-          disabled: question.answers.length <= 1,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Pricing Info', 'gutenblocks'),
+        initialOpen: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Title', 'gutenblocks'),
+          value: title,
+          onChange: value => setAttributes({
+            title: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Subtitle', 'gutenblocks'),
+          value: subtitle,
+          onChange: value => setAttributes({
+            subtitle: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Featured', 'gutenblocks'),
+          checked: featured,
+          onChange: value => setAttributes({
+            featured: value
           })
         })]
-      }, answerIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-        className: "gtb-quiz__add-answer",
-        variant: "secondary",
-        onClick: () => addAnswer(questionIndex),
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Answer', 'gutenblocks')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
-        className: "gtb-quiz__correct-answer",
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Correct Answer', 'gutenblocks'),
-        selected: question.correctAnswer.toString(),
-        options: question.answers.map((answer, index) => ({
-          label: answer || `Answer ${index + 1}`,
-          value: index.toString()
-        })),
-        onChange: value => setCorrectAnswer(questionIndex, value)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-        className: "gtb-quiz__remove-question",
-        isDestructive: true,
-        onClick: () => removeQuestion(questionIndex),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Price', 'gutenblocks'),
+        initialOpen: false,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Price', 'gutenblocks'),
+          value: price,
+          onChange: value => setAttributes({
+            price: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('On Sale', 'gutenblocks'),
+          checked: onSale,
+          onChange: value => setAttributes({
+            onSale: value
+          })
+        }), onSale && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Sale Price', 'gutenblocks'),
+          value: salePrice,
+          onChange: value => setAttributes({
+            salePrice: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Currency', 'gutenblocks'),
+          value: currency,
+          onChange: value => setAttributes({
+            currency: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Period', 'gutenblocks'),
+          value: pricePeriod,
+          onChange: value => setAttributes({
+            pricePeriod: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Price Separator', 'gutenblocks'),
+          value: priceSeparator,
+          onChange: value => setAttributes({
+            priceSeparator: value
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Features', 'gutenblocks'),
+        initialOpen: false,
+        children: [features.map((feature, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+          title: `Feature ${index + 1}`,
+          initialOpen: false,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Feature', 'gutenblocks'),
+            value: feature.text,
+            onChange: value => {
+              handleUpdateFeature(index, 'text', value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            variant: "secondary",
+            isDestructive: true,
+            onClick: () => {
+              removeFeature(index);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
+            })
+          })]
+        }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          variant: "primary",
+          onClick: addFeature,
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add Feature', 'gutenblocks')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Button', 'gutenblocks'),
+        initialOpen: false,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Text', 'gutenblocks'),
+          value: buttonText,
+          onChange: value => setAttributes({
+            buttonText: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('URL', 'gutenblocks'),
+          value: buttonUrl,
+          onChange: value => setAttributes({
+            buttonUrl: value
+          })
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "gtb-pricing",
+      children: [featured && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "gtb-pricing__featured",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Featured', 'gutenblocks')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "gtb-pricing__info",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "gtb-pricing__title",
+          children: title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+          className: "gtb-pricing__subtitle",
+          children: subtitle
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "gtb-pricing__price-wrapper",
+          children: [onSale ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            className: "gtb-pricing__price",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
+              children: [currency, price]
+            }), ' ', currency, salePrice]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            className: "gtb-pricing__price",
+            children: [currency, price]
+          }), priceSeparator, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: pricePeriod
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+        className: "gtb-pricing__features",
+        children: features.map((feature, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+          children: feature.text
+        }, index))
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "gtb-pricing__button",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+          href: buttonUrl,
+          className: "gtb-pricing__button-link",
+          children: buttonText
         })
       })]
-    }, questionIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-      variant: "primary",
-      onClick: addQuestion,
-      className: "gtb-quiz__add-question",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Question', 'gutenblocks')
     })]
   });
 };
@@ -249,19 +319,18 @@ const Edit = ({
 
 /***/ }),
 
-/***/ "./src/quiz/index.js":
-/*!***************************!*\
-  !*** ./src/quiz/index.js ***!
-  \***************************/
+/***/ "./src/pricing-table/index.js":
+/*!************************************!*\
+  !*** ./src/pricing-table/index.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/quiz/style.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/quiz/editor.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/quiz/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/quiz/block.json");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/pricing-table/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/pricing-table/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/pricing-table/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -278,7 +347,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-
 /**
  * Internal dependencies
  */
@@ -290,31 +358,19 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 
 /***/ }),
 
-/***/ "./src/quiz/editor.scss":
-/*!******************************!*\
-  !*** ./src/quiz/editor.scss ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./src/quiz/style.scss":
-/*!*****************************!*\
-  !*** ./src/quiz/style.scss ***!
-  \*****************************/
+/***/ "./src/pricing-table/style.scss":
+/*!**************************************!*\
+  !*** ./src/pricing-table/style.scss ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -393,13 +449,13 @@ module.exports = window["wp"]["primitives"];
 
 /***/ }),
 
-/***/ "./src/quiz/block.json":
-/*!*****************************!*\
-  !*** ./src/quiz/block.json ***!
-  \*****************************/
+/***/ "./src/pricing-table/block.json":
+/*!**************************************!*\
+  !*** ./src/pricing-table/block.json ***!
+  \**************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quiz","version":"1.0.0","title":"Guetnblock Quiz","category":"widgets","icon":"forms","keywords":["quiz","gutenblocks"],"description":"A simple quiz block.","supports":{"interactivity":true},"attributes":{"questions":{"type":"array","default":[]},"align":{"type":"string","default":"wide"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScriptModule":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/pricing-table","version":"1.0.0","title":"Pricing Table","category":"design","icon":"grid-view","keywords":["pricing","table","gutenblocks"],"description":"Pricing Table block for Gutenblocks","example":{},"supports":{"html":false,"color":{"background":true,"text":true},"spacing":{"padding":true,"margin":true},"border":{"radius":true}},"attributes":{"title":{"type":"string","default":"Pricing Title"},"subtitle":{"type":"string","default":"Pricing subtitle"},"currency":{"type":"string","default":"$"},"price":{"type":"string","default":"99"},"onSale":{"type":"boolean","default":false},"salePrice":{"type":"string","default":"49"},"priceSeparator":{"type":"string","default":"/"},"pricePeriod":{"type":"string","default":"month"},"features":{"type":"array","default":[{"text":"Feature 1"}]},"buttonText":{"type":"string","default":"Buy Now"},"buttonUrl":{"type":"string","default":"#"},"featured":{"type":"boolean","default":false},"style":{"type":"object","default":{"color":{"background":"#f9f9f9","text":"#333"},"spacing":{"padding":{"top":"20px","right":"20px","bottom":"20px","left":"20px"}},"border":{"radius":"4px"}}}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 
@@ -513,8 +569,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"quiz/index": 0,
-/******/ 			"quiz/style-index": 0
+/******/ 			"pricing-table/index": 0,
+/******/ 			"pricing-table/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -564,7 +620,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["quiz/style-index"], () => (__webpack_require__("./src/quiz/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["pricing-table/style-index"], () => (__webpack_require__("./src/pricing-table/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

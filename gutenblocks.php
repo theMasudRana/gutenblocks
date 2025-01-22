@@ -88,6 +88,7 @@ final class Gutenblocks {
 			'posts-grid',
 			'quiz',
 			'testimonial',
+			'pricing-table',
 		);
 	}
 

@@ -6,6 +6,10 @@
   "title": "Guetnblock Quiz",
   "category": "widgets",
   "icon": "forms",
+  "keywords": [
+    "quiz",
+    "gutenblocks"
+  ],
   "description": "A simple quiz block.",
   "supports": {
     "interactivity": true

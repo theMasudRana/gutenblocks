@@ -6,6 +6,11 @@
   "title": "Post Grid",
   "category": "design",
   "icon": "grid-view",
+  "keywords": [
+    "posts",
+    "grid",
+    "gutenblocks"
+  ],
   "description": "Post Grid block for Gutenblocks",
   "example": {},
   "supports": {
