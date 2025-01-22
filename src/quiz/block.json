@@ -13,13 +13,7 @@
 	"attributes": {
 		"questions": {
 			"type": "array",
-			"default": [
-				{
-					"question": "What is the capital of France?",
-					"answers": [ "Paris", "London", "Berlin", "Madrid" ],
-					"correctAnswer": "Paris"
-				}
-			]
+			"default": []
 		},
 		"align": {
 			"type": "string",
@@ -27,8 +21,9 @@
 		}
 	},
 	"textdomain": "gutenblocks",
-	"viewScriptModule": "file:./view.js",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
 	"render": "file:./render.php",
-	"style": "file:./style-index.css"
+	"viewScriptModule": "file:./view.js"
 }

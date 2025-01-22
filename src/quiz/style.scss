@@ -2,29 +2,6 @@
 .gtb-quiz {
 	$self: &;
 
-	&__remove-question {
-		position: absolute;
-		right: 0;
-		top: -8px;
-		height: auto;
-		padding: 0;
-	}
-
-	&__remove-answer {
-		padding: 0;
-		height: auto;
-		position: relative;
-		top: 0.5rem;
-	}
-
-	&__correct-answer {
-		margin-block: 1.5rem;
-	}
-
-	.components-button {
-		display: inline-block;
-	}
-
 	&__wrapper {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -36,6 +13,7 @@
 		box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 		border-radius: 4px;
 		transition: box-shadow 0.3s ease;
+		position: relative;
 
 		&:hover {
 			box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;

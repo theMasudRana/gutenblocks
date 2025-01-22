@@ -1,25 +1,6 @@
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/quiz/style.scss ***!
   \********************************************************************************************************************************************************************************************************************************************/
-.gtb-quiz__remove-question {
-  position: absolute;
-  left: 0;
-  top: -8px;
-  height: auto;
-  padding: 0;
-}
-.gtb-quiz__remove-answer {
-  padding: 0;
-  height: auto;
-  position: relative;
-  top: 0.5rem;
-}
-.gtb-quiz__correct-answer {
-  margin-block: 1.5rem;
-}
-.gtb-quiz .components-button {
-  display: inline-block;
-}
 .gtb-quiz__wrapper {
   display: grid;
   grid-template-columns: 1fr;
@@ -30,6 +11,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   border-radius: 4px;
   transition: box-shadow 0.3s ease;
+  position: relative;
 }
 .gtb-quiz__question:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;

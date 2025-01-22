@@ -10,13 +10,15 @@ const { state } = store( 'gutenblocks/quiz', {
 			const dilogElement = document.querySelector(
 				'.gtb-quiz__status-dialog'
 			);
-			
+
 			state.answered = 0;
 			state.correct = 0;
 			state.allCorrect = false;
 
 			// Reset all radio inputs
-			const allInputs = document.querySelectorAll( '.gtb-quiz__answer-input' );
+			const allInputs = document.querySelectorAll(
+				'.gtb-quiz__answer-input'
+			);
 			allInputs.forEach( ( input ) => {
 				input.checked = false;
 			} );
@@ -77,7 +79,9 @@ const { state } = store( 'gutenblocks/quiz', {
 			state.allCorrect = false;
 
 			// Reset all radio inputs
-			const allInputs = document.querySelectorAll( '.gtb-quiz__answer-input' );
+			const allInputs = document.querySelectorAll(
+				'.gtb-quiz__answer-input'
+			);
 			allInputs.forEach( ( input ) => {
 				input.checked = false;
 			} );

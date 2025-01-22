@@ -1,0 +1,36 @@
+.wp-block-gutenblocks-quiz {
+	$spacing-base: 1rem;
+
+	// Common properties for remove buttons
+	%remove-btn {
+		padding: 0;
+		height: auto;
+	}
+
+	.gtb-quiz {
+
+		&__question:not(:first-child),
+		&__add-question {
+			margin-block-start: $spacing-base;
+		}
+
+		&__remove-question {
+
+			@extend %remove-btn;
+			position: absolute;
+			top: 12px;
+			right: $spacing-base;
+		}
+
+		&__remove-answer {
+
+			@extend %remove-btn;
+			position: relative;
+			top: 0.5rem;
+		}
+
+		&__correct-answer {
+			margin-block: 1.5 * $spacing-base;
+		}
+	}
+}

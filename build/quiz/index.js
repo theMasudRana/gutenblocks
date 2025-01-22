@@ -95,11 +95,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
-/* harmony import */ var _utils_export__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/export */ "./src/quiz/utils/export.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 /**
  * WordPress dependencies
  */
@@ -109,16 +108,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Internal dependencies
- */
-
-
-/**
  * Quiz Block Edit Component
  *
- * @param {Object}   props               Component properties
- * @param {Object}   props.attributes    Block attributes
- * @param {Function} props.setAttributes Block attributes update function
+ * @param {Object}   props               - Component properties
+ * @param {Object}   props.attributes    - Block attributes
+ * @param {Function} props.setAttributes - Block attributes update function
+ *
  * @return {JSX.Element}                Block edit component
  */
 
@@ -129,66 +124,123 @@ const Edit = ({
   const {
     questions
   } = attributes;
-  const {
-    addQuestion,
-    updateQuestion,
-    addAnswer,
-    updateAnswer,
-    setCorrectAnswer,
-    removeQuestion,
-    removeAnswer
-  } = (0,_utils_export__WEBPACK_IMPORTED_MODULE_3__.createQuestionHandlers)(questions, setAttributes);
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)({
-    className: 'gtb-quiz'
-  });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    ...blockProps,
-    children: [questions.map((question, questionIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+
+  // Add a new question
+  const addQuestion = () => {
+    setAttributes({
+      questions: [...questions, {
+        question: '',
+        answers: [''],
+        correctAnswer: 0
+      }]
+    });
+  };
+
+  // Remove a question
+  const removeQuestion = indexToRemove => {
+    setAttributes({
+      questions: questions.filter((_, index) => index !== indexToRemove)
+    });
+  };
+
+  // Update a question
+  const updateQuestion = (index, newQuestion) => {
+    setAttributes({
+      questions: questions.map((q, i) => i === index ? {
+        ...q,
+        question: newQuestion
+      } : q)
+    });
+  };
+
+  // Add a new answer
+  const addAnswer = questionIndex => {
+    setAttributes({
+      questions: questions.map((q, i) => i === questionIndex ? {
+        ...q,
+        answers: [...q.answers, '']
+      } : q)
+    });
+  };
+
+  // Update an answer
+  const updateAnswer = (questionIndex, answerIndex, newAnswer) => {
+    setAttributes({
+      questions: questions.map((q, i) => i === questionIndex ? {
+        ...q,
+        answers: q.answers.map((a, j) => j === answerIndex ? newAnswer : a)
+      } : q)
+    });
+  };
+
+  // Remove an answer
+  const removeAnswer = (questionIndex, answerIndex) => {
+    setAttributes({
+      questions: questions.map((q, i) => i === questionIndex ? {
+        ...q,
+        answers: q.answers.filter((_, j) => j !== answerIndex)
+      } : q)
+    });
+  };
+
+  // Set the correct answer
+  const setCorrectAnswer = (questionIndex, answer) => {
+    setAttributes({
+      questions: questions.map((q, i) => i === questionIndex ? {
+        ...q,
+        correctAnswer: parseInt(answer, 10)
+      } : q)
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
+    children: [questions.map((question, questionIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "gtb-quiz__question",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Question', 'gutenblocks'),
         value: question.question,
-        className: "gtb-quiz__question-input",
         onChange: value => updateQuestion(questionIndex, value)
-      }), question.answers.map((answer, answerIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), question.answers.map((answer, answerIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "gtb-quiz__answer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Answer', 'gutenblocks'),
           value: answer,
           onChange: value => updateAnswer(questionIndex, answerIndex, value)
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          isDestructive: true,
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
           className: "gtb-quiz__remove-answer",
+          isDestructive: true,
           onClick: () => removeAnswer(questionIndex, answerIndex),
           disabled: question.answers.length <= 1,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
           })
         })]
-      }, answerIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      }, answerIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+        className: "gtb-quiz__add-answer",
         variant: "secondary",
         onClick: () => addAnswer(questionIndex),
         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Answer', 'gutenblocks')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select Correct Answer', 'gutenblocks'),
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
         className: "gtb-quiz__correct-answer",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Correct Answer', 'gutenblocks'),
         selected: question.correctAnswer.toString(),
         options: question.answers.map((answer, index) => ({
           label: answer || `Answer ${index + 1}`,
           value: index.toString()
         })),
         onChange: value => setCorrectAnswer(questionIndex, value)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+        className: "gtb-quiz__remove-question",
         isDestructive: true,
         onClick: () => removeQuestion(questionIndex),
-        className: "gtb-quiz__remove-question",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
         })
       })]
-    }, questionIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    }, questionIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       variant: "primary",
       onClick: addQuestion,
+      className: "gtb-quiz__add-question",
       children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Question', 'gutenblocks')
     })]
   });
@@ -207,8 +259,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/quiz/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/quiz/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/quiz/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/quiz/editor.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/quiz/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/quiz/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -225,6 +278,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -236,78 +290,24 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 
 /***/ }),
 
-/***/ "./src/quiz/utils/export.js":
-/*!**********************************!*\
-  !*** ./src/quiz/utils/export.js ***!
-  \**********************************/
+/***/ "./src/quiz/editor.scss":
+/*!******************************!*\
+  !*** ./src/quiz/editor.scss ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   createQuestionHandlers: () => (/* binding */ createQuestionHandlers),
-/* harmony export */   createUpdateQuestions: () => (/* binding */ createUpdateQuestions)
-/* harmony export */ });
-// Helper functions for managing questions state
-const createUpdateQuestions = (questions, setAttributes) => updater => {
-  const newQuestions = [...questions];
-  updater(newQuestions);
-  setAttributes({
-    questions: newQuestions
-  });
-};
-const createQuestionHandlers = (questions, setAttributes) => {
-  const updateQuestions = createUpdateQuestions(questions, setAttributes);
-  return {
-    addQuestion: () => {
-      setAttributes({
-        questions: [...questions, {
-          question: '',
-          answers: [''],
-          correctAnswer: 0
-        }]
-      });
-    },
-    updateQuestion: (index, question) => {
-      updateQuestions(questions => {
-        questions[index].question = question;
-      });
-    },
-    addAnswer: questionIndex => {
-      updateQuestions(questionsList => {
-        questionsList[questionIndex].answers.push('');
-      });
-    },
-    updateAnswer: (questionIndex, answerIndex, answer) => {
-      updateQuestions(questionsList => {
-        questionsList[questionIndex].answers[answerIndex] = answer;
-      });
-    },
-    setCorrectAnswer: (questionIndex, correctAnswer) => {
-      updateQuestions(questionsList => {
-        questionsList[questionIndex].correctAnswer = parseInt(correctAnswer, 10);
-      });
-    },
-    removeQuestion: index => {
-      setAttributes({
-        questions: questions.filter((_, i) => i !== index)
-      });
-    },
-    removeAnswer: (questionIndex, answerIndex) => {
-      updateQuestions(questionsList => {
-        questionsList[questionIndex].answers = questionsList[questionIndex].answers.filter((_, i) => i !== answerIndex);
-      });
-    }
-  };
-};
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -399,7 +399,7 @@ module.exports = window["wp"]["primitives"];
   \*****************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quiz","version":"1.0.0","title":"Guetnblock Quiz","category":"widgets","icon":"forms","description":"A simple quiz block.","supports":{"interactivity":true},"attributes":{"questions":{"type":"array","default":[{"question":"What is the capital of France?","answers":["Paris","London","Berlin","Madrid"],"correctAnswer":"Paris"}]},"align":{"type":"string","default":"wide"}},"textdomain":"gutenblocks","viewScriptModule":"file:./view.js","editorScript":"file:./index.js","render":"file:./render.php","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quiz","version":"1.0.0","title":"Guetnblock Quiz","category":"widgets","icon":"forms","description":"A simple quiz block.","supports":{"interactivity":true},"attributes":{"questions":{"type":"array","default":[]},"align":{"type":"string","default":"wide"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScriptModule":"file:./view.js"}');
 
 /***/ })
 
