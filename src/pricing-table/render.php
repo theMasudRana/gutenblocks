@@ -3,7 +3,7 @@
  * Display the pricing table block on the frontend.
  */
 
-if (empty($attributes)) {
+if ( empty( $attributes ) ) {
 	return;
 }
 
