@@ -1,14 +1,6 @@
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/quiz/style.scss ***!
   \********************************************************************************************************************************************************************************************************************************************/
-.gtb-quiz {
-  background-color: #fff;
-  padding: 1rem;
-}
-.gtb-quiz__answer {
-  display: flex;
-  align-items: center;
-}
 .gtb-quiz__remove-question {
   position: absolute;
   left: 0;
@@ -16,16 +8,121 @@
   height: auto;
   padding: 0;
 }
-.gtb-quiz__question {
-  margin-bottom: 1rem;
-  position: relative;
-}
-.gtb-quiz__correct-answer {
-  margin-block: 1.5rem;
-}
 .gtb-quiz__remove-answer {
   padding: 0;
   height: auto;
   position: relative;
   top: 0.5rem;
+}
+.gtb-quiz__correct-answer {
+  margin-block: 1.5rem;
+}
+.gtb-quiz .components-button {
+  display: inline-block;
+}
+.gtb-quiz__wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.gtb-quiz__question {
+  padding: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  border-radius: 4px;
+  transition: box-shadow 0.3s ease;
+}
+.gtb-quiz__question:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+.gtb-quiz__question-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+.gtb-quiz__answer-option label {
+  cursor: pointer;
+}
+.gtb-quiz__action-button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--wp--preset--color--contrast);
+  background-color: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--base);
+  font-size: var(--wp--preset--font-size--medium);
+}
+.gtb-quiz__action-button:hover {
+  background-color: var(--wp--preset--color--contrast-2, #101010);
+  border-color: var(--wp--preset--color--contrast-2);
+  color: var(--wp--preset--color--base);
+}
+.gtb-quiz__answer {
+  display: flex;
+  align-items: center;
+}
+.gtb-quiz__answer:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.gtb-quiz__answer-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.gtb-quiz__answer-label {
+  position: relative;
+  padding-right: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: #666;
+}
+.gtb-quiz__answer-label::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+}
+.gtb-quiz__answer-label::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  background: #008000;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+.gtb-quiz__answer-input:checked + .gtb-quiz__answer-label::after {
+  transform: scale(1);
+}
+.gtb-quiz__status-dialog {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+}
+.gtb-quiz__dialog-close {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gtb-quiz__dialog-close:hover {
+  background-color: #e0e0e0;
+}
+
+::backdrop {
+  background-color: rgb(0, 0, 0);
+  opacity: 0.75;
 }
