@@ -3,6 +3,7 @@
   \*****************************************************************************************************************************************************************************************************************************************************/
 .gtb-pricing {
   text-align: center;
+  position: relative;
 }
 .gtb-pricing__featured {
   font-size: 12px;
@@ -10,13 +11,14 @@
   background-color: rgb(222, 13, 211);
   color: #fff;
   position: absolute;
-  right: -8px;
-  top: 8px;
+  right: 0;
+  top: 0;
   text-transform: uppercase;
   padding: 4px 8px;
+  transform: translateX(50%);
 }
 .gtb-pricing__title {
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   font-weight: 600;
 }
 .gtb-pricing__subtitle {

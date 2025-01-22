@@ -201,7 +201,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 				) }
 				<div className="gtb-pricing__info">
 					<h3 className="gtb-pricing__title">{ title }</h3>
-					<h4 className="gtb-pricing__subtitle">{ subtitle }</h4>
+					<p className="gtb-pricing__subtitle">{ subtitle }</p>
 					<div className="gtb-pricing__price-wrapper">
 						{ onSale ? (
 							<span className="gtb-pricing__price">
