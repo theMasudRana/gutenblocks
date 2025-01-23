@@ -15,10 +15,16 @@ Gutenblocks is a powerful WordPress plugin that extends the Gutenberg editor wit
 * Compatible with WordPress Full Site Editing
 * Regular updates and new block additions
 
+## Available blocks
+
+1. Interactive Quiz
+2. Testimonial Slider
+3. Pricing Table
+
 ## Installation
 
 1. Upload the `gutenblocks.zip` folder to the `/wp-content/plugins/` directory
-3. Extract the ``
+3. Extract the .zip file
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Frequently Asked Questions
