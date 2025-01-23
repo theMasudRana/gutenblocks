@@ -12,9 +12,14 @@
     "gutenblocks"
   ],
   "description": "Pricing Table block for Gutenblocks",
-  "example": {},
+  "allowedBlocks": [
+    "core/heading",
+    "core/paragraph",
+    "core/paragraph",
+    "core/list",
+    "core/button"
+  ],
   "supports": {
-    "html": false,
     "color": {
       "background": true,
       "text": true
@@ -23,63 +28,15 @@
       "padding": true,
       "margin": true
     },
-    "border": {
-      "radius": true
-    }
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "alignWide": true
   },
   "attributes": {
-    "title": {
-      "type": "string",
-      "default": "Pricing Title"
-    },
-    "subtitle": {
-      "type": "string",
-      "default": "Pricing subtitle"
-    },
-    "currency": {
-      "type": "string",
-      "default": "$"
-    },
-    "price": {
-      "type": "string",
-      "default": "99"
-    },
-    "onSale": {
-      "type": "boolean",
-      "default": false
-    },
-    "salePrice": {
-      "type": "string",
-      "default": "49"
-    },
-    "priceSeparator": {
-      "type": "string",
-      "default": "/"
-    },
-    "pricePeriod": {
-      "type": "string",
-      "default": "month"
-    },
-    "features": {
-      "type": "array",
-      "default": [
-        {
-          "text": "Feature 1"
-        }
-      ]
-    },
-    "buttonText": {
-      "type": "string",
-      "default": "Buy Now"
-    },
-    "buttonUrl": {
-      "type": "string",
-      "default": "#"
-    },
-    "featured": {
-      "type": "boolean",
-      "default": false
-    },
     "style": {
       "type": "object",
       "default": {
@@ -96,7 +53,10 @@
           }
         },
         "border": {
-          "radius": "4px"
+          "radius": "4px",
+          "style": "solid",
+          "width": "1px",
+          "color": "#ccc"
         }
       }
     }
@@ -104,6 +64,5 @@
   "textdomain": "gutenblocks",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "render": "file:./render.php"
+  "style": "file:./style-index.css"
 }

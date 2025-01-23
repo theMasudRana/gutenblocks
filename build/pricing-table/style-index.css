@@ -2,20 +2,23 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/pricing-table/style.scss ***!
   \*****************************************************************************************************************************************************************************************************************************************************/
 .gtb-pricing {
-  text-align: center;
+  box-sizing: border-box;
   position: relative;
+  text-align: center;
 }
 .gtb-pricing__featured {
   font-size: 12px;
   font-weight: 600;
   background-color: #de0dd3;
   color: #fff;
-  position: absolute;
-  right: 0;
-  top: 0;
+  position: absolute !important;
+  right: 8px;
+  top: 8px;
   text-transform: uppercase;
   padding: 4px 8px;
-  transform: translateX(50%);
+  box-sizing: border-box;
+  display: inline-flex;
+  border-radius: 4px;
 }
 .gtb-pricing__title {
   margin: 0 0 8px;
@@ -25,13 +28,12 @@
   margin: 0;
   font-size: 1rem;
 }
-.gtb-pricing__price-wrapper {
-  margin: 20px 0;
-  padding-bottom: 20px;
+.gtb-pricing__price {
+  font-weight: 600;
   position: relative;
-  font-size: 18px;
+  padding-bottom: 1.5rem;
 }
-.gtb-pricing__price-wrapper::before {
+.gtb-pricing__price::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -41,29 +43,11 @@
   background-color: #e5e5e5;
   transform: translateX(-50%);
 }
-.gtb-pricing__price {
-  font-weight: 600;
-}
-.gtb-pricing__button-link {
-  margin-top: 1rem;
-  padding: 0.5rem 2rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  border: 1px solid var(--wp--preset--color--contrast);
-  background-color: var(--wp--preset--color--contrast);
-  color: var(--wp--preset--color--base);
-  font-size: var(--wp--preset--font-size--small);
-  text-decoration: none;
-  display: inline-block;
-}
-.gtb-pricing__button-link:hover {
-  background-color: var(--wp--preset--color--contrast-2, #101010);
-  border-color: var(--wp--preset--color--contrast-2);
-  color: var(--wp--preset--color--base);
+.gtb-pricing__button {
+  justify-self: center;
 }
 .gtb-pricing__features {
-  margin: 0;
+  margin: 0 0 1.5rem;
   padding: 0;
   list-style: none;
 }
