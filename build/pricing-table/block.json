@@ -4,7 +4,7 @@
   "name": "gutenblocks/pricing-table",
   "version": "1.0.0",
   "title": "GTB: Pricing Table",
-  "category": "design",
+  "category": "gutenblocks-category",
   "icon": "tablet",
   "keywords": [
     "pricing",

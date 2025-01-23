@@ -4,7 +4,7 @@
 	"name": "gutenblocks/quiz",
 	"version": "1.0.0",
 	"title": "GTB: Quiz",
-	"category": "widgets",
+	"category": "gutenblocks-category",
 	"icon": "forms",
 	"keywords": [ "quiz", "gutenblocks" ],
 	"description": "A simple quiz block.",

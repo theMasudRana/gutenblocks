@@ -42,6 +42,7 @@ final class Gutenblocks {
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		add_action( 'init', array( $this, 'gutenblock_blocks_init' ) );
 		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
+		add_filter( 'block_categories_all', array( $this, 'gutenblock_block_category' ), 10, 2 );
 	}
 
 	/**
@@ -134,6 +135,28 @@ final class Gutenblocks {
 			'gutenblocks',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
+	}
+
+	/**
+	 * Adding a custom block category
+	 *
+	 * @param array                   $block_categories       Array of categories for block types.
+	 * @param WP_Block_Editor_Context $block_editor_context   The current block editor context.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0.0
+	 */
+	public function gutenblock_block_category( $block_categories, $block_editor_context ) {
+		return array_merge(
+			$block_categories,
+			array(
+				array(
+					'slug'  => 'gutenblocks-category',
+					'title' => esc_html__( 'Gutenblocks', 'gutenblocks' ),
+				),
+			)
 		);
 	}
 }

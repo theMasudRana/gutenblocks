@@ -4,7 +4,7 @@
   "name": "gutenblocks/testimonials",
   "version": "1.0.0",
   "title": "GTB: Testimonials",
-  "category": "widgets",
+  "category": "gutenblocks-category",
   "icon": "format-quote",
   "description": "A block that displays testimonials.",
   "attributes": {
