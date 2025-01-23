@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "gutenblocks/posts-grid",
 	"version": "1.0.0",
-	"title": "Post Grid",
+	"title": "GTB: Post Grid",
 	"category": "design",
 	"icon": "grid-view",
 	"keywords": [ "posts", "grid", "gutenblocks" ],

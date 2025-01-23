@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "gutenblocks/testimonials",
 	"version": "1.0.0",
-	"title": "Testimonials",
+	"title": "GTB: Testimonials",
 	"category": "widgets",
 	"icon": "format-quote",
 	"description": "A block that displays testimonials.",

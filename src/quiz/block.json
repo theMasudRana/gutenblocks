@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "gutenblocks/quiz",
 	"version": "1.0.0",
-	"title": "Guetnblock Quiz",
+	"title": "GTB: Quiz",
 	"category": "widgets",
 	"icon": "forms",
 	"keywords": [ "quiz", "gutenblocks" ],

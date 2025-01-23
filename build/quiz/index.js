@@ -399,7 +399,7 @@ module.exports = window["wp"]["primitives"];
   \*****************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quiz","version":"1.0.0","title":"Guetnblock Quiz","category":"widgets","icon":"forms","keywords":["quiz","gutenblocks"],"description":"A simple quiz block.","supports":{"interactivity":true},"attributes":{"questions":{"type":"array","default":[]},"align":{"type":"string","default":"wide"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScriptModule":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quiz","version":"1.0.0","title":"GTB: Quiz","category":"widgets","icon":"forms","keywords":["quiz","gutenblocks"],"description":"A simple quiz block.","supports":{"interactivity":true},"attributes":{"questions":{"type":"array","default":[]},"align":{"type":"string","default":"wide"}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScriptModule":"file:./view.js"}');
 
 /***/ })
 

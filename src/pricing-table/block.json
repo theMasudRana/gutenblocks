@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "gutenblocks/pricing-table",
 	"version": "1.0.0",
-	"title": "Pricing Table",
+	"title": "GTB: Pricing Table",
 	"category": "design",
 	"icon": "tablet",
 	"keywords": [ "pricing", "table", "gutenblocks" ],

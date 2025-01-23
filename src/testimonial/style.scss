@@ -1,8 +1,4 @@
 // Styles for the Testimonial block.
-.wp-block-gutenblocks-testimonials {
-	position: relative;
-}
-
 .gtb-testimonial {
 	display: block;
 	position: relative;
@@ -98,4 +94,8 @@
 			right: 0;
 		}
 	}
+}
+
+.wp-block-gutenblocks-testimonials {
+	position: relative;
 }
