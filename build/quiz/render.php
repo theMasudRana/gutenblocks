@@ -19,8 +19,8 @@ $context = array(
 wp_interactivity_state(
 	'gutenblocks/quiz',
 	array(
-		'answered' => 0,
-		'correct' => 0,
+		'answered'   => 0,
+		'correct'    => 0,
 		'allCorrect' => false,
 	) 
 );
@@ -38,21 +38,21 @@ wp_interactivity_state(
 		?>
 			<div class="gtb-quiz__question" data-correct="<?php echo esc_attr( $questionData['correctAnswer'] ); ?>">
 				<h4 class="gtb-quiz__question-title">
-					<?php echo $questionNumber; ?>. <?php echo esc_html( $questionData['question'] ); ?>
+					<?php echo esc_html( $questionNumber ); ?>. <?php echo esc_html( $questionData['question'] ); ?>
 				</h4>
 				<?php foreach ( $questionData['answers'] as $answer ) : ?>
 					<div class="gtb-quiz__answer">
 						<input 
 							class="gtb-quiz__answer-input"
 							type="radio" 
-							name="question_<?php echo $index; ?>" 
-							value="<?php echo esc_attr($answer); ?>"
-							id="<?php echo esc_attr($answer . $index); ?>">
+							name="question_<?php echo esc_attr( $index ); ?>" 
+							value="<?php echo esc_attr( $answer ); ?>"
+							id="<?php echo esc_attr( $answer . $index ); ?>">
 						<label
 							class="gtb-quiz__answer-label"
-							for="<?php echo esc_attr($answer . $index); ?>"
+							for="<?php echo esc_attr( $answer . $index ); ?>"
 						>
-							<?php echo esc_html($answer); ?>
+							<?php echo esc_html( $answer ); ?>
 						</label>
 					</div>
 				<?php endforeach; ?>
