@@ -120,9 +120,13 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="my_prefix"/>
+				<element value="gutenblocks"/>
 			</property>
 		</properties>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>*gutenblocks.php</exclude-pattern>
 	</rule>
 
 

@@ -13,9 +13,10 @@
  * Text Domain:       gutenblocks
  * Domain Path:       /languages
  *
- * @package CreateBlock
+ * @package Gutenblocks
  */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -141,14 +142,13 @@ final class Gutenblocks {
 	/**
 	 * Adding a custom block category
 	 *
-	 * @param array                   $block_categories       Array of categories for block types.
-	 * @param WP_Block_Editor_Context $block_editor_context   The current block editor context.
+	 * @param array $block_categories       Array of categories for block types.
 	 *
 	 * @return array
 	 *
 	 * @since 1.0.0
 	 */
-	public function gutenblock_block_category( $block_categories, $block_editor_context ) {
+	public function gutenblock_block_category( $block_categories ) {
 		return array_merge(
 			$block_categories,
 			array(
@@ -161,16 +161,5 @@ final class Gutenblocks {
 	}
 }
 
-/**
- * Returns the main instance of the plugin
- *
- * @since 1.0.0
- *
- * @return \Gutenblocks
- */
-function gutenblocks() {
-	return Gutenblocks::init();
-}
-
 // kick-off the plugin.
-gutenblocks();
+Gutenblocks::init();
