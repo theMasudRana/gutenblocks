@@ -33,7 +33,7 @@ const pricingTemplate = [
 		'core/list',
 		{ className: 'gtb-pricing__features' },
 		[
-			[ 'core/list-item', { content: '1TB GB Storage' } ],
+			[ 'core/list-item', { content: '1TB Storage' } ],
 			[ 'core/list-item', { content: 'Unlimited Projects' } ],
 			[ 'core/list-item', { content: 'Community Access' } ],
 			[ 'core/list-item', { content: 'Free Backup' } ],
