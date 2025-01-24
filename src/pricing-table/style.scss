@@ -5,8 +5,9 @@
 	$color-contrast: var(--wp--preset--color--contrast);
 	$color-base: var(--wp--preset--color--base);
 
-	text-align: center;
+	box-sizing: border-box;
 	position: relative;
+	text-align: center;
 
 	&__featured {
 		font-size: 12px;
@@ -14,11 +15,13 @@
 		background-color: #de0dd3;
 		color: #fff;
 		position: absolute;
-		right: 0;
-		top: 0;
+		right: 8px;
+		top: 8px;
 		text-transform: uppercase;
 		padding: 4px 8px;
-		transform: translateX(50%);
+		box-sizing: border-box;
+		display: inline-flex;
+		border-radius: 4px;
 	}
 
 	&__title {
@@ -31,11 +34,10 @@
 		font-size: 1rem;
 	}
 
-	&__price-wrapper {
-		margin: 20px 0;
-		padding-bottom: 20px;
+	&__price {
+		font-weight: 600;
 		position: relative;
-		font-size: 18px;
+		padding-bottom: 1.5rem;
 
 		&::before {
 			content: "";
@@ -49,32 +51,12 @@
 		}
 	}
 
-	&__price {
-		font-weight: 600;
-	}
-
-	&__button-link {
-		margin-top: 1rem;
-		padding: 0.5rem 2rem;
-		cursor: pointer;
-		border-radius: 4px;
-		transition: all $transition-speed ease;
-		border: 1px solid $color-contrast;
-		background-color: $color-contrast;
-		color: $color-base;
-		font-size: var(--wp--preset--font-size--small);
-		text-decoration: none;
-		display: inline-block;
-
-		&:hover {
-			background-color: var(--wp--preset--color--contrast-2, #101010);
-			border-color: var(--wp--preset--color--contrast-2);
-			color: $color-base;
-		}
+	&__button {
+		justify-self: center;
 	}
 
 	&__features {
-		margin: 0;
+		margin: 0 0 1.5rem;
 		padding: 0;
 		list-style: none;
 

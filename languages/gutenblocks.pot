@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-23T15:37:39+00:00\n"
+"POT-Creation-Date: 2025-01-24T09:54:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: gutenblocks\n"
 
 #. Plugin Name of the plugin
 #: gutenblocks.php
-#: gutenblocks.php:157
+#: gutenblocks.php:156
 msgid "Gutenblocks"
 msgstr ""
 
@@ -34,29 +34,6 @@ msgstr ""
 #. Author of the plugin
 #: gutenblocks.php
 msgid "Masud Rana"
-msgstr ""
-
-#: build/posts-grid/render.php:71
-#: src/posts-grid/render.php:71
-msgid "Read more"
-msgstr ""
-
-#: build/posts-grid/render.php:78
-#: src/posts-grid/render.php:78
-#: build/posts-grid/index.js:1
-#: src/posts-grid/edit.js:74
-#: build/posts-grid/index.js:270
-msgid "No posts found."
-msgstr ""
-
-#: build/pricing-table/render.php:31
-#: src/pricing-table/render.php:31
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:88
-#: src/pricing-table/edit.js:199
-#: build/pricing-table/index.js:133
-#: build/pricing-table/index.js:244
-msgid "Featured"
 msgstr ""
 
 #: build/quiz/render.php:66
@@ -82,164 +59,6 @@ msgstr ""
 #: build/quiz/render.php:102
 #: src/quiz/render.php:102
 msgid "Close"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:38
-#: build/posts-grid/index.js:38
-msgid "Posts Grid Settings"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:40
-#: build/posts-grid/index.js:40
-msgid "Number of Posts"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:49
-#: build/posts-grid/index.js:49
-msgid "Number of Columns"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:58
-#: build/posts-grid/index.js:58
-msgid "Display Featured Image"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:65
-#: build/posts-grid/index.js:65
-msgid "Display Post Excerpt"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:73
-#: build/posts-grid/index.js:73
-msgid "Excerpt Length"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:80
-#: build/posts-grid/index.js:80
-msgid "Number of words to show in excerpt"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:87
-#: build/posts-grid/index.js:87
-msgid "Order"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:91
-#: build/posts-grid/index.js:91
-msgid "Descending"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/inspector-controls.js:95
-#: build/posts-grid/index.js:95
-msgid "Ascending"
-msgstr ""
-
-#: build/posts-grid/index.js:1
-#: src/posts-grid/components/post-card.js:65
-#: build/posts-grid/index.js:172
-msgid "Read More"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:70
-#: build/pricing-table/index.js:115
-msgid "Pricing Info"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:74
-#: build/pricing-table/index.js:119
-msgid "Title"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:81
-#: build/pricing-table/index.js:126
-msgid "Subtitle"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:96
-#: src/pricing-table/edit.js:100
-#: build/pricing-table/index.js:141
-#: build/pricing-table/index.js:145
-msgid "Price"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:107
-#: build/pricing-table/index.js:152
-msgid "On Sale"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:115
-#: build/pricing-table/index.js:160
-msgid "Sale Price"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:123
-#: build/pricing-table/index.js:168
-msgid "Currency"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:130
-#: build/pricing-table/index.js:175
-msgid "Period"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:137
-#: build/pricing-table/index.js:182
-msgid "Price Separator"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:145
-#: build/pricing-table/index.js:190
-msgid "Features"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:155
-#: build/pricing-table/index.js:200
-msgid "Feature"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:173
-#: build/pricing-table/index.js:218
-msgid "Add Feature"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:177
-#: build/pricing-table/index.js:222
-msgid "Button"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:181
-#: build/pricing-table/index.js:226
-msgid "Text"
-msgstr ""
-
-#: build/pricing-table/index.js:1
-#: src/pricing-table/edit.js:188
-#: build/pricing-table/index.js:233
-msgid "URL"
 msgstr ""
 
 #: build/quiz/index.js:1
@@ -328,40 +147,6 @@ msgstr ""
 msgid "Slide Per View"
 msgstr ""
 
-#: build/posts-grid/block.json
-#: src/posts-grid/block.json
-msgctxt "block title"
-msgid "GTB: Post Grid"
-msgstr ""
-
-#: build/posts-grid/block.json
-#: src/posts-grid/block.json
-msgctxt "block keyword"
-msgid "posts"
-msgstr ""
-
-#: build/posts-grid/block.json
-#: src/posts-grid/block.json
-msgctxt "block keyword"
-msgid "grid"
-msgstr ""
-
-#: build/posts-grid/block.json
-#: build/pricing-table/block.json
-#: build/quiz/block.json
-#: src/posts-grid/block.json
-#: src/pricing-table/block.json
-#: src/quiz/block.json
-msgctxt "block keyword"
-msgid "gutenblocks"
-msgstr ""
-
-#: build/posts-grid/block.json
-#: src/posts-grid/block.json
-msgctxt "block description"
-msgid "Post Grid block for Gutenblocks"
-msgstr ""
-
 #: build/pricing-table/block.json
 #: src/pricing-table/block.json
 msgctxt "block title"
@@ -378,6 +163,14 @@ msgstr ""
 #: src/pricing-table/block.json
 msgctxt "block keyword"
 msgid "table"
+msgstr ""
+
+#: build/pricing-table/block.json
+#: build/quiz/block.json
+#: src/pricing-table/block.json
+#: src/quiz/block.json
+msgctxt "block keyword"
+msgid "gutenblocks"
 msgstr ""
 
 #: build/pricing-table/block.json
