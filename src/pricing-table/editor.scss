@@ -1,0 +1,10 @@
+.gtb-pricing {
+	$self: &;
+
+	.block-editor-block-list__block {
+
+		&#{$self}__featured {
+			position: absolute;
+		}
+	}
+}
