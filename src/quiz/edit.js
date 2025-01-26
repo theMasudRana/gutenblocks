@@ -16,28 +16,36 @@ import { Icon, close } from '@wordpress/icons';
  * @return {JSX.Element}                Block edit component
  */
 const Edit = ( { attributes, setAttributes } ) => {
-	const { questions } = attributes;
+	const { questions, correctAnswers } = attributes;
 
 	// Add a new question
 	const addQuestion = () => {
+		const newQuestions = [
+			...questions,
+			{
+				question: '',
+				answers: [ '' ],
+			},
+		];
+
 		setAttributes( {
-			questions: [
-				...questions,
-				{
-					question: '',
-					answers: [ '' ],
-					correctAnswer: 0,
-				},
-			],
+			questions: newQuestions,
+			correctAnswers: [ ...correctAnswers, 0 ], // Default correct answer index is 0
 		} );
 	};
 
 	// Remove a question
 	const removeQuestion = ( indexToRemove ) => {
+		const newQuestions = questions.filter(
+			( _, index ) => index !== indexToRemove
+		);
+		const newCorrectAnswers = correctAnswers.filter(
+			( _, index ) => index !== indexToRemove
+		);
+
 		setAttributes( {
-			questions: questions.filter(
-				( _, index ) => index !== indexToRemove
-			),
+			questions: newQuestions,
+			correctAnswers: newCorrectAnswers,
 		} );
 	};
 
@@ -79,27 +87,35 @@ const Edit = ( { attributes, setAttributes } ) => {
 
 	// Remove an answer
 	const removeAnswer = ( questionIndex, answerIndex ) => {
+		const newQuestions = questions.map( ( q, i ) =>
+			i === questionIndex
+				? {
+						...q,
+						answers: q.answers.filter(
+							( _, j ) => j !== answerIndex
+						),
+				  }
+				: q
+		);
+
+		// Adjust the correct answer index if the removed answer was before the correct answer
+		const newCorrectAnswers = correctAnswers.map( ( ca, i ) =>
+			i === questionIndex && answerIndex < ca ? ca - 1 : ca
+		);
+
 		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? {
-							...q,
-							answers: q.answers.filter(
-								( _, j ) => j !== answerIndex
-							),
-					  }
-					: q
-			),
+			questions: newQuestions,
+			correctAnswers: newCorrectAnswers,
 		} );
 	};
 
 	// Set the correct answer
 	const setCorrectAnswer = ( questionIndex, answer ) => {
+		const newCorrectAnswer = parseInt( answer, 10 );
+
 		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? { ...q, correctAnswer: parseInt( answer, 10 ) }
-					: q
+			correctAnswers: correctAnswers.map( ( ca, i ) =>
+				i === questionIndex ? newCorrectAnswer : ca
 			),
 		} );
 	};
@@ -153,10 +169,10 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<RadioControl
 						className="gtb-quiz__correct-answer"
 						label={ __( 'Correct Answer', 'gutenblocks' ) }
-						selected={ question.correctAnswer.toString() }
+						selected={ correctAnswers[ questionIndex ]?.toString() }
 						options={ question.answers.map( ( answer, index ) => ( {
 							label: answer || `Answer ${ index + 1 }`,
-							value: index.toString(),
+							value: index?.toString(),
 						} ) ) }
 						onChange={ ( value ) =>
 							setCorrectAnswer( questionIndex, value )

@@ -13,7 +13,7 @@ if ( empty( $attributes['questions'] ) ) {
 }
 
 $context = array(
-	'questions' => $attributes['questions'],
+	'questions' => $attributes['questions'] ?? [],
 );
 
 wp_interactivity_state(
@@ -22,6 +22,7 @@ wp_interactivity_state(
 		'answered'   => 0,
 		'correct'    => 0,
 		'allCorrect' => false,
+		'correctAnswers'    => $attributes['correctAnswers'] ?? [],
 	) 
 );
 
