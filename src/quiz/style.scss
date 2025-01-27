@@ -1,10 +1,35 @@
-// Style for the Quiz block
+// Variables
+$border-radius: 4px;
+$transition-speed: 0.3s;
+$color-contrast: var(--wp--preset--color--contrast);
+$color-base: var(--wp--preset--color--base);
+$color-border: #e5e5e5;
+$color-white: #fff;
+$shadow-default: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
+$shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+
+// Mixins
+@mixin transition($properties...) {
+	transition: $transition-speed ease;
+	transition-property: $properties;
+}
+
+@mixin box-shadow($shadow) {
+	box-shadow: $shadow;
+}
+
+@mixin radio-pseudo {
+	content: "";
+	position: absolute;
+	border-radius: 50%;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 1rem;
+}
+
+// Main styles
 .gtb-quiz {
 	$self: &;
-	$border-radius: 4px;
-	$transition-speed: 0.3s;
-	$color-contrast: var(--wp--preset--color--contrast);
-	$color-base: var(--wp--preset--color--base);
 
 	&__wrapper {
 		display: grid;
@@ -14,19 +39,21 @@
 
 	&__question {
 		padding: 1rem;
-		box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 		border-radius: $border-radius;
-		transition: box-shadow $transition-speed ease;
 		position: relative;
 
-		&:hover {
-			box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
-		}
-	}
+		@include box-shadow($shadow-default);
+		@include transition(box-shadow);
 
-	&__question-title {
-		font-size: 1.5rem;
-		margin-top: 0;
+		&:hover {
+
+			@include box-shadow($shadow-hover);
+		}
+
+		&-title {
+			font-size: 1.5rem;
+			margin-top: 0;
+		}
 	}
 
 	&__answer {
@@ -37,11 +64,8 @@
 			margin-bottom: 1rem;
 		}
 
-		&-option {
-
-			label {
-				cursor: pointer;
-			}
+		&-option label {
+			cursor: pointer;
 		}
 
 		&-input {
@@ -50,6 +74,8 @@
 			pointer-events: none;
 
 			&:checked + #{$self}__answer-label {
+				background: #dcfce7;
+				border-color: transparent;
 
 				&::after {
 					transform: scale(1);
@@ -59,34 +85,30 @@
 
 		&-label {
 			position: relative;
-			padding-left: 28px;
 			cursor: pointer;
 			line-height: 20px;
 			display: inline-block;
-			color: #666;
+			border: 1px solid $color-border;
+			border-radius: $border-radius;
+			width: 100%;
+			padding: 1rem 1rem 1rem 3rem;
 
-			@mixin pseudo-base {
-				content: "";
-				position: absolute;
-				border-radius: 50%;
-			}
+			@include transition(all);
 
 			&::before {
 
-				@include pseudo-base;
-				left: 0;
-				top: 0;
+				@include radio-pseudo;
 				width: 18px;
 				height: 18px;
-				border: 1px solid #ddd;
-				background: #fff;
+				border: 1px solid $color-border;
+				background: $color-white;
 			}
 
 			&::after {
 
-				@include pseudo-base;
-				top: 4px;
-				left: 4px;
+				@include radio-pseudo;
+				top: calc(50% - 6px);
+				left: calc(1rem + 4px);
 				width: 12px;
 				height: 12px;
 				background: #008000;
@@ -101,11 +123,12 @@
 		padding: 1rem 2rem;
 		cursor: pointer;
 		border-radius: $border-radius;
-		transition: all $transition-speed ease;
 		border: 1px solid $color-contrast;
 		background-color: $color-contrast;
 		color: $color-base;
 		font-size: var(--wp--preset--font-size--medium);
+
+		@include transition(all);
 
 		&:hover {
 			background-color: var(--wp--preset--color--contrast-2, #101010);
@@ -116,17 +139,18 @@
 
 	&__status-dialog {
 		padding: 20px;
-		border: 1px solid #ddd;
+		border: 1px solid $color-border;
 		border-radius: $border-radius;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		min-width: 300px;
+
+		@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	}
 
 	&__dialog-close {
 		margin-top: 15px;
 		padding: 8px 16px;
 		background-color: #f0f0f0;
-		border: 1px solid #ddd;
+		border: 1px solid $color-border;
 		border-radius: $border-radius;
 		cursor: pointer;
 

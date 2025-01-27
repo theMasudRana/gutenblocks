@@ -53,8 +53,7 @@ const { state } = store( 'gutenblocks/quiz', {
 				if ( userAnswer ) {
 					state.answered++;
 					if (
-						userAnswer ===
-						question.answers[ question.correctAnswer ]
+						userAnswer === question.answers[ state.list[ index ] ]
 					) {
 						state.correct++;
 					}

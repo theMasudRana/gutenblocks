@@ -2,7 +2,7 @@
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 // Internal dependencies
-import pricingTemplate from './utils/utils';
+import pricingTemplate from './utils';
 
 /**
  * Edit component.
@@ -17,7 +17,7 @@ const Edit = ( { attributes } ) => {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks,
 		template: pricingTemplate,
-		templateLock: 'insert',
+		templateLock: 'all',
 	} );
 
 	return <div { ...innerBlocksProps } />;
