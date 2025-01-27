@@ -18,8 +18,17 @@ Gutenblocks is a powerful WordPress plugin that extends the Gutenberg editor wit
 ## Available blocks
 
 1. Interactive Quiz
-2. Testimonial Slider
-3. Pricing Table
+   
+   <img width="680" alt="Interactive quiz block" src="https://github.com/user-attachments/assets/caf0a67e-79a2-4657-882a-a8f6a2f2c916" />
+
+3. Testimonial Slider
+   
+   <img width="687" alt="Testimonial slider" src="https://github.com/user-attachments/assets/0cb37735-a245-4422-9d43-4b0884f13a7d" />
+
+5. Pricing Table
+   
+   <img width="670" alt="Pricing table block" src="https://github.com/user-attachments/assets/a06e0201-073a-4b99-89c5-8f2c7c772ae0" />
+
 
 ## Installation
 
