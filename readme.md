@@ -32,7 +32,7 @@ Gutenblocks is a powerful WordPress plugin that extends the Gutenberg editor wit
 
 ## Installation
 
-1. Upload the `gutenblocks.zip` folder to the `/wp-content/plugins/` directory
+1. Upload the [`gutenblocks.zip`](https://github.com/theMasudRana/gutenblocks/releases/download/v1.0.0/gutenblocks.zip) folder to the `/wp-content/plugins/` directory
 3. Extract the .zip file
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
