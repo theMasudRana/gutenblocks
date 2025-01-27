@@ -6,102 +6,36 @@ import { Button, TextControl, RadioControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { Icon, close } from '@wordpress/icons';
 
+// Internal dependencies
+import {
+	updateQuestionText,
+	updateAnswerText,
+	removeAnswer,
+	addAnswer,
+	setCorrectAnswer,
+	removeQuestion,
+	addQuestion,
+} from './utils';
+
 /**
  * Quiz Block Edit Component
  *
- * @param {Object}   props               - Component properties
- * @param {Object}   props.attributes    - Block attributes
- * @param {Function} props.setAttributes - Block attributes update function
+ * @param {Object}   props               Component properties
+ * @param {Object}   props.attributes    Block attributes
+ * @param {Function} props.setAttributes Block attributes update function
  *
  * @return {JSX.Element}                Block edit component
  */
 const Edit = ( { attributes, setAttributes } ) => {
-	const { questions } = attributes;
+	const { questions = [], correctAnswers = [] } = attributes;
 
-	// Add a new question
-	const addQuestion = () => {
-		setAttributes( {
-			questions: [
-				...questions,
-				{
-					question: '',
-					answers: [ '' ],
-					correctAnswer: 0,
-				},
-			],
-		} );
-	};
-
-	// Remove a question
-	const removeQuestion = ( indexToRemove ) => {
-		setAttributes( {
-			questions: questions.filter(
-				( _, index ) => index !== indexToRemove
-			),
-		} );
-	};
-
-	// Update a question
-	const updateQuestion = ( index, newQuestion ) => {
-		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === index ? { ...q, question: newQuestion } : q
-			),
-		} );
-	};
-
-	// Add a new answer
-	const addAnswer = ( questionIndex ) => {
-		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? { ...q, answers: [ ...q.answers, '' ] }
-					: q
-			),
-		} );
-	};
-
-	// Update an answer
-	const updateAnswer = ( questionIndex, answerIndex, newAnswer ) => {
-		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? {
-							...q,
-							answers: q.answers.map( ( a, j ) =>
-								j === answerIndex ? newAnswer : a
-							),
-					  }
-					: q
-			),
-		} );
-	};
-
-	// Remove an answer
-	const removeAnswer = ( questionIndex, answerIndex ) => {
-		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? {
-							...q,
-							answers: q.answers.filter(
-								( _, j ) => j !== answerIndex
-							),
-					  }
-					: q
-			),
-		} );
-	};
-
-	// Set the correct answer
-	const setCorrectAnswer = ( questionIndex, answer ) => {
-		setAttributes( {
-			questions: questions.map( ( q, i ) =>
-				i === questionIndex
-					? { ...q, correctAnswer: parseInt( answer, 10 ) }
-					: q
-			),
-		} );
+	/**
+	 * Generates an attribute update function that preserves existing state
+	 *
+	 * @param {Function} updater - Function to generate new attribute state
+	 */
+	const updateAttribute = ( updater ) => {
+		setAttributes( updater( { questions, correctAnswers } ) );
 	};
 
 	return (
@@ -109,10 +43,18 @@ const Edit = ( { attributes, setAttributes } ) => {
 			{ questions.map( ( question, questionIndex ) => (
 				<div key={ questionIndex } className="gtb-quiz__question">
 					<TextControl
-						label={ __( 'Question', 'gutenblocks' ) }
+						label={ __( 'Enter Question Title', 'gutenblocks' ) }
 						value={ question.question }
+						className="gtb-quiz__question-title"
+						__nextHasNoMarginBottom={ false }
 						onChange={ ( value ) =>
-							updateQuestion( questionIndex, value )
+							updateAttribute( ( state ) =>
+								updateQuestionText(
+									state,
+									questionIndex,
+									value
+								)
+							)
 						}
 					/>
 
@@ -121,11 +63,15 @@ const Edit = ( { attributes, setAttributes } ) => {
 							<TextControl
 								label={ __( 'Answer', 'gutenblocks' ) }
 								value={ answer }
+								__nextHasNoMarginBottom={ true }
 								onChange={ ( value ) =>
-									updateAnswer(
-										questionIndex,
-										answerIndex,
-										value
+									updateAttribute( ( state ) =>
+										updateAnswerText(
+											state,
+											questionIndex,
+											answerIndex,
+											value
+										)
 									)
 								}
 							/>
@@ -133,7 +79,13 @@ const Edit = ( { attributes, setAttributes } ) => {
 								className="gtb-quiz__remove-answer"
 								isDestructive
 								onClick={ () =>
-									removeAnswer( questionIndex, answerIndex )
+									updateAttribute( ( state ) =>
+										removeAnswer(
+											state,
+											questionIndex,
+											answerIndex
+										)
+									)
 								}
 								disabled={ question.answers.length <= 1 }
 							>
@@ -145,7 +97,11 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<Button
 						className="gtb-quiz__add-answer"
 						variant="secondary"
-						onClick={ () => addAnswer( questionIndex ) }
+						onClick={ () =>
+							updateAttribute( ( state ) =>
+								addAnswer( state, questionIndex )
+							)
+						}
 					>
 						{ __( 'Add Answer', 'gutenblocks' ) }
 					</Button>
@@ -153,20 +109,33 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<RadioControl
 						className="gtb-quiz__correct-answer"
 						label={ __( 'Correct Answer', 'gutenblocks' ) }
-						selected={ question.correctAnswer.toString() }
+						selected={
+							correctAnswers[ questionIndex ] !== null &&
+							correctAnswers[ questionIndex ] !== undefined
+								? (
+										correctAnswers[ questionIndex ] ?? ''
+								  ).toString()
+								: undefined
+						}
 						options={ question.answers.map( ( answer, index ) => ( {
 							label: answer || `Answer ${ index + 1 }`,
 							value: index.toString(),
 						} ) ) }
 						onChange={ ( value ) =>
-							setCorrectAnswer( questionIndex, value )
+							updateAttribute( ( state ) =>
+								setCorrectAnswer( state, questionIndex, value )
+							)
 						}
 					/>
 
 					<Button
 						className="gtb-quiz__remove-question"
 						isDestructive
-						onClick={ () => removeQuestion( questionIndex ) }
+						onClick={ () =>
+							updateAttribute( ( state ) =>
+								removeQuestion( state, questionIndex )
+							)
+						}
 					>
 						<Icon icon={ close } />
 					</Button>
@@ -175,7 +144,9 @@ const Edit = ( { attributes, setAttributes } ) => {
 
 			<Button
 				variant="primary"
-				onClick={ addQuestion }
+				onClick={ () =>
+					updateAttribute( ( state ) => addQuestion( state ) )
+				}
 				className="gtb-quiz__add-question"
 			>
 				{ __( 'Add Question', 'gutenblocks' ) }

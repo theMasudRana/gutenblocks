@@ -13,6 +13,10 @@ const pricingTemplate = [
 		{
 			className: 'gtb-pricing__featured',
 			content: 'Featured',
+			lock: {
+				remove: true,
+				move: false,
+			},
 		},
 	],
 	[

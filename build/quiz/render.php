@@ -12,17 +12,20 @@ if ( empty( $attributes['questions'] ) ) {
 	return;
 }
 
+// Set context with questions
 $context = array(
-	'questions' => $attributes['questions'],
+	'questions' => $attributes['questions'] ?? [],
 );
 
+// Interactivity state for the quiz
 wp_interactivity_state(
 	'gutenblocks/quiz',
 	array(
 		'answered'   => 0,
 		'correct'    => 0,
 		'allCorrect' => false,
-	) 
+		'list'       => $attributes['correctAnswers'] ?? [],
+	)
 );
 
 ?>
@@ -36,7 +39,7 @@ wp_interactivity_state(
 		<?php foreach ( $attributes['questions'] as $index => $questionData) : 
 			$questionNumber = $index + 1;
 		?>
-			<div class="gtb-quiz__question" data-correct="<?php echo esc_attr( $questionData['correctAnswer'] ); ?>">
+			<div class="gtb-quiz__question">
 				<h4 class="gtb-quiz__question-title">
 					<?php echo esc_html( $questionNumber ); ?>. <?php echo esc_html( $questionData['question'] ); ?>
 				</h4>

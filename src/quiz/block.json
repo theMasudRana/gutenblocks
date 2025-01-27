@@ -16,6 +16,10 @@
 			"type": "array",
 			"default": []
 		},
+		"correctAnswers": {
+			"type": "array",
+			"default": []
+		},
 		"align": {
 			"type": "string",
 			"default": "wide"
