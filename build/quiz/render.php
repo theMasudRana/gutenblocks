@@ -40,9 +40,9 @@ wp_interactivity_state(
 			$questionNumber = $index + 1;
 		?>
 			<div class="gtb-quiz__question">
-				<h4 class="gtb-quiz__question-title">
+				<h3 class="gtb-quiz__question-title">
 					<?php echo esc_html( $questionNumber ); ?>. <?php echo esc_html( $questionData['question'] ); ?>
-				</h4>
+				</h3>
 				<?php foreach ( $questionData['answers'] as $answer ) : ?>
 					<div class="gtb-quiz__answer">
 						<input 
