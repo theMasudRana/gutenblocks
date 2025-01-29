@@ -2,190 +2,104 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/pricing-table/edit.js":
-/*!***********************************!*\
-  !*** ./src/pricing-table/edit.js ***!
-  \***********************************/
+/***/ "./src/quizcpt/edit.js":
+/*!*****************************!*\
+  !*** ./src/quizcpt/edit.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ Edit)
 /* harmony export */ });
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/pricing-table/utils/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-// WordPress dependencies
 
 
-// Internal dependencies
 
-
-/**
- * Edit component.
- * @param {Object} props            - Component properties.
- * @param {Object} props.attributes - Block attributes.
- *
- * @return {JSX.Element} Block edit component.
- */
-
-const Edit = ({
-  attributes
-}) => {
-  const {
-    allowedBlocks
-  } = attributes;
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)({
-    className: 'gtb-pricing'
+function Edit() {
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    ...blockProps,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+        title: "MCQ Settings",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+          label: "Question",
+          __nextHasNoMarginBottom: true
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+          children: "Quiz Settings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+          label: "Quiz Name",
+          __nextHasNoMarginBottom: true
+        })]
+      })
+    })]
   });
-  const innerBlocksProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps)(blockProps, {
-    allowedBlocks,
-    template: _utils__WEBPACK_IMPORTED_MODULE_1__["default"],
-    templateLock: 'all'
-  });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    ...innerBlocksProps
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
+}
 
 /***/ }),
 
-/***/ "./src/pricing-table/index.js":
-/*!************************************!*\
-  !*** ./src/pricing-table/index.js ***!
-  \************************************/
+/***/ "./src/quizcpt/index.js":
+/*!******************************!*\
+  !*** ./src/quizcpt/index.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./src/pricing-table/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./save */ "./src/pricing-table/save.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/pricing-table/block.json");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style.scss */ "./src/pricing-table/style.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/pricing-table/editor.scss");
-// WordPress dependencies
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/quizcpt/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/quizcpt/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/quizcpt/block.json");
+/**
+ * Registers a new block provided a unique name and an object defining its behavior.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
 
 
-// Internal dependencies
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * All files containing `style` keyword are bundled together. The code used
+ * gets applied both to the front of your site and to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+
+
+/**
+ * Internal dependencies
+ */
 
 
 
-
-
-
-// Register the block
+/**
+ * Every block starts by registering a new block type definition.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
-  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
-  save: _save__WEBPACK_IMPORTED_MODULE_2__["default"]
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 
 /***/ }),
 
-/***/ "./src/pricing-table/save.js":
-/*!***********************************!*\
-  !*** ./src/pricing-table/save.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
-// WordPress dependencies
-
-
-/**
- * Save component.
- *
- * @return {JSX.Element} Block save component.
- */
-
-const Save = () => {
-  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
-    className: 'gtb-pricing'
-  });
-  const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save(blockProps);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    ...innerBlocksProps
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Save);
-
-/***/ }),
-
-/***/ "./src/pricing-table/utils/index.js":
-/*!******************************************!*\
-  !*** ./src/pricing-table/utils/index.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// This array contains the template for the pricing table block.
-const pricingTemplate = [['core/heading', {
-  level: 3,
-  className: 'gtb-pricing__title',
-  content: 'Premium'
-}], ['core/paragraph', {
-  className: 'gtb-pricing__featured',
-  content: 'Featured',
-  lock: {
-    remove: true,
-    move: false
-  }
-}], ['core/paragraph', {
-  className: 'gtb-pricing__subtitle',
-  content: 'Suitable for enterprise'
-}], ['core/paragraph', {
-  className: 'gtb-pricing__price',
-  content: '$280/month'
-}], ['core/list', {
-  className: 'gtb-pricing__features'
-}, [['core/list-item', {
-  content: '1TB Storage'
-}], ['core/list-item', {
-  content: 'Unlimited Projects'
-}], ['core/list-item', {
-  content: 'Community Access'
-}], ['core/list-item', {
-  content: 'Free Backup'
-}], ['core/list-item', {
-  content: 'Custom Integrations'
-}]]], ['core/button', {
-  className: 'gtb-pricing__button',
-  text: 'Buy Now',
-  url: '#'
-}]];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pricingTemplate);
-
-/***/ }),
-
-/***/ "./src/pricing-table/editor.scss":
-/*!***************************************!*\
-  !*** ./src/pricing-table/editor.scss ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./src/pricing-table/style.scss":
-/*!**************************************!*\
-  !*** ./src/pricing-table/style.scss ***!
-  \**************************************/
+/***/ "./src/quizcpt/style.scss":
+/*!********************************!*\
+  !*** ./src/quizcpt/style.scss ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -224,13 +138,23 @@ module.exports = window["wp"]["blocks"];
 
 /***/ }),
 
-/***/ "./src/pricing-table/block.json":
-/*!**************************************!*\
-  !*** ./src/pricing-table/block.json ***!
-  \**************************************/
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/pricing-table","version":"1.0.0","title":"GTB: Pricing Table","category":"gutenblocks-category","icon":"tablet","keywords":["pricing","table","gutenblocks"],"description":"Pricing Table block for Gutenblocks","allowedBlocks":["core/heading","core/paragraph","core/paragraph","core/list","core/button"],"supports":{"color":{"background":true,"text":true},"spacing":{"padding":true,"margin":true},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"alignWide":true},"attributes":{"style":{"type":"object","default":{"color":{"background":"#f9f9f9","text":"#333"},"spacing":{"padding":{"top":"20px","right":"20px","bottom":"20px","left":"20px"}},"border":{"radius":"4px","style":"solid","width":"1px","color":"#ccc"}}}},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "./src/quizcpt/block.json":
+/*!********************************!*\
+  !*** ./src/quizcpt/block.json ***!
+  \********************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"gutenblocks/quizcpt","version":"0.1.0","title":"GTB Quiz CPT","category":"widgets","icon":"smiley","description":"Quiz block with CPT","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"gutenblocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScriptModule":"file:./view.js"}');
 
 /***/ })
 
@@ -344,8 +268,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"pricing-table/index": 0,
-/******/ 			"pricing-table/style-index": 0
+/******/ 			"quizcpt/index": 0,
+/******/ 			"quizcpt/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -395,7 +319,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["pricing-table/style-index"], () => (__webpack_require__("./src/pricing-table/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["quizcpt/style-index"], () => (__webpack_require__("./src/quizcpt/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

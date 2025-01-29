@@ -21,6 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use WP_Error;
+use WP_REST_Controller;
+use WP_REST_Server;
+
+
 /**
  * The main plugin class
  *
@@ -44,6 +49,8 @@ final class Gutenblocks {
 		add_action( 'init', array( $this, 'gutenblock_blocks_init' ) );
 		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
 		add_filter( 'block_categories_all', array( $this, 'gutenblock_block_category' ), 10, 2 );
+		add_action( 'init', array( $this, 'register_quiz_post_type' ) );
+		add_action( 'rest_api_init', array( $this, 'register_quiz_rest_routes' ) );
 	}
 
 	/**
@@ -90,6 +97,7 @@ final class Gutenblocks {
 			'quiz',
 			'testimonial',
 			'pricing-table',
+			'quizcpt',
 		);
 	}
 
@@ -157,6 +165,89 @@ final class Gutenblocks {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Register quiz post type
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function register_quiz_post_type() {
+		register_post_type(
+			'quiz',
+			array(
+				'labels'       => array(
+					'name'          => __( 'Quizzes', 'gutenblocks' ),
+					'singular_name' => __( 'Quiz', 'gutenblocks' ),
+					'add_new_item'  => __( 'Add New Quiz', 'gutenblocks' ),
+				),
+				'public'       => true,
+				'has_archive'  => true,
+				'show_in_rest' => true,
+			)
+		);
+	}
+
+	/**
+	 * Register REST API routes for the quiz post type
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function register_quiz_rest_routes() {
+		register_rest_route(
+			'gutenblocks/v1',
+			'/quizzes',
+			array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_quizzes' ),
+					'permission_callback' => array( $this, 'get_quizzes_permission_check' ),
+				),
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_quiz' ),
+					'permission_callback' => '__return_true',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Get all the quizzes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WP_Error|WP_REST_Response
+	 */
+	public function get_quizzes() {
+
+		$quizzes = get_posts(
+			array(
+				'post_type'      => 'quiz',
+				'posts_per_page' => -1,
+			)
+		);
+
+		if ( empty( $quizzes ) ) {
+			return new WP_Error( 'no_quizzes', 'No quizzes found', array( 'status' => 404 ) );
+		}
+
+		return rest_ensure_response( $quizzes );
+	}
+
+	/**
+	 * Check if has permission to create a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	public function get_quizzes_permission_check() {
+		return current_user_can( 'manage_options' );
 	}
 }
 
