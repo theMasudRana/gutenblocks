@@ -21,10 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use WP_Error;
-use WP_REST_Controller;
-use WP_REST_Server;
-
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * The main plugin class
@@ -46,11 +43,11 @@ final class Gutenblocks {
 	private function __construct() {
 		$this->define_constants();
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		add_action( 'init', array( $this, 'gutenblock_blocks_init' ) );
 		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
 		add_filter( 'block_categories_all', array( $this, 'gutenblock_block_category' ), 10, 2 );
 		add_action( 'init', array( $this, 'register_quiz_post_type' ) );
-		add_action( 'rest_api_init', array( $this, 'register_quiz_rest_routes' ) );
 	}
 
 	/**
@@ -83,6 +80,23 @@ final class Gutenblocks {
 		define( 'GUTENBLOCKS_PATH', __DIR__ );
 		define( 'GUTENBLOCKS_URL', plugins_url( '', GUTENBLOCKS_FILE ) );
 		define( 'GUTENBLOCKS_ASSETS', GUTENBLOCKS_URL . '/assets' );
+	}
+
+	/**
+	 * Initialize the plugin
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init_plugin() {
+		if ( is_admin() ) {
+			new Gutenblocks\Admin();
+		} else {
+			new Gutenblocks\Frontend();
+		}
+
+		new Gutenblocks\API();
 	}
 
 	/**
@@ -188,66 +202,6 @@ final class Gutenblocks {
 				'show_in_rest' => true,
 			)
 		);
-	}
-
-	/**
-	 * Register REST API routes for the quiz post type
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function register_quiz_rest_routes() {
-		register_rest_route(
-			'gutenblocks/v1',
-			'/quizzes',
-			array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_quizzes' ),
-					'permission_callback' => array( $this, 'get_quizzes_permission_check' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'create_quiz' ),
-					'permission_callback' => '__return_true',
-				),
-			)
-		);
-	}
-
-	/**
-	 * Get all the quizzes
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function get_quizzes() {
-
-		$quizzes = get_posts(
-			array(
-				'post_type'      => 'quiz',
-				'posts_per_page' => -1,
-			)
-		);
-
-		if ( empty( $quizzes ) ) {
-			return new WP_Error( 'no_quizzes', 'No quizzes found', array( 'status' => 404 ) );
-		}
-
-		return rest_ensure_response( $quizzes );
-	}
-
-	/**
-	 * Check if has permission to create a quiz
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	public function get_quizzes_permission_check() {
-		return current_user_can( 'manage_options' );
 	}
 }
 

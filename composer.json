@@ -17,5 +17,10 @@
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^3.0",
 		"phpcompatibility/phpcompatibility-wp": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gutenblocks\\": "includes/"
+		}
 	}
 }
