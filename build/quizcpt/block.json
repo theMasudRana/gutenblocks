@@ -12,6 +12,37 @@
     "html": false,
     "interactivity": true
   },
+  "attributes": {
+    "quizTitle": {
+      "type": "string",
+      "default": "Quiz Title"
+    },
+    "quizQuestions": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "correctAnswers": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
   "textdomain": "gutenblocks",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",

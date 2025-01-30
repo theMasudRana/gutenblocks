@@ -33,7 +33,7 @@ class Quiz extends WP_REST_Controller {
 			'/' . $this->rest_base,
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_quiz' ),
+				'callback'            => array( $this, 'get_quizzes' ),
 				'permission_callback' => array( $this, 'get_quizzes_permission_check' ),
 				'args'                => $this->get_collection_params(),
 			)
@@ -41,7 +41,7 @@ class Quiz extends WP_REST_Controller {
 	}
 
 	/**
-	 * Get the quiz
+	 * Get the quizzes
 	 *
 	 * @since 1.0.0
 	 *
@@ -49,32 +49,29 @@ class Quiz extends WP_REST_Controller {
 	 *
 	 * @return array|\WP_Error
 	 */
-	public function get_quiz( $request ) {
+	public function get_quizzes( $request ) {
+		$page     = $request->get_param( 'page' ) ? (int) $request->get_param( 'page' ) : 1;
+		$per_page = $request->get_param( 'per_page' ) ? (int) $request->get_param( 'per_page' ) : 10;
 
-		$args = array();
-
-		$params = $this->get_collection_params();
-
-		foreach ( $params as $key => $value ) {
-			if ( isset( $request[ $key ] ) ) {
-				$args[ $key ] = $request[ $key ];
-			}
-		}
-
-		// TODO: Implement the query to get the quiz.
-
-		$quiz = get_posts(
-			array(
-				'post_type'   => 'quiz',
-				'numberposts' => -1,
-			)
+		$args = array(
+			'post_type'      => 'quiz',
+			'posts_per_page' => $per_page,
+			'paged'          => $page,
+			'post_status'    => 'publish',
 		);
 
-		if ( empty( $quiz ) ) {
-			return new WP_Error( 'no_quiz', 'There are no quiz available', array( 'status' => 404 ) );
-		}
+		// Get the quizzes
+		$query     = new \WP_Query( $args );
+		$total     = $query->found_posts;
+		$max_pages = ceil( $total / $per_page );
+		$quizzes   = $query->get_posts();
 
-		return $quiz;
+		// Add headers
+		$response = new \WP_REST_Response( $quizzes );
+		$response->header( 'X-WP-Total', $total );
+		$response->header( 'X-WP-TotalPages', $max_pages );
+
+		return $response;
 	}
 
 	/**

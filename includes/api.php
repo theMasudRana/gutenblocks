@@ -10,6 +10,11 @@ use Gutenblocks\API\Quiz;
  * @since 1.0.0
  */
 class API {
+	/**
+	 * Constructor
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_api' ) );
 	}
