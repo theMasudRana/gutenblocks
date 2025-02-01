@@ -48,7 +48,6 @@ final class Gutenblocks {
 		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
 		add_filter( 'block_categories_all', array( $this, 'gutenblock_block_category' ), 10, 2 );
 		add_action( 'init', array( $this, 'register_quiz_post_type' ) );
-		add_action( 'save_post', array( $this, 'create_quiz_from_save_post' ), 10, 3 );
 	}
 
 	/**
@@ -210,94 +209,6 @@ final class Gutenblocks {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Create quiz from save post
-	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post    Post object.
-	 * @param bool    $update  Whether this is an existing post being updated or not.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0
-	 */
-	public function create_quiz_from_save_post( $post_id, $post, $update ) {
-		// Avoid infinite loop from autosave.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		// Only proceed if this is a page being saved.
-		if ( 'page' !== $post->post_type ) {
-			return;
-		}
-
-		// Get the content and check if it contains blocks.
-		$content = $post->post_content;
-		if ( ! has_blocks( $content ) ) {
-			return;
-		}
-
-		// Parse blocks.
-		$blocks = parse_blocks( $content );
-
-		foreach ( $blocks as $block ) {
-			if ( isset( $block['blockName'] ) && $block['blockName'] === 'gutenblocks/quizcpt' ) {
-				$heading = isset( $block['attrs']['quizTitle'] ) ? sanitize_text_field( $block['attrs']['quizTitle'] ) : '';
-
-				// Only create post if heading is not empty.
-				if ( ! empty( $heading ) ) {
-					// Check if a post with this title already exists.
-					$existing_posts = new WP_Query(
-						array(
-							'post_type'      => 'post',
-							'post_status'    => 'publish',
-							'title'          => $heading,
-							'posts_per_page' => 1,
-							'fields'         => 'ids', // Optimize query performance.
-						)
-					);
-
-					if ( ! $existing_posts->have_posts() ) {
-						// Prepare post data.
-						$post_id = wp_insert_post(
-							array(
-								'post_title'  => $heading,
-								'post_status' => 'publish',
-								'post_type'   => 'post',
-								'post_author' => get_current_user_id(),
-							)
-						);
-
-						// Extract quiz questions, options, and correct answers.
-						$quiz_questions  = isset( $block['attrs']['questions'] ) ? $block['attrs']['questions'] : array();
-						$correct_answers = isset( $block['attrs']['correctAnswers'] ) ? $block['attrs']['correctAnswers'] : array();
-
-						if ( ! empty( $quiz_questions ) ) {
-							// Format quiz data.
-							$quiz_data = array();
-							foreach ( $quiz_questions as $question ) {
-								$formatted_question = array(
-									'question' => sanitize_text_field( $question['question'] ?? '' ),
-									'options'  => array_map( 'sanitize_text_field', $question['options'] ?? array() ),
-								);
-								$quiz_data[]        = $formatted_question;
-							}
-
-							// Save questions and options as post meta.
-							update_post_meta( $post_id, '_quiz_data', $quiz_data );
-						}
-
-						// Save correct answers as post meta.
-						if ( ! empty( $correct_answers ) ) {
-							update_post_meta( $post_id, '_quiz_correct_answers', array_map( 'sanitize_text_field', $correct_answers ) );
-						}
-					}
-				}
-			}
-		}
 	}
 }
 

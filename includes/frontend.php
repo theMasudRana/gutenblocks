@@ -1,4 +1,11 @@
 <?php
+/**
+ * Frontend class
+ *
+ * @package Gutenblocks
+ *
+ * @since 1.0.0
+ */
 
 namespace Gutenblocks;
 

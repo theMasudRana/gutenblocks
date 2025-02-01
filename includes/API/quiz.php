@@ -1,4 +1,11 @@
 <?php
+/**
+ * Quiz API
+ *
+ * @package Gutenblocks
+ *
+ * @since 1.0.0
+ */
 
 namespace Gutenblocks\API;
 
@@ -28,6 +35,7 @@ class Quiz extends WP_REST_Controller {
 	 * @since 1.0.0
 	 */
 	public function register_routes() {
+		// Register the quiz create and get routes.
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base,
@@ -45,6 +53,25 @@ class Quiz extends WP_REST_Controller {
 					'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 				),
 			)
+		);
+
+		// Register the quiz update and delete routes.
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<id>\d+)',
+			array(
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_quiz' ),
+					'permission_callback' => array( $this, 'update_quiz_permission_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
+				),
+				array(
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_quiz' ),
+					'permission_callback' => array( $this, 'delete_quiz_permission_check' ),
+				),
+			),
 		);
 	}
 
@@ -103,6 +130,28 @@ class Quiz extends WP_REST_Controller {
 	}
 
 	/**
+	 * Check if has permission to update a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	public function update_quiz_permission_check() {
+		return current_user_can( 'edit_posts' );
+	}
+
+	/**
+	 * Check if has permission to delete a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	public function delete_quiz_permission_check() {
+		return current_user_can( 'delete_posts' );
+	}
+
+	/**
 	 * Prepare the quiz for the response
 	 *
 	 * @since 1.0.0
@@ -113,11 +162,11 @@ class Quiz extends WP_REST_Controller {
 	 * @return array
 	 */
 	public function prepare_item_for_response( $item, $request ) {
-		// Get questions and answers from meta
+		// Get questions and answers from meta.
 		$questions       = json_decode( get_post_meta( $item->ID, 'quiz_questions', true ), true ) ?? array();
 		$correct_answers = json_decode( get_post_meta( $item->ID, 'quiz_correct_answers', true ), true ) ?? array();
 
-		// Format questions for display
+		// Format questions for display.
 		$formatted_questions = array();
 		foreach ( $questions as $index => $question ) {
 			$formatted_questions[] = sprintf(
@@ -130,7 +179,7 @@ class Quiz extends WP_REST_Controller {
 						function ( $option ) {
 							return '* ' . $option;
 						},
-						$question['options']
+						$question['answers'] ?? array()
 					)
 				)
 			);
@@ -182,15 +231,15 @@ class Quiz extends WP_REST_Controller {
 	 * @return array|\WP_Error
 	 */
 	public function create_quiz( $request ) {
-		// Get the title and content
+		// Get the title and content.
 		$title   = $request->get_param( 'title' ) ?? '';
 		$content = $request->get_param( 'content' ) ?? '';
 
-		// Get questions and answers from request
+		// Get questions and answers from request.
 		$questions       = $request->get_param( 'questions' ) ?? array();
 		$correct_answers = $request->get_param( 'correct_answers' ) ?? array();
 
-		// Check if the title is empty
+		// Check if the title is empty.
 		if ( empty( $title ) ) {
 			return new WP_Error(
 				'rest_quiz_title_empty',
@@ -199,7 +248,7 @@ class Quiz extends WP_REST_Controller {
 			);
 		}
 
-		// Validate questions and answers
+		// Validate questions and answers.
 		if ( empty( $questions ) ) {
 			return new WP_Error(
 				'rest_quiz_questions_empty',
@@ -216,7 +265,7 @@ class Quiz extends WP_REST_Controller {
 			);
 		}
 
-		// Create the quiz
+		// Create the quiz.
 		$quiz_id = wp_insert_post(
 			array(
 				'post_title'   => $title,
@@ -226,28 +275,108 @@ class Quiz extends WP_REST_Controller {
 			)
 		);
 
-		// Check if the quiz was created
+		// Check if the quiz was created.
 		if ( is_wp_error( $quiz_id ) ) {
 			return $quiz_id;
 		}
 
-		// Format and store questions
+		// Format and store questions.
 		$formatted_questions = array();
 		foreach ( $questions as $index => $question ) {
 			$formatted_questions[] = array(
-				'question' => sanitize_text_field( $question['text'] ),
-				'options'  => array_map( 'sanitize_text_field', $question['options'] ),
+				'question' => sanitize_text_field( $question['question'] ),
+				'answers'  => array_map( 'sanitize_text_field', $question['answers'] ),
 			);
 		}
 
-		// Store questions and correct answers as meta
+		// Store questions and correct answers as meta.
 		update_post_meta( $quiz_id, 'quiz_questions', wp_json_encode( $formatted_questions ) );
 		update_post_meta( $quiz_id, 'quiz_correct_answers', wp_json_encode( array_map( 'sanitize_text_field', $correct_answers ) ) );
 
-		// Get the quiz
+		// Get the quiz.
 		$quiz = get_post( $quiz_id );
 
-		// Return the formatted response
+		// Return the formatted response.
 		return $this->prepare_item_for_response( $quiz, $request );
+	}
+
+	/**
+	 * Update a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request Full data about the request.
+	 *
+	 * @return array|\WP_Error
+	 */
+	public function update_quiz( $request ) {
+		// Get the quiz ID.
+		$quiz_id = $request->get_param( 'id' );
+
+		// Get the title and content.
+		$title   = $request->get_param( 'title' ) ?? '';
+		$content = $request->get_param( 'content' ) ?? '';
+
+		// Get questions and answers from request.
+		$questions       = $request->get_param( 'questions' ) ?? array();
+		$correct_answers = $request->get_param( 'correct_answers' ) ?? array();
+
+		// Validate questions and answers.
+		if ( ! empty( $questions ) && count( $questions ) !== count( $correct_answers ) ) {
+			return new WP_Error(
+				'rest_quiz_answers_mismatch',
+				__( 'Number of correct answers must match number of questions.', 'gutenblocks' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		// Update the quiz post.
+		wp_update_post(
+			array(
+				'ID'           => $quiz_id,
+				'post_title'   => $title,
+				'post_content' => $content,
+			)
+		);
+
+		// Format and update questions if provided.
+		if ( ! empty( $questions ) ) {
+			$formatted_questions = array();
+			foreach ( $questions as $index => $question ) {
+				$formatted_questions[] = array(
+					'question' => sanitize_text_field( $question['question'] ),
+					'answers'  => array_map( 'sanitize_text_field', $question['answers'] ),
+				);
+			}
+
+			// Update post meta.
+			update_post_meta( $quiz_id, 'quiz_questions', wp_json_encode( $formatted_questions ) );
+			update_post_meta( $quiz_id, 'quiz_correct_answers', wp_json_encode( array_map( 'sanitize_text_field', $correct_answers ) ) );
+		}
+
+		// Get the quiz.
+		$quiz = get_post( $quiz_id );
+
+		// Return the formatted response.
+		return $this->prepare_item_for_response( $quiz, $request );
+	}
+
+	/**
+	 * Delete a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request Full data about the request.
+	 *
+	 * @return array|\WP_Error
+	 */
+	public function delete_quiz( $request ) {
+		// Get the quiz ID.
+		$quiz_id = $request->get_param( 'id' );
+
+		// Delete the quiz.
+		wp_delete_post( $quiz_id, true );
+
+		return array( 'message' => 'Quiz deleted successfully' );
 	}
 }

@@ -8,7 +8,11 @@
  * Replace them with your own styles or remove the file completely.
  */
 .wp-block-gutenblocks-quizcpt {
-  background-color: #21759b;
-  color: #fff;
-  padding: 2px;
+  padding: 20px;
+}
+
+.gtbc-quiz__question-title {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
 }

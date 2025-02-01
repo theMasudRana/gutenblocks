@@ -6,7 +6,12 @@
  */
 
 .wp-block-gutenblocks-quizcpt {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	padding: 20px;
+}
+.gtbc-quiz {
+	&__question-title {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: .5rem;
+	}
 }

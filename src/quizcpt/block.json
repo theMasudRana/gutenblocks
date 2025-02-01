@@ -13,28 +13,17 @@
 		"interactivity": true
 	},
 	"attributes": {
-		"quizTitle": {
+		"title": {
 			"type": "string",
-			"default": "Quiz Title"
+			"default": ""
 		},
-		"quizQuestions": {
+		"questions": {
 			"type": "array",
-			"default": [],
-			"items": {
-				"type": "object",
-				"properties": {
-					"question": { "type": "string" },
-					"options": {
-						"type": "array",
-						"items": { "type": "string" }
-					}
-				}
-			}
+			"default": []
 		},
 		"correctAnswers": {
 			"type": "array",
-			"default": [],
-			"items": { "type": "string" }
+			"default": []
 		}
 	},
 	"textdomain": "gutenblocks",
