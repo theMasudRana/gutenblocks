@@ -182,35 +182,15 @@ class Quiz extends WP_REST_Controller {
 	 * @return array
 	 */
 	public function prepare_item_for_response( $item, $request ) {
-		// Get questions and answers from meta.
+		// Get questions and answers from meta
 		$questions       = json_decode( get_post_meta( $item->ID, 'quiz_questions', true ), true ) ?? array();
 		$correct_answers = json_decode( get_post_meta( $item->ID, 'quiz_correct_answers', true ), true ) ?? array();
-
-		// Format questions for display.
-		$formatted_questions = array();
-		foreach ( $questions as $index => $question ) {
-			$formatted_questions[] = sprintf(
-				"%d. %s\n%s",
-				$index + 1,
-				$question['question'],
-				implode(
-					"\n",
-					array_map(
-						function ( $option ) {
-							return '* ' . $option;
-						},
-						$question['answers'] ?? array()
-					)
-				)
-			);
-		}
 
 		$data = array(
 			'id'              => $item->ID,
 			'title'           => $item->post_title,
 			'content'         => $item->post_content,
-			'status'          => $item->post_status,
-			'questions'       => $formatted_questions,
+			'questions'       => $questions,
 			'correct_answers' => $correct_answers,
 		);
 

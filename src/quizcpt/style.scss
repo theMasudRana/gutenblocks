@@ -11,13 +11,48 @@
 
 .gtb-quiz {
 
-	&__question-title {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.5rem;
-	}
-
 	&__create-button {
 		margin-top: 1rem;
+	}
+
+
+	&__question {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+		position: relative;
+	}
+
+	&__question-info {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		flex: 0 0 calc(100% - 64px);
+		gap: 1rem;
+	}
+
+	&__question-title {
+		width: 100%;
+	}
+
+	&__answer {
+		position: relative;
+	}
+
+	&__remove-answer {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		padding: 0 5px;
+		height: 32px;
+		transform: translateX(100%);
+	}
+
+	&__remove-question {
+		position: absolute;
+		right: 0;
+		top: 24px;
+		height: 40px;
 	}
 }

@@ -1,11 +1,10 @@
-import { useBlockProps } from '@wordpress/block-editor';
-import { useRef, useState, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
+import { useEffect, useRef, useState } from '@wordpress/element';
 
 /**
  * Returns `true` if the post is done saving, `false` otherwise.
  *
- * @returns {Boolean}
+ * @return {boolean} True if the post is done saving, false otherwise.
  */
 const useAfterSave = () => {
 	const [ isPostSaved, setIsPostSaved ] = useState( false );
