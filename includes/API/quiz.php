@@ -71,12 +71,17 @@ class Quiz extends WP_REST_Controller {
 					'callback'            => array( $this, 'delete_quiz' ),
 					'permission_callback' => array( $this, 'delete_quiz_permission_check' ),
 				),
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_quiz' ),
+					'permission_callback' => array( $this, 'get_quiz_permission_check' ),
+				),
 			),
 		);
 	}
 
 	/**
-	 * Get the quizzes
+	 * Get all quizzes
 	 *
 	 * @since 1.0.0
 	 *
@@ -149,6 +154,17 @@ class Quiz extends WP_REST_Controller {
 	 */
 	public function delete_quiz_permission_check() {
 		return current_user_can( 'delete_posts' );
+	}
+
+	/**
+	 * Get the quiz permission check
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	public function get_quiz_permission_check() {
+		return current_user_can( 'edit_posts' );
 	}
 
 	/**
@@ -378,5 +394,25 @@ class Quiz extends WP_REST_Controller {
 		wp_delete_post( $quiz_id, true );
 
 		return array( 'message' => 'Quiz deleted successfully' );
+	}
+
+	/**
+	 * Get a quiz
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request Full data about the request.
+	 *
+	 * @return array|\WP_Error
+	 */
+	public function get_quiz( $request ) {
+		// Get the quiz ID.
+		$quiz_id = $request->get_param( 'id' );
+
+		// Get the quiz.
+		$quiz = get_post( $quiz_id );
+
+		// Return the formatted response.
+		return $this->prepare_item_for_response( $quiz, $request );
 	}
 }

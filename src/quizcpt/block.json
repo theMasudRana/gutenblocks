@@ -13,6 +13,10 @@
 		"interactivity": true
 	},
 	"attributes": {
+		"id": {
+			"type": "number",
+			"default": 0
+		},
 		"title": {
 			"type": "string",
 			"default": ""

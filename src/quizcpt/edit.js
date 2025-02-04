@@ -11,7 +11,9 @@ import {
 import { __ } from '@wordpress/i18n';
 import { close, plus } from '@wordpress/icons';
 import './editor.scss';
-
+import useAfterSave from './utils';
+import apiFetch from '@wordpress/api-fetch';
+import { useEffect, useState } from '@wordpress/element';
 /**
  * Edit component for the Quiz block
  *
@@ -21,10 +23,68 @@ import './editor.scss';
  * @returns {JSX.Element} The Edit component
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { title, questions, correctAnswers } = attributes;
+	const { title, questions, correctAnswers, id } = attributes;
+	const [ hasChanges, setHasChanges ] = useState( false );
 	const blockProps = useBlockProps();
+	const isPostSaved = useAfterSave();
 
-	console.log( questions );
+	// Track changes to quiz data
+	useEffect( () => {
+		setHasChanges( true );
+	}, [ title, questions, correctAnswers ] );
+
+	// If the post is saved and the id is 0, create a new quiz.
+	if ( isPostSaved && 0 === id ) {
+		apiFetch( {
+			path: '/gutenblocks/v1/quizzes',
+			method: 'POST',
+			data: {
+				title: title,
+				content: 'Quiz Description',
+				questions: questions.map( ( q ) => ( {
+					question: q.question,
+					answers: q.answers,
+				} ) ),
+				correct_answers: correctAnswers.map( ( index ) => {
+					return String.fromCharCode( 65 + parseInt( index ) );
+				} ),
+				status: 'publish',
+			},
+		} )
+			.then( ( response ) => {
+				setAttributes( { id: response.id } );
+				console.log( 'Quiz created:', response );
+			} )
+			.catch( ( error ) => {
+				console.error( 'Error creating quiz:', error );
+			} );
+	}
+
+	// If the post is saved and the id is not 0, update the quiz.
+	if ( isPostSaved && 0 !== id && hasChanges ) {
+		apiFetch( {
+			path: `/gutenblocks/v1/quizzes/${ id }`,
+			method: 'PUT',
+			data: {
+				title: title,
+				content: 'Quiz Description',
+				questions: questions.map( ( q ) => ( {
+					question: q.question,
+					answers: q.answers,
+				} ) ),
+				correct_answers: correctAnswers.map( ( index ) => {
+					return String.fromCharCode( 65 + parseInt( index ) );
+				} ),
+			},
+		} )
+			.then( ( response ) => {
+				console.log( 'Quiz updated:', response );
+				setHasChanges( false ); // Reset changes flag after successful update
+			} )
+			.catch( ( error ) => {
+				console.error( 'Error updating quiz:', error );
+			} );
+	}
 
 	// Update quiz title
 	const updateQuizTitle = ( value ) => {

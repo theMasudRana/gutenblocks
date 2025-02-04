@@ -8,10 +8,12 @@
 .wp-block-gutenblocks-quizcpt {
 	padding: 20px;
 }
+
 .gtbc-quiz {
+
 	&__question-title {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: .5rem;
+		gap: 0.5rem;
 	}
 }
