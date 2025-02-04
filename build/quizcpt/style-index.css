@@ -11,10 +11,13 @@
   padding: 20px;
 }
 
-.gtbc-quiz__question-title {
+.gtb-quiz__question-title {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.5rem;
+}
+.gtb-quiz__create-button {
+  margin-top: 1rem;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

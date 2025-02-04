@@ -104,10 +104,14 @@ class Quiz extends WP_REST_Controller {
 		$query     = new \WP_Query( $args );
 		$total     = $query->found_posts;
 		$max_pages = ceil( $total / $per_page );
-		$quizzes   = $query->get_posts();
+		
+		// Format quizzes with meta data
+		$formatted_quizzes = array_map( function( $quiz ) {
+			return $this->prepare_item_for_response( $quiz, null );
+		}, $query->get_posts() );
 
 		// Add headers.
-		$response = new \WP_REST_Response( $quizzes );
+		$response = new \WP_REST_Response( $formatted_quizzes );
 		$response->header( 'X-WP-Total', $total );
 		$response->header( 'X-WP-TotalPages', $max_pages );
 

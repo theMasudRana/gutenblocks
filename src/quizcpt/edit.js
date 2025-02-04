@@ -7,6 +7,9 @@ import {
 	RadioControl,
 	TextControl,
 	Icon,
+	SelectControl,
+	Spinner,
+	BaseControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { close, plus } from '@wordpress/icons';
@@ -14,6 +17,7 @@ import './editor.scss';
 import useAfterSave from './utils';
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 /**
  * Edit component for the Quiz block
  *
@@ -23,268 +27,102 @@ import { useEffect, useState } from '@wordpress/element';
  * @returns {JSX.Element} The Edit component
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { title, questions, correctAnswers, id } = attributes;
-	const [ hasChanges, setHasChanges ] = useState( false );
+	const { id } = attributes;
+	const [ quizData, setQuizData ] = useState( {
+		title: '',
+		questions: [],
+		correctAnswers: [],
+	} );
 	const blockProps = useBlockProps();
 	const isPostSaved = useAfterSave();
 
-	// Track changes to quiz data
+	const { quizzes, isLoading } = useSelect( ( select ) => ( {
+		quizzes:
+			select( 'core' ).getEntityRecords( 'postType', 'quiz', {
+				per_page: -1,
+			} ) || [],
+		isLoading: select( 'core' ).isResolving( 'getEntityRecords', [
+			'postType',
+			'quiz',
+			{ per_page: -1 },
+		] ),
+	} ) );
+
+	console.log( id );
+
+	// Fetch quiz for specific ID
+	const fetchQuizData = async ( quizId ) => {
+		try {
+			const response = await apiFetch( {
+				path: `/gutenblocks/v1/quizzes/${ quizId }`,
+			} );
+			setQuizData( {
+				title: response.title,
+				questions: response.questions || [],
+				correctAnswers: response.correct_answers || [],
+			} );
+		} catch ( error ) {
+			console.error( 'Error fetching quiz data:', error );
+		}
+	};
+
+	// Fetch quiz data when ID changes
 	useEffect( () => {
-		setHasChanges( true );
-	}, [ title, questions, correctAnswers ] );
-
-	// If the post is saved and the id is 0, create a new quiz.
-	if ( isPostSaved && 0 === id ) {
-		apiFetch( {
-			path: '/gutenblocks/v1/quizzes',
-			method: 'POST',
-			data: {
-				title: title,
-				content: 'Quiz Description',
-				questions: questions.map( ( q ) => ( {
-					question: q.question,
-					answers: q.answers,
-				} ) ),
-				correct_answers: correctAnswers.map( ( index ) => {
-					return String.fromCharCode( 65 + parseInt( index ) );
-				} ),
-				status: 'publish',
-			},
-		} )
-			.then( ( response ) => {
-				setAttributes( { id: response.id } );
-				console.log( 'Quiz created:', response );
-			} )
-			.catch( ( error ) => {
-				console.error( 'Error creating quiz:', error );
-			} );
-	}
-
-	// If the post is saved and the id is not 0, update the quiz.
-	if ( isPostSaved && 0 !== id && hasChanges ) {
-		apiFetch( {
-			path: `/gutenblocks/v1/quizzes/${ id }`,
-			method: 'PUT',
-			data: {
-				title: title,
-				content: 'Quiz Description',
-				questions: questions.map( ( q ) => ( {
-					question: q.question,
-					answers: q.answers,
-				} ) ),
-				correct_answers: correctAnswers.map( ( index ) => {
-					return String.fromCharCode( 65 + parseInt( index ) );
-				} ),
-			},
-		} )
-			.then( ( response ) => {
-				console.log( 'Quiz updated:', response );
-				setHasChanges( false ); // Reset changes flag after successful update
-			} )
-			.catch( ( error ) => {
-				console.error( 'Error updating quiz:', error );
-			} );
-	}
-
-	// Update quiz title
-	const updateQuizTitle = ( value ) => {
-		setAttributes( { title: value } );
-	};
-
-	// Add a new question
-	const addQuestion = () => {
-		setAttributes( {
-			questions: [ ...questions, { question: '', answers: [ '' ] } ],
-			correctAnswers: [ ...correctAnswers, 0 ],
-		} );
-	};
-
-	const removeQuestion = ( index ) => {
-		setAttributes( {
-			questions: questions.filter( ( _, i ) => i !== index ),
-			correctAnswers: correctAnswers.filter( ( _, i ) => i !== index ),
-		} );
-	};
-
-	const updateQuestion = ( index, value ) => {
-		const updatedQuestions = [ ...questions ];
-		updatedQuestions[ index ] = {
-			...updatedQuestions[ index ],
-			question: value,
-		};
-		setAttributes( { questions: updatedQuestions } );
-	};
-
-	const updateAnswer = ( questionIndex, answerIndex, value ) => {
-		const updatedQuestions = [ ...questions ];
-		updatedQuestions[ questionIndex ] = {
-			...updatedQuestions[ questionIndex ],
-			answers: updatedQuestions[ questionIndex ].answers.map(
-				( answer, i ) => ( i === answerIndex ? value : answer )
-			),
-		};
-		setAttributes( { questions: updatedQuestions } );
-	};
-
-	const addAnswer = ( questionIndex ) => {
-		const updatedQuestions = [ ...questions ];
-		updatedQuestions[ questionIndex ] = {
-			...updatedQuestions[ questionIndex ],
-			answers: [ ...updatedQuestions[ questionIndex ].answers, '' ],
-		};
-		setAttributes( { questions: updatedQuestions } );
-	};
-
-	const removeAnswer = ( questionIndex, answerIndex ) => {
-		const updatedQuestions = [ ...questions ];
-		updatedQuestions[ questionIndex ] = {
-			...updatedQuestions[ questionIndex ],
-			answers: updatedQuestions[ questionIndex ].answers.filter(
-				( _, i ) => i !== answerIndex
-			),
-		};
-		setAttributes( { questions: updatedQuestions } );
-	};
-
-	const setCorrectAnswer = ( questionIndex, value ) => {
-		const updatedCorrectAnswers = [ ...correctAnswers ];
-		updatedCorrectAnswers[ questionIndex ] = parseInt( value );
-		setAttributes( { correctAnswers: updatedCorrectAnswers } );
-	};
+		if ( id && 0 !== id ) {
+			fetchQuizData( id );
+		}
+	}, [ id ] );
 
 	return (
 		<div { ...blockProps }>
-			<InspectorControls>
-				<PanelBody
-					title={ __( 'Quiz Settings', 'gutenblocks' ) }
-					className="quiz-settings"
-					initialOpen={ true }
-				></PanelBody>
-			</InspectorControls>
-
 			<div className="gtb-quiz">
-				<TextControl
-					label={ __( 'Quiz Title', 'gutenblocks' ) }
-					__nextHasNoMarginBottom={ false }
-					__next40pxDefaultSize={ true }
-					value={ title }
-					onChange={ updateQuizTitle }
-				/>
+				{ isLoading ? (
+					<div className="gtb-quiz__select-loading">
+						<Spinner />
+						{ __( 'Loading quizzes...', 'gutenblocks' ) }
+					</div>
+				) : (
+					<div className="gtb-quiz__select">
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom={ true }
+							label="Select a quiz"
+							value={ id }
+							onChange={ ( value ) => {
+								setAttributes( {
+									id: parseInt( value, 10 ),
+								} );
+							} }
+							options={ [
+								{
+									disabled: false,
+									label: __( 'Select a quiz', 'gutenblocks' ),
+									value: 0,
+								},
+								...quizzes.map( ( quiz ) => ( {
+									label: quiz.title.rendered,
+									value: quiz.id,
+								} ) ),
+							] }
+						/>
 
-				{ questions.map( ( question, index ) => (
-					<Panel
-						className="gtbc-quiz__question"
-						key={ `question-${ index }` }
-					>
-						<PanelBody
-							title={ `Question ${ index + 1 }` }
-							initialOpen={ 0 === index ? true : false }
-						>
-							<PanelRow className="gtbc-quiz__question-title">
-								<TextControl
-									label={ __( 'Title', 'gutenblocks' ) }
-									__nextHasNoMarginBottom={ true }
-									value={ question.question }
-									onChange={ ( value ) =>
-										updateQuestion( index, value )
-									}
-								/>
-
-								{ question?.answers?.map(
-									( answer, answerIndex ) => (
-										<div
-											key={ answerIndex }
-											className="gtb-quiz__answer"
-										>
-											<TextControl
-												label={ __(
-													'Answer',
-													'gutenblocks'
-												) }
-												value={ answer }
-												__nextHasNoMarginBottom={ true }
-												onChange={ ( value ) =>
-													updateAnswer(
-														index,
-														answerIndex,
-														value
-													)
-												}
-											/>
-											<Button
-												className="gtb-quiz__remove-answer"
-												isDestructive
-												onClick={ () =>
-													removeAnswer(
-														index,
-														answerIndex
-													)
-												}
-												disabled={
-													question?.answers?.length <=
-													1
-												}
-											>
-												<Icon icon={ close } />
-											</Button>
-										</div>
-									)
+						{ 0 === id && (
+							<BaseControl
+								className="gtb-quiz__create-button"
+								__nextHasNoMarginBottom={ true }
+								label={ __(
+									'Or Create New Quiz',
+									'gutenblocks'
 								) }
-
-								<Button
-									className="gtb-quiz__add-answer"
-									variant="secondary"
-									onClick={ () => addAnswer( index ) }
-								>
-									{ __( 'Add Answer', 'gutenblocks' ) }
-								</Button>
-
-								<RadioControl
-									className="gtb-quiz__correct-answer"
-									label={ __(
-										'Correct Answer',
-										'gutenblocks'
-									) }
-									selected={
-										correctAnswers[ index ] !== null &&
-										correctAnswers[ index ] !== undefined
-											? (
-													correctAnswers[ index ] ??
-													''
-											  ).toString()
-											: undefined
-									}
-									options={ question.answers.map(
-										( answer, index ) => ( {
-											label:
-												answer ||
-												`Answer ${ index + 1 }`,
-											value: index.toString(),
-										} )
-									) }
-									onChange={ ( value ) =>
-										setCorrectAnswer( index, value )
-									}
-								/>
-							</PanelRow>
-							<Button
-								icon={ close }
-								onClick={ () => removeQuestion( index ) }
 							>
-								{ __( 'Remove', 'gutenblocks' ) }
-							</Button>
-						</PanelBody>
-					</Panel>
-				) ) }
-
-				<Button
-					variant="primary"
-					onClick={ addQuestion }
-					icon={ plus }
-					style={ { marginTop: '16px' } }
-				>
-					{ __( 'Add Question', 'gutenblocks' ) }
-				</Button>
+								<Button variant="primary">
+									<Icon icon={ plus } />
+									{ __( 'Create Quiz', 'gutenblocks' ) }
+								</Button>
+							</BaseControl>
+						) }
+					</div>
+				) }
 			</div>
 		</div>
 	);

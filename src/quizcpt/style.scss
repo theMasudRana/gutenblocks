@@ -9,11 +9,15 @@
 	padding: 20px;
 }
 
-.gtbc-quiz {
+.gtb-quiz {
 
 	&__question-title {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.5rem;
+	}
+
+	&__create-button {
+		margin-top: 1rem;
 	}
 }
