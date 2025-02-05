@@ -2,30 +2,23 @@
  * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { Button, TextControl, Icon } from '@wordpress/components';
+import { Button, Icon, TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { addCard, help, addSubmenu } from '@wordpress/icons';
+import { addCard, addSubmenu, help } from '@wordpress/icons';
+
 // Components.
 import { Question as QuizQuestion } from './components/question';
 import { QuizSelect } from './components/quiz-select';
 import './editor.scss';
 
 // Hooks.
-import {
-	DEFAULT_QUESTION,
-	DEFAULT_QUIZ_STATE,
-	useQuizData,
-	useAfterSave,
-} from './hooks';
+import { DEFAULT_QUESTION, DEFAULT_QUIZ_STATE, useQuizData } from './hooks';
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { id } = attributes;
 	const blockProps = useBlockProps();
-
-	// TODO: Need to work here to fix the post save twice issue.
-	const isPostSaved = useAfterSave();
 
 	const { quizzes, isLoading } = useSelect( ( select ) => ( {
 		quizzes:
@@ -41,7 +34,6 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const { quizData, setQuizData, error, isSaving, fetchQuizData, saveQuiz } =
 		useQuizData( id, ( newId ) => setAttributes( { id: newId } ) );
-
 	const [ showForm, setShowForm ] = useState( false );
 
 	useEffect( () => {
@@ -86,7 +78,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	return (
 		<div { ...blockProps }>
-			<div className="gtb-quiz">
+			<div className="gtb-quiz-edit">
 				<QuizSelect
 					id={ id }
 					quizzes={ quizzes }
@@ -96,9 +88,11 @@ export default function Edit( { attributes, setAttributes } ) {
 				/>
 
 				{ ( id !== 0 || showForm ) && (
-					<div className="gtb-quiz__form">
+					<div className="gtb-quiz-edit__form">
 						{ error && (
-							<div className="gtb-quiz__error">{ error }</div>
+							<div className="gtb-quiz-edit__error">
+								{ error }
+							</div>
 						) }
 						<TextControl
 							label={ __( 'Quiz Title', 'gutenblocks' ) }
@@ -126,11 +120,11 @@ export default function Edit( { attributes, setAttributes } ) {
 							}
 						/>
 
-						<h4 className="gtb-quiz__question-area-title">
+						<h4 className="gtb-quiz-edit__question-area-title">
 							<Icon icon={ help } />
 							{ __( 'Quiz Questions', 'gutenblocks' ) }
 						</h4>
-						<div className="gtb-quiz__questions">
+						<div className="gtb-quiz-edit__questions">
 							{ quizData.questions.map( ( question, index ) => (
 								<QuizQuestion
 									key={ index }
@@ -271,7 +265,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 							<Button
 								variant="secondary"
-								className="gtb-quiz__add-question"
+								className="gtb-quiz-edit__add-question"
 								onClick={ addQuestion }
 								size="compact"
 								icon={ addSubmenu }
@@ -282,7 +276,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 						<Button
 							variant="primary"
-							className="gtb-quiz__save"
+							className="gtb-quiz-edit__save"
 							onClick={ saveQuiz }
 							isBusy={ isSaving }
 							disabled={ isSaving }

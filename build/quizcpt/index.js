@@ -258,12 +258,12 @@ const Question = ({
   onSetCorrectAnswer,
   onRemoveQuestion
 }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-  className: "gtb-quiz__question",
+  className: "gtb-quiz-edit__question",
   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "gtb-quiz__question-info",
+    className: "gtb-quiz-edit__question-info",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Question', 'gutenblocks'),
-      className: "gtb-quiz__question-title",
+      className: "gtb-quiz-edit__question-title",
       __nextHasNoMarginBottom: true,
       __next40pxDefaultSize: true,
       value: question.question,
@@ -271,20 +271,20 @@ const Question = ({
         question: value
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "gtb-quiz__answers",
+      className: "gtb-quiz-edit__answers",
       children: [question.answers.map((answer, answerIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.BaseControl, {
-        className: "gtb-quiz__answer",
+        className: "gtb-quiz-edit__answer",
         __nextHasNoMarginBottom: true,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Answer', 'gutenblocks'),
         id: `gtb-quiz-answer-${questionIndex}-${answerIndex}`,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "gtb-quiz__answer-row",
+          className: "gtb-quiz-edit__answer-row",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
             __nextHasNoMarginBottom: true,
             value: answer,
             onChange: value => onUpdateAnswer(questionIndex, answerIndex, value)
           }), question.answers.length > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
-            className: "gtb-quiz__remove-answer",
+            className: "gtb-quiz-edit__remove-answer",
             isDestructive: true,
             onClick: () => onRemoveAnswer(questionIndex, answerIndex),
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
@@ -294,7 +294,7 @@ const Question = ({
         })
       }, `${questionIndex}-answer-${answerIndex}`)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
         variant: "secondary",
-        className: "gtb-quiz__add-answer",
+        className: "gtb-quiz-edit__add-answer",
         onClick: () => onAddAnswer(questionIndex),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
           icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -312,7 +312,7 @@ const Question = ({
   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
     variant: "secondary",
     isDestructive: true,
-    className: "gtb-quiz__remove-question",
+    className: "gtb-quiz-edit__remove-question",
     onClick: () => onRemoveQuestion(questionIndex),
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
       icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -356,14 +356,14 @@ const QuizSelect = ({
 }) => {
   if (isLoading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "gtb-quiz__select-loading",
+      className: "gtb-quiz-edit__select-loading",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Spinner, {}), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Loading quizzes', 'gutenblocks')]
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "gtb-quiz__select",
+    className: "gtb-quiz-edit__select",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h4", {
-      className: "gtb-quiz__info-title",
+      className: "gtb-quiz-edit__info-title",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
         icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select a quiz', 'gutenblocks')]
@@ -380,7 +380,7 @@ const QuizSelect = ({
         value: quiz.id
       }))]
     }), id === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.BaseControl, {
-      className: "gtb-quiz__create-button",
+      className: "gtb-quiz-edit__create-button",
       __nextHasNoMarginBottom: true,
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Or Create New Quiz', 'gutenblocks'),
       id: "gtb-quiz-create-button",
@@ -435,6 +435,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 // Components.
 
 
@@ -451,9 +452,6 @@ function Edit({
     id
   } = attributes;
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)();
-
-  // TODO: Need to work here to fix the post save twice issue.
-  const isPostSaved = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAfterSave)();
   const {
     quizzes,
     isLoading
@@ -515,7 +513,7 @@ function Edit({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
     ...blockProps,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "gtb-quiz",
+      className: "gtb-quiz-edit",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_quiz_select__WEBPACK_IMPORTED_MODULE_6__.QuizSelect, {
         id: id,
         quizzes: quizzes,
@@ -525,9 +523,9 @@ function Edit({
         }),
         onCreateNew: handleCreateNew
       }), (id !== 0 || showForm) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "gtb-quiz__form",
+        className: "gtb-quiz-edit__form",
         children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-          className: "gtb-quiz__error",
+          className: "gtb-quiz-edit__error",
           children: error
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Quiz Title', 'gutenblocks'),
@@ -548,12 +546,12 @@ function Edit({
             content: value
           }))
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h4", {
-          className: "gtb-quiz__question-area-title",
+          className: "gtb-quiz-edit__question-area-title",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
             icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_10__["default"]
           }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Quiz Questions', 'gutenblocks')]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "gtb-quiz__questions",
+          className: "gtb-quiz-edit__questions",
           children: [quizData.questions.map((question, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_question__WEBPACK_IMPORTED_MODULE_5__.Question, {
             question: question,
             questionIndex: index,
@@ -622,7 +620,7 @@ function Edit({
             onRemoveQuestion: removeQuestion
           }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
             variant: "secondary",
-            className: "gtb-quiz__add-question",
+            className: "gtb-quiz-edit__add-question",
             onClick: addQuestion,
             size: "compact",
             icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_11__["default"],
@@ -630,7 +628,7 @@ function Edit({
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
           variant: "primary",
-          className: "gtb-quiz__save",
+          className: "gtb-quiz-edit__save",
           onClick: saveQuiz,
           isBusy: isSaving,
           disabled: isSaving,

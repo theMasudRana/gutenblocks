@@ -20,7 +20,7 @@ export const QuizSelect = ( {
 } ) => {
 	if ( isLoading ) {
 		return (
-			<div className="gtb-quiz__select-loading">
+			<div className="gtb-quiz-edit__select-loading">
 				<Spinner />
 				{ __( 'Loading quizzes', 'gutenblocks' ) }
 			</div>
@@ -28,8 +28,8 @@ export const QuizSelect = ( {
 	}
 
 	return (
-		<div className="gtb-quiz__select">
-			<h4 className="gtb-quiz__info-title">
+		<div className="gtb-quiz-edit__select">
+			<h4 className="gtb-quiz-edit__info-title">
 				<Icon icon={ pin } />
 				{ __( 'Select a quiz', 'gutenblocks' ) }
 			</h4>
@@ -49,7 +49,7 @@ export const QuizSelect = ( {
 
 			{ id === 0 && (
 				<BaseControl
-					className="gtb-quiz__create-button"
+					className="gtb-quiz-edit__create-button"
 					__nextHasNoMarginBottom
 					label={ __( 'Or Create New Quiz', 'gutenblocks' ) }
 					id="gtb-quiz-create-button"

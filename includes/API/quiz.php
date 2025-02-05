@@ -14,7 +14,7 @@ use WP_REST_Controller;
 use WP_REST_Server;
 
 /**
- * Quiz API
+ * Quiz API class
  *
  * @since 1.0.0
  */
@@ -104,11 +104,14 @@ class Quiz extends WP_REST_Controller {
 		$query     = new \WP_Query( $args );
 		$total     = $query->found_posts;
 		$max_pages = ceil( $total / $per_page );
-		
-		// Format quizzes with meta data
-		$formatted_quizzes = array_map( function( $quiz ) {
-			return $this->prepare_item_for_response( $quiz, null );
-		}, $query->get_posts() );
+
+		// Format quizzes with meta data.
+		$formatted_quizzes = array_map(
+			function ( $quiz ) {
+				return $this->prepare_item_for_response( $quiz, null );
+			},
+			$query->get_posts()
+		);
 
 		// Add headers.
 		$response = new \WP_REST_Response( $formatted_quizzes );
@@ -182,7 +185,7 @@ class Quiz extends WP_REST_Controller {
 	 * @return array
 	 */
 	public function prepare_item_for_response( $item, $request ) {
-		// Get questions and answers from meta
+		// Get questions and answers from meta.
 		$questions       = json_decode( get_post_meta( $item->ID, 'quiz_questions', true ), true ) ?? array();
 		$correct_answers = json_decode( get_post_meta( $item->ID, 'quiz_correct_answers', true ), true ) ?? array();
 

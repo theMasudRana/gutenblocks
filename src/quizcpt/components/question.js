@@ -22,11 +22,11 @@ export const Question = ( {
 	onSetCorrectAnswer,
 	onRemoveQuestion,
 } ) => (
-	<div className="gtb-quiz__question">
-		<div className="gtb-quiz__question-info">
+	<div className="gtb-quiz-edit__question">
+		<div className="gtb-quiz-edit__question-info">
 			<TextControl
 				label={ __( 'Question', 'gutenblocks' ) }
-				className="gtb-quiz__question-title"
+				className="gtb-quiz-edit__question-title"
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize
 				value={ question.question }
@@ -35,16 +35,16 @@ export const Question = ( {
 				}
 			/>
 
-			<div className="gtb-quiz__answers">
+			<div className="gtb-quiz-edit__answers">
 				{ question.answers.map( ( answer, answerIndex ) => (
 					<BaseControl
 						key={ `${ questionIndex }-answer-${ answerIndex }` }
-						className="gtb-quiz__answer"
+						className="gtb-quiz-edit__answer"
 						__nextHasNoMarginBottom
 						label={ __( 'Answer', 'gutenblocks' ) }
 						id={ `gtb-quiz-answer-${ questionIndex }-${ answerIndex }` }
 					>
-						<div className="gtb-quiz__answer-row">
+						<div className="gtb-quiz-edit__answer-row">
 							<TextControl
 								__nextHasNoMarginBottom
 								value={ answer }
@@ -58,7 +58,7 @@ export const Question = ( {
 							/>
 							{ question.answers.length > 1 && (
 								<Button
-									className="gtb-quiz__remove-answer"
+									className="gtb-quiz-edit__remove-answer"
 									isDestructive
 									onClick={ () =>
 										onRemoveAnswer(
@@ -76,7 +76,7 @@ export const Question = ( {
 
 				<Button
 					variant="secondary"
-					className="gtb-quiz__add-answer"
+					className="gtb-quiz-edit__add-answer"
 					onClick={ () => onAddAnswer( questionIndex ) }
 				>
 					<Icon icon={ plus } />
@@ -99,7 +99,7 @@ export const Question = ( {
 		<Button
 			variant="secondary"
 			isDestructive
-			className="gtb-quiz__remove-question"
+			className="gtb-quiz-edit__remove-question"
 			onClick={ () => onRemoveQuestion( questionIndex ) }
 		>
 			<Icon icon={ close } />
