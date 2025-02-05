@@ -16,7 +16,7 @@
  * @package Gutenblocks
  */
 
-// Exit if accessed directly..
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -199,6 +199,7 @@ final class Gutenblocks {
 				'public'       => true,
 				'has_archive'  => true,
 				'show_in_rest' => true,
+				'show_in_menu' => false,
 				'supports'     => array(
 					'title',
 					'editor',
@@ -211,5 +212,5 @@ final class Gutenblocks {
 	}
 }
 
-// kick-off the plugin..
+// kick-off the plugin.
 Gutenblocks::init();

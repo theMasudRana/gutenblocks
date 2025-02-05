@@ -4,7 +4,7 @@
  *
  * Renders a quiz block with questions and multiple-choice answers.
  *
- * @package GutenBlocks
+ * @package Gutenblocks
  *
  * @param array     $attributes Block attributes.
  */
