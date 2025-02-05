@@ -4,7 +4,7 @@
  *
  * Renders a quiz block with questions and multiple-choice answers.
  *
- * @package GutenBlocks
+ * @package Gutenblocks
  *
  * @param array     $attributes Block attributes.
  */
@@ -86,7 +86,7 @@ $total_questions = count( $quiz_data );
 			data-wp-on--click="actions.checkAnswers"
 			class="gtb-quiz__action-button"
 		>
-			<?php esc_html_e('Submit Quiz', 'gutenblocks'); ?>
+			<?php esc_html_e( 'Submit Quiz', 'gutenblocks' ); ?>
 		</button>
 
 

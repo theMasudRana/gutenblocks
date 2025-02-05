@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-05T12:36:43+00:00\n"
+"POT-Creation-Date: 2025-02-05T14:39:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: gutenblocks\n"
 
 #. Plugin Name of the plugin
 #: gutenblocks.php
-#: gutenblocks.php:177
+#: gutenblocks.php:191
 msgid "Gutenblocks"
 msgstr ""
 
@@ -68,156 +68,185 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: gutenblocks.php:195
+#: gutenblocks.php:209
 msgid "Quizzes"
 msgstr ""
 
-#: gutenblocks.php:196
+#: gutenblocks.php:210
 msgid "Quiz"
 msgstr ""
 
-#: gutenblocks.php:197
+#: gutenblocks.php:211
 msgid "Add New Quiz"
 msgstr ""
 
-#: includes/API/quiz.php:249
+#: includes/API/Quiz.php:249
 msgid "Please provide a title for the quiz."
 msgstr ""
 
-#: includes/API/quiz.php:258
+#: includes/API/Quiz.php:258
 msgid "Please provide at least one question."
 msgstr ""
 
-#: includes/API/quiz.php:266
-#: includes/API/quiz.php:331
+#: includes/API/Quiz.php:266
+#: includes/API/Quiz.php:331
 msgid "Number of correct answers must match number of questions."
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:265
 #: src/quiz/components/question.js:28
+#: build/quiz/index.js:128
 msgid "Question"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:278
 #: src/quiz/components/question.js:44
+#: build/quiz/index.js:144
 msgid "Answer"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:304
 #: src/quiz/components/question.js:87
+#: build/quiz/index.js:187
 msgid "SelectCorrect Answer"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:307
 #: src/quiz/components/question.js:90
+#: build/quiz/index.js:190
 msgid "(empty)"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:360
 #: src/quiz/components/quiz-select.js:25
+#: build/quiz/index.js:234
 msgid "Loading quizzes"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:369
+#: build/quiz/index.js:376
 #: src/quiz/components/quiz-select.js:34
 #: src/quiz/components/quiz-select.js:42
+#: build/quiz/index.js:243
+#: build/quiz/index.js:251
 msgid "Select a quiz"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:385
 #: src/quiz/components/quiz-select.js:54
+#: build/quiz/index.js:263
 msgid "Or Create New Quiz"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:392
 #: src/quiz/components/quiz-select.js:59
+#: build/quiz/index.js:268
 msgid "Create Quiz"
 msgstr ""
 
-#: build/quiz/index.js:1
-#: src/quiz/hooks/index.js:57
-msgid "Failed to load quiz data. Please try again."
-msgstr ""
-
-#: build/quiz/index.js:1
-#: src/quiz/hooks/index.js:94
-msgid "Failed to save quiz. Please try again."
-msgstr ""
-
-#: build/quiz/index.js:1
+#: build/quiz/index.js:531
 #: src/quiz/edit.js:98
+#: build/quiz/index.js:373
 msgid "Quiz Title"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:540
 #: src/quiz/edit.js:111
+#: build/quiz/index.js:386
 msgid "Quiz Description"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:552
 #: src/quiz/edit.js:125
+#: build/quiz/index.js:400
 msgid "Quiz Questions"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:627
 #: src/quiz/edit.js:273
+#: build/quiz/index.js:548
 msgid "Add Question"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:636
 #: src/quiz/edit.js:286
+#: build/quiz/index.js:561
 msgid "Saving"
 msgstr ""
 
-#: build/quiz/index.js:1
+#: build/quiz/index.js:636
 #: src/quiz/edit.js:287
+#: build/quiz/index.js:562
 msgid "Save Quiz"
 msgstr ""
 
-#: build/testimonial/index.js:1
-#: src/testimonial/components/navigation.js:18
-msgid "Previous Slide"
+#: build/quiz/index.js:714
+#: src/quiz/hooks/index.js:56
+#: build/quiz/index.js:626
+msgid "Failed to load quiz data. Please try again."
 msgstr ""
 
-#: build/testimonial/index.js:1
-#: src/testimonial/components/navigation.js:25
-msgid "Next Slide"
+#: build/quiz/index.js:741
+#: src/quiz/hooks/index.js:93
+#: build/quiz/index.js:663
+msgid "Failed to save quiz. Please try again."
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:192
 #: src/testimonial/components/controls.js:34
+#: build/testimonial/index.js:109
 msgid "Testimonials Content"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:197
 #: src/testimonial/components/controls.js:42
+#: build/testimonial/index.js:117
 msgid "Profile Image"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:230
 #: src/testimonial/components/controls.js:100
+#: build/testimonial/index.js:175
 msgid "Rating"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:239
 #: src/testimonial/components/controls.js:113
+#: build/testimonial/index.js:188
 msgid "Remove Testimonial"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:244
+#: build/testimonial/index.js:535
 #: src/testimonial/components/controls.js:118
 #: src/testimonial/edit.js:63
+#: build/testimonial/index.js:193
+#: build/testimonial/index.js:407
 msgid "Add Testimonial"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:247
 #: src/testimonial/components/controls.js:122
+#: build/testimonial/index.js:197
 msgid "Slider Settings"
 msgstr ""
 
-#: build/testimonial/index.js:1
+#: build/testimonial/index.js:251
 #: src/testimonial/components/controls.js:127
+#: build/testimonial/index.js:202
 msgid "Slide Per View"
+msgstr ""
+
+#: build/testimonial/index.js:301
+#: src/testimonial/components/navigation.js:18
+#: build/testimonial/index.js:231
+msgid "Previous Slide"
+msgstr ""
+
+#: build/testimonial/index.js:309
+#: src/testimonial/components/navigation.js:25
+#: build/testimonial/index.js:238
+msgid "Next Slide"
 msgstr ""
 
 #: build/pricing-table/block.json
@@ -253,8 +282,9 @@ msgid "Pricing Table block for Gutenblocks"
 msgstr ""
 
 #: build/quiz/block.json
+#: src/quiz/block.json
 msgctxt "block title"
-msgid "GTB Quiz"
+msgid "GTB: Quiz"
 msgstr ""
 
 #: build/quiz/block.json
@@ -279,9 +309,4 @@ msgstr ""
 #: src/testimonial/block.json
 msgctxt "block description"
 msgid "A block that displays testimonials."
-msgstr ""
-
-#: src/quiz/block.json
-msgctxt "block title"
-msgid "GTB: Quiz"
 msgstr ""
