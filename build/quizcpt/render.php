@@ -33,7 +33,7 @@ wp_interactivity_state(
 	data-wp-interactive="gutenblocks/quizcpt"
 >
 	<div class="gtb-quiz">
-		<h2><?php echo esc_html( $quiz->post_title ); ?></h1>
+		<h2><?php echo esc_html( $quiz->post_title ); ?></h2>
 	</div>
 	<button 
 		data-wp-on--click="actions.checkAnswers"
