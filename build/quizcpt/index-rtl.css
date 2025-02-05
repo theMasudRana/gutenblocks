@@ -1,11 +1,49 @@
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/quizcpt/editor.scss ***!
   \************************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
-.wp-block-gutenblocks-quizcpt {
-  border: 1px dotted #f00;
+.gtb-quiz {
+  padding: 20px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}
+.gtb-quiz__remove-answer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0 5px;
+  height: 32px;
+  transform: translateX(-100%);
+}
+.gtb-quiz__remove-question {
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  height: 40px;
+}
+.gtb-quiz .components-base-control + .components-base-control {
+  margin-top: 1rem;
+}
+.gtb-quiz__save, .gtb-quiz__add-answer, .gtb-quiz__create-button {
+  margin-top: 1rem;
+}
+.gtb-quiz label {
+  color: #6e6d6d;
+}
+.gtb-quiz__info-title {
+  font-size: 18px;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gtb-quiz__question-area-title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gtb-quiz__save.has-icon.has-text {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
 }

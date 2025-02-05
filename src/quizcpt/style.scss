@@ -1,20 +1,23 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
-.wp-block-gutenblocks-quizcpt {
-	padding: 20px;
-}
-
 .gtb-quiz {
 
-	&__create-button {
+	$shadow-default: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
+	$shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+
+	.gtb-quiz__form {
 		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid #e5e5e5;
 	}
 
+	&__select {
+
+		.components-base-control__field {
+
+			label {
+				font-size: 14px;
+			}
+		}
+	}
 
 	&__question {
 		display: flex;
@@ -22,6 +25,14 @@
 		justify-content: space-between;
 		margin-bottom: 1rem;
 		position: relative;
+		box-shadow: $shadow-default;
+		border-radius: 4px;
+		padding: 1rem;
+		transition: box-shadow 0.3s ease;
+
+		&:hover {
+			box-shadow: $shadow-hover;
+		}
 	}
 
 	&__question-info {
@@ -38,21 +49,5 @@
 
 	&__answer {
 		position: relative;
-	}
-
-	&__remove-answer {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		padding: 0 5px;
-		height: 32px;
-		transform: translateX(100%);
-	}
-
-	&__remove-question {
-		position: absolute;
-		right: 0;
-		top: 24px;
-		height: 40px;
 	}
 }

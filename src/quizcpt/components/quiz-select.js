@@ -9,7 +9,7 @@ import {
 	Spinner,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { plus } from '@wordpress/icons';
+import { plus, pin } from '@wordpress/icons';
 
 export const QuizSelect = ( {
 	id,
@@ -29,10 +29,13 @@ export const QuizSelect = ( {
 
 	return (
 		<div className="gtb-quiz__select">
+			<h4 className="gtb-quiz__info-title">
+				<Icon icon={ pin } />
+				{ __( 'Select a quiz', 'gutenblocks' ) }
+			</h4>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Select a quiz', 'gutenblocks' ) }
 				value={ id }
 				onChange={ ( value ) => onQuizSelect( parseInt( value, 10 ) ) }
 				options={ [

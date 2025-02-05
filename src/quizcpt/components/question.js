@@ -9,7 +9,7 @@ import {
 	TextControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { close } from '@wordpress/icons';
+import { close, plus, trash } from '@wordpress/icons';
 
 export const Question = ( {
 	question,
@@ -67,7 +67,7 @@ export const Question = ( {
 										)
 									}
 								>
-									<Icon icon={ close } />
+									<Icon icon={ trash } />
 								</Button>
 							) }
 						</div>
@@ -79,12 +79,12 @@ export const Question = ( {
 					className="gtb-quiz__add-answer"
 					onClick={ () => onAddAnswer( questionIndex ) }
 				>
-					{ __( 'Add Answer', 'gutenblocks' ) }
+					<Icon icon={ plus } />
 				</Button>
 			</div>
 
 			<RadioControl
-				label={ __( 'Correct Answer', 'gutenblocks' ) }
+				label={ __( 'SelectCorrect Answer', 'gutenblocks' ) }
 				selected={ correctAnswer }
 				options={ question.answers.map( ( answer ) => ( {
 					label: answer || __( '(empty)', 'gutenblocks' ),

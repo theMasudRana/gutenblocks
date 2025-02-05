@@ -27,9 +27,8 @@ export const DEFAULT_QUESTION = {
 /**
  * Hook to fetch and save the quiz data.
  *
- * @param {number} id The ID of the quiz.
- * @param {function} onSaveSuccess The function to call when the quiz is saved.
- * @return {object} The quiz data.
+ * @param {number}   id            The ID of the quiz.
+ * @param {Function} onSaveSuccess The function to call when the quiz is saved.
  */
 export const useQuizData = ( id, onSaveSuccess ) => {
 	const [ quizData, setQuizData ] = useState( DEFAULT_QUIZ_STATE );

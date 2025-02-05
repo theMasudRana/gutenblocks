@@ -1,18 +1,13 @@
 /*!***********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/quizcpt/style.scss ***!
   \***********************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-.wp-block-gutenblocks-quizcpt {
-  padding: 20px;
-}
-
-.gtb-quiz__create-button {
+.gtb-quiz .gtb-quiz__form {
   margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+.gtb-quiz__select .components-base-control__field label {
+  font-size: 14px;
 }
 .gtb-quiz__question {
   display: flex;
@@ -20,6 +15,13 @@
   justify-content: space-between;
   margin-bottom: 1rem;
   position: relative;
+  box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
+  border-radius: 4px;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+.gtb-quiz__question:hover {
+  box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 }
 .gtb-quiz__question-info {
   display: flex;
@@ -33,18 +35,4 @@
 }
 .gtb-quiz__answer {
   position: relative;
-}
-.gtb-quiz__remove-answer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 0 5px;
-  height: 32px;
-  transform: translateX(-100%);
-}
-.gtb-quiz__remove-question {
-  position: absolute;
-  left: 0;
-  top: 24px;
-  height: 40px;
 }

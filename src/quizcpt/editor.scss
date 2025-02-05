@@ -1,9 +1,61 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.gtb-quiz {
 
-.wp-block-gutenblocks-quizcpt {
-	border: 1px dotted #f00;
+	padding: 20px;
+	border: 1px solid #e1e1e1;
+	border-radius: 4px;
+
+	&__remove-answer {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		padding: 0 5px;
+		height: 32px;
+		transform: translateX(100%);
+	}
+
+
+	&__remove-question {
+		position: absolute;
+		right: 20px;
+		top: 40px;
+		height: 40px;
+	}
+
+	.components-base-control + .components-base-control {
+		margin-top: 1rem;
+	}
+
+	&__save,
+	&__add-answer,
+	&__create-button {
+		margin-top: 1rem;
+	}
+
+	label {
+		color: #6e6d6d;
+	}
+
+	&__info-title {
+		font-size: 18px;
+		margin: 0 0 1rem 0;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	&__question-area-title {
+		font-size: 18px;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	&__save {
+
+		&.has-icon.has-text {
+			width: 100%;
+			justify-content: center;
+			text-align: center;
+		}
+	}
 }

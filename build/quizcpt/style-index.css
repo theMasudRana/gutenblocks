@@ -1,1 +1,40 @@
-.wp-block-gutenblocks-quizcpt{padding:20px}.gtb-quiz__create-button{margin-top:1rem}.gtb-quiz__question{align-items:center;display:flex;justify-content:space-between;margin-bottom:1rem;position:relative}.gtb-quiz__question-info{align-items:flex-start;display:flex;flex:0 0 calc(100% - 64px);flex-direction:column;gap:1rem}.gtb-quiz__question-title{width:100%}.gtb-quiz__answer{position:relative}.gtb-quiz__remove-answer{bottom:0;height:32px;padding:0 5px;position:absolute;right:0;transform:translateX(100%)}.gtb-quiz__remove-question{height:40px;position:absolute;right:0;top:24px}
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/quizcpt/style.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
+.gtb-quiz .gtb-quiz__form {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+.gtb-quiz__select .components-base-control__field label {
+  font-size: 14px;
+}
+.gtb-quiz__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  position: relative;
+  box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
+  border-radius: 4px;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+.gtb-quiz__question:hover {
+  box-shadow: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+}
+.gtb-quiz__question-info {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: 0 0 calc(100% - 64px);
+  gap: 1rem;
+}
+.gtb-quiz__question-title {
+  width: 100%;
+}
+.gtb-quiz__answer {
+  position: relative;
+}
+
+/*# sourceMappingURL=style-index.css.map*/
