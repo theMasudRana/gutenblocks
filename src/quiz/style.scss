@@ -24,7 +24,7 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 	border-radius: 50%;
 	transform: translateY(-50%);
 	top: 50%;
-	left: 1rem;
+	left: 10px;
 }
 
 // Main styles
@@ -35,6 +35,12 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1rem;
+	}
+
+	&__title {
+		margin: 0 0 2rem;
+		font-size: 24px;
+		font-weight: 600;
 	}
 
 	&__question {
@@ -51,8 +57,9 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 		}
 
 		&-title {
-			font-size: 1.5rem;
+			font-size: 18px;
 			margin-top: 0;
+			font-weight: 600;
 		}
 	}
 
@@ -91,7 +98,9 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 			border: 1px solid $color-border;
 			border-radius: $border-radius;
 			width: 100%;
-			padding: 1rem 1rem 1rem 3rem;
+			padding: 10px 1rem 10px 38px;
+			font-size: 16px;
+			font-weight: 400;
 
 			@include transition(all);
 
@@ -108,7 +117,7 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 
 				@include radio-pseudo;
 				top: calc(50% - 6px);
-				left: calc(1rem + 4px);
+				left: calc(10px + 4px);
 				width: 12px;
 				height: 12px;
 				background: #008000;
@@ -142,6 +151,7 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 		border: 1px solid $color-border;
 		border-radius: $border-radius;
 		min-width: 300px;
+		box-sizing: border-box;
 
 		@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	}
@@ -157,6 +167,21 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 		&:hover {
 			background-color: #e0e0e0;
 		}
+	}
+
+	&__answered,
+	&__score {
+		font-size: 16px;
+		margin: 0 0 8px;
+		font-weight: 400;
+	}
+
+	&__status-title {
+		font-size: 20px;
+		font-weight: 600;
+		margin: 0 0 1rem;
+		border-bottom: 1px solid $color-border;
+		padding-bottom: 1rem;
 	}
 }
 

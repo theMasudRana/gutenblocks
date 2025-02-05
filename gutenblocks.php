@@ -108,10 +108,9 @@ final class Gutenblocks {
 	 */
 	public function get_block_names() {
 		return array(
-			// 'quiz',
+			'quiz',
 			'testimonial',
 			'pricing-table',
-			'quizcpt',
 		);
 	}
 

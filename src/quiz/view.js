@@ -1,92 +1,117 @@
 /**
  * WordPress dependencies
  */
-import { store, getContext } from '@wordpress/interactivity';
+import { store } from '@wordpress/interactivity';
 
-// Quiz functionality
+// Constants for selectors.
+const SELECTORS = {
+	DIALOG: '.gtb-quiz__status-dialog',
+	ANSWER_INPUT: '.gtb-quiz__answer-input',
+};
+
+// API endpoint.
+const API_ENDPOINT = '/wp-json/gutenblocks/v1/quizzes';
+
+// Initial state
+const initialState = {
+	answered: 0,
+	correct: 0,
+	allCorrect: false,
+	modal_title: 'Quiz Results',
+};
+
+// Get checked answers.
+const getCheckedAnswers = () => {
+	const inputs = document.querySelectorAll(
+		SELECTORS.ANSWER_INPUT + ':checked'
+	);
+	return Array.from( inputs ).map( ( input ) => ( {
+		questionIndex: parseInt( input.name.split( '_' )[ 1 ], 10 ),
+		answer: input.value,
+	} ) );
+};
+
+// Reset inputs.
+const resetInputs = () => {
+	document
+		.querySelectorAll( SELECTORS.ANSWER_INPUT )
+		.forEach( ( input ) => ( input.checked = false ) );
+};
+
+// Get dialog.
+const getDialog = () => document.querySelector( SELECTORS.DIALOG );
+
+// Store configuration.
 const { state } = store( 'gutenblocks/quiz', {
 	actions: {
 		resetQuiz: () => {
-			const dilogElement = document.querySelector(
-				'.gtb-quiz__status-dialog'
-			);
+			Object.assign( state, initialState );
+			resetInputs();
 
-			state.answered = 0;
-			state.correct = 0;
-			state.allCorrect = false;
-
-			// Reset all radio inputs
-			const allInputs = document.querySelectorAll(
-				'.gtb-quiz__answer-input'
-			);
-			allInputs.forEach( ( input ) => {
-				input.checked = false;
-			} );
-
-			// Close dialog if open
-			if ( dilogElement && dilogElement.open ) {
-				dilogElement.close();
+			const dialog = getDialog();
+			if ( dialog?.open ) {
+				dialog.close();
 			}
 		},
-		checkAnswers: () => {
-			const { questions } = getContext();
-			const checkedInputs = document.querySelectorAll(
-				'.gtb-quiz__answer-input:checked'
-			);
-			const dilogElement = document.querySelector(
-				'.gtb-quiz__status-dialog'
-			);
-			const answerMap = new Map(
-				Array.from( checkedInputs ).map( ( input ) => [
-					parseInt( input.name.split( '_' )[ 1 ], 10 ),
-					input.value,
-				] )
-			);
 
-			// Reset previous results before checking
-			state.answered = 0;
-			state.correct = 0;
-
-			// Calculate correct answers
-			questions.forEach( ( question, index ) => {
-				const userAnswer = answerMap.get( index );
-				if ( userAnswer ) {
-					state.answered++;
-					if (
-						userAnswer === question.answers[ state.list[ index ] ]
-					) {
-						state.correct++;
+		async checkAnswers() {
+			try {
+				// Fetch quiz data.
+				const response = await fetch(
+					`${ state.site_url }${ API_ENDPOINT }/${ state.quiz_id }`,
+					{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+						},
 					}
+				);
+				if ( ! response.ok ) {
+					throw new Error( 'Failed to fetch quiz data' );
 				}
-			} );
 
-			// Update necessary state
-			state.allCorrect =
-				state.answered === questions.length &&
-				state.correct === questions.length;
+				const data = await response.json();
+				const { questions, correct_answers: correctAnswers } = data;
 
-			dilogElement.showModal();
+				// Reset state.
+				state.answered = 0;
+				state.correct = 0;
+				state.modal_title = state.modal_title;
+
+				// Get user answers.
+				const userAnswers = getCheckedAnswers();
+				state.answered = userAnswers.length;
+
+				// Check answers.
+				state.correct = userAnswers.reduce(
+					( correct, { questionIndex, answer } ) =>
+						correct +
+						( answer === correctAnswers[ questionIndex ] ? 1 : 0 ),
+					0
+				);
+
+				// Update completion state.
+				state.allCorrect =
+					state.answered === questions.length &&
+					state.correct === questions.length;
+
+				// Update dialog title.
+				state.modal_title = state.allCorrect
+					? state.all_correct_title
+					: state.modal_title;
+
+				// Show results.
+				getDialog()?.showModal();
+			} catch ( error ) {
+				throw new Error( 'Failed to check answers' );
+			}
 		},
+
+		// Close dialog.
 		modalClose: () => {
-			const dilogElement = document.querySelector(
-				'.gtb-quiz__status-dialog'
-			);
-
-			// Reset all quiz state and inputs
-			state.answered = 0;
-			state.correct = 0;
-			state.allCorrect = false;
-
-			// Reset all radio inputs
-			const allInputs = document.querySelectorAll(
-				'.gtb-quiz__answer-input'
-			);
-			allInputs.forEach( ( input ) => {
-				input.checked = false;
-			} );
-
-			// Close the dialog
-			dilogElement.close();
+			Object.assign( state, initialState );
+			resetInputs();
+			getDialog()?.close();
 		},
 	},
 } );
