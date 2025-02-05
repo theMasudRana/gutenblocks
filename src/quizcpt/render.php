@@ -13,14 +13,16 @@ if ( empty( $attributes['id'] ) ) {
 }
 
 // Get the quiz data
-$quiz = get_post( $attributes['id'] );
+$quiz      = get_post( $attributes['id'] );
+$quiz_meta = json_decode( get_post_meta( $attributes['id'], 'quiz_questions', true ), true );
+
 
 
 // Interactivity state for the quiz
 wp_interactivity_state(
 	'gutenblocks/quizcpt',
 	array(
-		'id' => $attributes['id'],
+		'id'       => $attributes['id'],
 		'site_url' => site_url(),
 	)
 );
@@ -30,7 +32,9 @@ wp_interactivity_state(
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="gutenblocks/quizcpt"
 >
-	<h1>Hi</h1>
+	<div class="gtb-quiz">
+		<h2><?php echo esc_html( $quiz->post_title ); ?></h1>
+	</div>
 	<button 
 		data-wp-on--click="actions.checkAnswers"
 		class="gtb-quizcpt__check-answers">
