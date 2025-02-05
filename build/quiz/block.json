@@ -4,9 +4,9 @@
   "name": "gutenblocks/quiz",
   "version": "1.0.0",
   "title": "GTB: Quiz",
-  "category": "widgets",
+  "category": "gutenblocks-category",
   "icon": "forms",
-  "description": "Quiz block",
+  "description": "A quiz block for Gutenberg block editor",
   "example": {},
   "keywords": [
     "quiz",
