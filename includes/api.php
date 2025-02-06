@@ -4,7 +4,7 @@
  *
  * @package Gutenblocks
  *
- * @since 1.0.0
+ * @since 1.0.1
  */
 
 namespace Gutenblocks;
@@ -14,13 +14,13 @@ use Gutenblocks\API\Quiz;
 /**
  * API class
  *
- * @since 1.0.0
+ * @since 1.0.1
  */
 class API {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_api' ) );
@@ -29,7 +29,7 @@ class API {
 	/**
 	 * Register the API routes
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return void
 	 */

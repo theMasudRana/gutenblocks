@@ -3,7 +3,7 @@
  * Plugin Name:       Gutenblocks
  * Description:       A collection of custom Gutenberg blocks.
  * Plugin URI:        https://masudrana.me
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Masud Rana
@@ -55,7 +55,7 @@ final class Gutenblocks {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * Class constructor
@@ -105,7 +105,7 @@ final class Gutenblocks {
 	/**
 	 * Initialize the plugin
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return void
 	 */
@@ -197,7 +197,7 @@ final class Gutenblocks {
 	/**
 	 * Register quiz post type
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return void
 	 */

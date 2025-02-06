@@ -4,7 +4,7 @@
  *
  * @package Gutenblocks
  *
- * @since 1.0.0
+ * @since 1.0.1
  */
 
 namespace Gutenblocks\API;
@@ -16,13 +16,13 @@ use WP_REST_Server;
 /**
  * Quiz API class
  *
- * @since 1.0.0
+ * @since 1.0.1
  */
 class Quiz extends WP_REST_Controller {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	public function __construct() {
 		$this->namespace = 'gutenblocks/v1';
@@ -32,7 +32,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Register the routes for the quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	public function register_routes() {
 		// Register the quiz create and get routes.
@@ -83,7 +83,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Get all quizzes
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_REST_Request $request Full data about the request.
 	 *
@@ -124,7 +124,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Check if has permission to create a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return bool
 	 */
@@ -135,7 +135,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Create quiz permission check
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	public function create_quiz_permission_check() {
 		return current_user_can( 'edit_posts' );
@@ -144,7 +144,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Check if has permission to update a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return bool
 	 */
@@ -155,7 +155,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Check if has permission to delete a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return bool
 	 */
@@ -166,7 +166,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Get the quiz permission check
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return bool
 	 */
@@ -177,7 +177,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Prepare the quiz for the response
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_Post         $item    The quiz object.
 	 * @param \WP_REST_Request $request Request object.
@@ -203,7 +203,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Get the collection parameters
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @return array
 	 */
@@ -227,7 +227,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Create a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_REST_Request $request Full data about the request.
 	 *
@@ -306,7 +306,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Update a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_REST_Request $request Full data about the request.
 	 *
@@ -367,7 +367,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Delete a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_REST_Request $request Full data about the request.
 	 *
@@ -386,7 +386,7 @@ class Quiz extends WP_REST_Controller {
 	/**
 	 * Get a quiz
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 *
 	 * @param \WP_REST_Request $request Full data about the request.
 	 *
