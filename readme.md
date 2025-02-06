@@ -58,6 +58,9 @@ Yes, our blocks are designed to work with any WordPress theme that supports Gute
 
 ## Changelog
 
+### 1.0.1
+* Added quiz block with CPT and REST API
+
 ### 1.0.0
 * Initial release with core block collection
 
