@@ -6,23 +6,17 @@
 	"title": "GTB: Quiz",
 	"category": "gutenblocks-category",
 	"icon": "forms",
+	"description": "A quiz block for Gutenberg block editor",
+	"example": {},
 	"keywords": [ "quiz", "gutenblocks" ],
-	"description": "A simple quiz block.",
 	"supports": {
+		"html": false,
 		"interactivity": true
 	},
 	"attributes": {
-		"questions": {
-			"type": "array",
-			"default": []
-		},
-		"correctAnswers": {
-			"type": "array",
-			"default": []
-		},
-		"align": {
-			"type": "string",
-			"default": "wide"
+		"id": {
+			"type": "number",
+			"default": 0
 		}
 	},
 	"textdomain": "gutenblocks",

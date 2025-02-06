@@ -20,6 +20,28 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+/**
+ * Autoload the classes
+ *
+ * @since 1.0.0
+ */
+spl_autoload_register(
+	function ( $class_name ) {
+		$namespace = 'Gutenblocks\\';
+
+		if ( strpos( $class_name, $namespace ) !== 0 ) {
+				return;
+		}
+
+		$class_path = str_replace( $namespace, '', $class_name );
+		$class_path = str_replace( '\\', DIRECTORY_SEPARATOR, $class_path );
+		$file       = GUTENBLOCKS_PATH . '/includes/' . $class_path . '.php';
+
+		if ( file_exists( $file ) ) {
+			require_once $file;
+		}
+	}
+);
 
 /**
  * The main plugin class
@@ -41,9 +63,11 @@ final class Gutenblocks {
 	private function __construct() {
 		$this->define_constants();
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		add_action( 'init', array( $this, 'gutenblock_blocks_init' ) );
 		add_action( 'init', array( $this, 'gutenblock_load_textdomain' ) );
 		add_filter( 'block_categories_all', array( $this, 'gutenblock_block_category' ), 10, 2 );
+		add_action( 'init', array( $this, 'register_quiz_post_type' ) );
 	}
 
 	/**
@@ -76,6 +100,17 @@ final class Gutenblocks {
 		define( 'GUTENBLOCKS_PATH', __DIR__ );
 		define( 'GUTENBLOCKS_URL', plugins_url( '', GUTENBLOCKS_FILE ) );
 		define( 'GUTENBLOCKS_ASSETS', GUTENBLOCKS_URL . '/assets' );
+	}
+
+	/**
+	 * Initialize the plugin
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init_plugin() {
+		new Gutenblocks\API();
 	}
 
 	/**
@@ -141,7 +176,7 @@ final class Gutenblocks {
 	/**
 	 * Adding a custom block category
 	 *
-	 * @param array $block_categories       Array of categories for block types.
+	 * @param array $block_categories Array of categories for block types.
 	 *
 	 * @return array
 	 *
@@ -154,6 +189,37 @@ final class Gutenblocks {
 				array(
 					'slug'  => 'gutenblocks-category',
 					'title' => esc_html__( 'Gutenblocks', 'gutenblocks' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Register quiz post type
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function register_quiz_post_type() {
+		register_post_type(
+			'quiz',
+			array(
+				'labels'       => array(
+					'name'          => __( 'Quizzes', 'gutenblocks' ),
+					'singular_name' => __( 'Quiz', 'gutenblocks' ),
+					'add_new_item'  => __( 'Add New Quiz', 'gutenblocks' ),
+				),
+				'public'       => true,
+				'has_archive'  => true,
+				'show_in_rest' => true,
+				'show_in_menu' => false,
+				'supports'     => array(
+					'title',
+					'editor',
+					'thumbnail',
+					'excerpt',
+					'custom-fields',
 				),
 			)
 		);

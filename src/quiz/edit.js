@@ -1,158 +1,294 @@
 /**
- * WordPress dependencies
+ * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { Button, TextControl, RadioControl } from '@wordpress/components';
+import { Button, Icon, TextControl } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Icon, close } from '@wordpress/icons';
+import { addCard, addSubmenu, help } from '@wordpress/icons';
 
-// Internal dependencies
-import {
-	updateQuestionText,
-	updateAnswerText,
-	removeAnswer,
-	addAnswer,
-	setCorrectAnswer,
-	removeQuestion,
-	addQuestion,
-} from './utils';
+// Components.
+import { Question as QuizQuestion } from './components/question';
+import { QuizSelect } from './components/quiz-select';
+import './editor.scss';
 
-/**
- * Quiz Block Edit Component
- *
- * @param {Object}   props               Component properties
- * @param {Object}   props.attributes    Block attributes
- * @param {Function} props.setAttributes Block attributes update function
- *
- * @return {JSX.Element}                Block edit component
- */
-const Edit = ( { attributes, setAttributes } ) => {
-	const { questions = [], correctAnswers = [] } = attributes;
+// Hooks.
+import { DEFAULT_QUESTION, DEFAULT_QUIZ_STATE, useQuizData } from './hooks';
 
-	/**
-	 * Generates an attribute update function that preserves existing state
-	 *
-	 * @param {Function} updater - Function to generate new attribute state
-	 */
-	const updateAttribute = ( updater ) => {
-		setAttributes( updater( { questions, correctAnswers } ) );
+export default function Edit( { attributes, setAttributes } ) {
+	const { id } = attributes;
+	const blockProps = useBlockProps();
+
+	const { quizzes, isLoading } = useSelect( ( select ) => ( {
+		quizzes:
+			select( 'core' ).getEntityRecords( 'postType', 'quiz', {
+				per_page: -1,
+			} ) || [],
+		isLoading: select( 'core' ).isResolving( 'getEntityRecords', [
+			'postType',
+			'quiz',
+			{ per_page: -1 },
+		] ),
+	} ) );
+
+	const { quizData, setQuizData, error, isSaving, fetchQuizData, saveQuiz } =
+		useQuizData( id, ( newId ) => setAttributes( { id: newId } ) );
+	const [ showForm, setShowForm ] = useState( false );
+
+	useEffect( () => {
+		if ( id && id !== 0 ) {
+			fetchQuizData( id );
+		} else {
+			setQuizData( DEFAULT_QUIZ_STATE );
+		}
+	}, [ id, fetchQuizData, setQuizData ] );
+
+	const updateQuestion = ( index, updates ) => {
+		setQuizData( ( prev ) => ( {
+			...prev,
+			questions: prev.questions.map( ( q, idx ) =>
+				idx === index ? { ...q, ...updates } : q
+			),
+		} ) );
+	};
+
+	const addQuestion = () => {
+		setQuizData( ( prev ) => ( {
+			...prev,
+			questions: [ ...prev.questions, { ...DEFAULT_QUESTION } ],
+			correct_answers: [ ...prev.correct_answers, '' ],
+		} ) );
+	};
+
+	const removeQuestion = ( index ) => {
+		setQuizData( ( prev ) => ( {
+			...prev,
+			questions: prev.questions.filter( ( _, idx ) => idx !== index ),
+			correct_answers: prev.correct_answers.filter(
+				( _, idx ) => idx !== index
+			),
+		} ) );
+	};
+
+	const handleCreateNew = () => {
+		setQuizData( DEFAULT_QUIZ_STATE );
+		setShowForm( true );
 	};
 
 	return (
-		<div { ...useBlockProps() }>
-			{ questions.map( ( question, questionIndex ) => (
-				<div key={ questionIndex } className="gtb-quiz__question">
-					<TextControl
-						label={ __( 'Enter Question Title', 'gutenblocks' ) }
-						value={ question.question }
-						className="gtb-quiz__question-title"
-						__nextHasNoMarginBottom={ false }
-						onChange={ ( value ) =>
-							updateAttribute( ( state ) =>
-								updateQuestionText(
-									state,
-									questionIndex,
-									value
-								)
-							)
-						}
-					/>
+		<div { ...blockProps }>
+			<div className="gtb-quiz-edit">
+				<QuizSelect
+					id={ id }
+					quizzes={ quizzes }
+					isLoading={ isLoading }
+					onQuizSelect={ ( value ) => setAttributes( { id: value } ) }
+					onCreateNew={ handleCreateNew }
+				/>
 
-					{ question.answers.map( ( answer, answerIndex ) => (
-						<div key={ answerIndex } className="gtb-quiz__answer">
-							<TextControl
-								label={ __( 'Answer', 'gutenblocks' ) }
-								value={ answer }
-								__nextHasNoMarginBottom={ true }
-								onChange={ ( value ) =>
-									updateAttribute( ( state ) =>
-										updateAnswerText(
-											state,
-											questionIndex,
-											answerIndex,
-											value
-										)
-									)
-								}
-							/>
+				{ ( id !== 0 || showForm ) && (
+					<div className="gtb-quiz-edit__form">
+						{ error && (
+							<div className="gtb-quiz-edit__error">
+								{ error }
+							</div>
+						) }
+						<TextControl
+							label={ __( 'Quiz Title', 'gutenblocks' ) }
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							value={ quizData.title }
+							onChange={ ( value ) =>
+								setQuizData( ( prev ) => ( {
+									...prev,
+									title: value,
+								} ) )
+							}
+						/>
+
+						<TextControl
+							label={ __( 'Quiz Description', 'gutenblocks' ) }
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							value={ quizData.content }
+							onChange={ ( value ) =>
+								setQuizData( ( prev ) => ( {
+									...prev,
+									content: value,
+								} ) )
+							}
+						/>
+
+						<h4 className="gtb-quiz-edit__question-area-title">
+							<Icon icon={ help } />
+							{ __( 'Quiz Questions', 'gutenblocks' ) }
+						</h4>
+						<div className="gtb-quiz-edit__questions">
+							{ quizData.questions.map( ( question, index ) => (
+								<QuizQuestion
+									key={ index }
+									question={ question }
+									questionIndex={ index }
+									correctAnswer={
+										quizData.correct_answers[ index ]
+									}
+									onUpdateQuestion={ updateQuestion }
+									onAddAnswer={ ( qIndex ) => {
+										setQuizData( ( prev ) => ( {
+											...prev,
+											questions: prev.questions.map(
+												( q, idx ) =>
+													idx === qIndex
+														? {
+																...q,
+																answers: [
+																	...q.answers,
+																	'',
+																],
+														  }
+														: q
+											),
+										} ) );
+									} }
+									onRemoveAnswer={ ( qIndex, aIndex ) => {
+										setQuizData( ( prev ) => {
+											const newQuestions =
+												prev.questions.map(
+													( q, idx ) => {
+														if ( idx === qIndex ) {
+															const newAnswers =
+																q.answers.filter(
+																	(
+																		_,
+																		aIdx
+																	) =>
+																		aIdx !==
+																		aIndex
+																);
+															return {
+																...q,
+																answers:
+																	newAnswers,
+															};
+														}
+														return q;
+													}
+												);
+
+											const newCorrectAnswers = [
+												...prev.correct_answers,
+											];
+											if (
+												prev.questions[ qIndex ]
+													?.answers[ aIndex ] ===
+												prev.correct_answers[ qIndex ]
+											) {
+												newCorrectAnswers[ qIndex ] =
+													newQuestions[ qIndex ]
+														?.answers[ 0 ] || '';
+											}
+
+											return {
+												...prev,
+												questions: newQuestions,
+												correct_answers:
+													newCorrectAnswers,
+											};
+										} );
+									} }
+									onUpdateAnswer={ (
+										qIndex,
+										aIndex,
+										value
+									) => {
+										setQuizData( ( prev ) => {
+											const newQuestions =
+												prev.questions.map(
+													( q, idx ) =>
+														idx === qIndex
+															? {
+																	...q,
+																	answers:
+																		q.answers.map(
+																			(
+																				ans,
+																				aIdx
+																			) =>
+																				aIdx ===
+																				aIndex
+																					? value
+																					: ans
+																		),
+															  }
+															: q
+												);
+
+											const oldAnswerValue =
+												prev.questions[ qIndex ]
+													?.answers[ aIndex ];
+											const newCorrectAnswers = [
+												...prev.correct_answers,
+											];
+											if (
+												oldAnswerValue ===
+												prev.correct_answers[ qIndex ]
+											) {
+												newCorrectAnswers[ qIndex ] =
+													value;
+											}
+
+											return {
+												...prev,
+												questions: newQuestions,
+												correct_answers:
+													newCorrectAnswers,
+											};
+										} );
+									} }
+									onSetCorrectAnswer={ ( qIndex, value ) => {
+										setQuizData( ( prev ) => {
+											const newCorrectAnswers = [
+												...prev.correct_answers,
+											];
+											newCorrectAnswers[ qIndex ] = value;
+											return {
+												...prev,
+												correct_answers:
+													newCorrectAnswers,
+											};
+										} );
+									} }
+									onRemoveQuestion={ removeQuestion }
+								/>
+							) ) }
+
 							<Button
-								className="gtb-quiz__remove-answer"
-								isDestructive
-								onClick={ () =>
-									updateAttribute( ( state ) =>
-										removeAnswer(
-											state,
-											questionIndex,
-											answerIndex
-										)
-									)
-								}
-								disabled={ question.answers.length <= 1 }
+								variant="secondary"
+								className="gtb-quiz-edit__add-question"
+								onClick={ addQuestion }
+								size="compact"
+								icon={ addSubmenu }
 							>
-								<Icon icon={ close } />
+								{ __( 'Add Question', 'gutenblocks' ) }
 							</Button>
 						</div>
-					) ) }
 
-					<Button
-						className="gtb-quiz__add-answer"
-						variant="secondary"
-						onClick={ () =>
-							updateAttribute( ( state ) =>
-								addAnswer( state, questionIndex )
-							)
-						}
-					>
-						{ __( 'Add Answer', 'gutenblocks' ) }
-					</Button>
-
-					<RadioControl
-						className="gtb-quiz__correct-answer"
-						label={ __( 'Correct Answer', 'gutenblocks' ) }
-						selected={
-							correctAnswers[ questionIndex ] !== null &&
-							correctAnswers[ questionIndex ] !== undefined
-								? (
-										correctAnswers[ questionIndex ] ?? ''
-								  ).toString()
-								: undefined
-						}
-						options={ question.answers.map( ( answer, index ) => ( {
-							label: answer || `Answer ${ index + 1 }`,
-							value: index.toString(),
-						} ) ) }
-						onChange={ ( value ) =>
-							updateAttribute( ( state ) =>
-								setCorrectAnswer( state, questionIndex, value )
-							)
-						}
-					/>
-
-					<Button
-						className="gtb-quiz__remove-question"
-						isDestructive
-						onClick={ () =>
-							updateAttribute( ( state ) =>
-								removeQuestion( state, questionIndex )
-							)
-						}
-					>
-						<Icon icon={ close } />
-					</Button>
-				</div>
-			) ) }
-
-			<Button
-				variant="primary"
-				onClick={ () =>
-					updateAttribute( ( state ) => addQuestion( state ) )
-				}
-				className="gtb-quiz__add-question"
-			>
-				{ __( 'Add Question', 'gutenblocks' ) }
-			</Button>
+						<Button
+							variant="primary"
+							className="gtb-quiz-edit__save"
+							onClick={ saveQuiz }
+							isBusy={ isSaving }
+							disabled={ isSaving }
+							icon={ addCard }
+						>
+							{ isSaving
+								? __( 'Saving', 'gutenblocks' )
+								: __( 'Save Quiz', 'gutenblocks' ) }
+						</Button>
+					</div>
+				) }
+			</div>
 		</div>
 	);
-};
-
-export default Edit;
+}

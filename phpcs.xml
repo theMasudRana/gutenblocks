@@ -103,34 +103,12 @@
 		</properties>
 	</rule>
 
-	<!--
-	#############################################################################
-	SELECTIVE EXCLUSIONS
-	Exclude specific files for specific sniffs and/or exclude sub-groups in sniffs.
-	#############################################################################
-	-->
-
-	<!--
-	Sometimes, you may want to exclude a certain directory, like your tests,
-	for select sniffs.
-	The below examples demonstrate how to do this.
-
-	In the example, the `GlobalVariablesOverride` rule is excluded for test files
-	as it is sometimes necessary to overwrite WP globals in test situations (just
-	don't forget to restore them after the test!).
-
-	Along the same lines, PHPUnit is getting stricter about using PSR-4 file names,
-	so excluding test files from the `WordPress.Files.Filename` sniff can be a
-	legitimate exclusion.
-
-	For more information on ruleset configuration options, check out the PHPCS wiki:
-	https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Annotated-Ruleset
-	-->
 	<rule ref="WordPress.WP.GlobalVariablesOverride">
 		<exclude-pattern>/path/to/Tests/*Test\.php</exclude-pattern>
 	</rule>
+
 	<rule ref="WordPress.Files.FileName">
-		<exclude-pattern>/path/to/Tests/*Test\.php</exclude-pattern>
+		<exclude-pattern>*/includes/*</exclude-pattern>
 	</rule>
 
 </ruleset>
