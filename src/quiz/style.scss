@@ -7,6 +7,7 @@ $color-border: #e5e5e5;
 $color-white: #fff;
 $shadow-default: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
 $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
+$color-correct: #008000;
 
 // Mixins
 @mixin transition($properties...) {
@@ -88,6 +89,10 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 					transform: scale(1);
 				}
 			}
+
+			&:focus + #{$self}__answer-label {
+				border-color: $color-correct;
+			}
 		}
 
 		&-label {
@@ -120,7 +125,7 @@ $shadow-hover: 0 7px 29px 0 rgba(100, 100, 111, 0.2);
 				left: calc(10px + 4px);
 				width: 12px;
 				height: 12px;
-				background: #008000;
+				background: $color-correct;
 				transform: scale(0);
 				transition: transform 0.2s ease;
 			}
